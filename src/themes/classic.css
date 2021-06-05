@@ -1,0 +1,139 @@
+.swiftyper_wrapper {
+  position: relative;
+}
+
+#swiftyper {
+  width: 95%;
+  height: 40px;
+  padding-left: 10px;
+  font-size: 1rem;
+  color: rgb(116, 116, 116);
+  border-radius: 4px;
+  border: 1px solid rgba(33, 33, 33, 0.2);
+  outline: none;
+}
+
+#swiftyper::placeholder {
+  color: rgba(123, 123, 123, 0.5);
+  transition: all 0.3s ease;
+}
+
+#swiftyper_list {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  padding: 0;
+  margin: 5px 0;
+  border-radius: 4px;
+  background-color: #fff;
+  border: 1px solid rgba(33, 33, 33, 0.1);
+  z-index: 1000;
+  outline: none;
+}
+
+.swiftyper_result, .swiftyper_footer {
+  padding: 10px 20px;
+  list-style: none;
+  text-align: left;
+  font-size: 16px;
+  color: #212121;
+  transition: all 0.1s ease-in-out;
+  background-color: rgba(255, 255, 255, 1);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: all 0.2s ease;
+}
+
+.swiftyper_footer svg {
+  display: inline-block;
+}
+
+.swiftyper_result:first-child {
+  border-radius: 3px 3px 0 0;
+}
+
+.swiftyper_result + .swiftyper_result:last-child {
+  border-radius: 0 0 3px 3px;
+}
+
+body .swiftyper_result:last-child {
+  border-radius: 3px;
+}
+
+.swiftyper_result::selection {
+  color: rgba(#ffffff, 0);
+  background-color: rgba(#ffffff, 0);
+}
+
+.swiftyper_result:hover {
+  cursor: pointer;
+  background-color: rgba(123, 123, 123, 0.1);
+}
+
+#swiftyper_list em {
+  font-style: normal;
+  font-weight: bold;
+}
+
+#swiftyper_list em::selection {
+  color: rgba(#ffffff, 0);
+  background-color: rgba(#ffffff, 0);
+}
+
+.swiftyper_footer {
+  opacity: .8;
+  text-align: center;
+  padding: 0.4rem 0 0.2rem 0;
+  background: #ffffff!important;
+}
+
+.swiftyper_footer:hover {
+  opacity: 1;
+}
+
+#swiftyper_list .no_result {
+  margin: 0.3rem;
+  padding: 0.3rem 0.5rem;
+  list-style: none;
+  text-align: left;
+  font-size: 1rem;
+  color: #212121;
+  transition: all 0.1s ease-in-out;
+  border-radius: 0.35rem;
+  background-color: rgba(255, 255, 255, 1);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: all 0.2s ease;
+  outline: none;
+}
+
+.swiftyper_selected {
+  cursor: pointer;
+  background-color: rgba(123, 123, 123, 0.1);
+}
+
+@media only screen and (max-width: 600px) {
+  #swiftyper {
+    width: 18rem;
+    background-size: 1.6rem;
+    background-position: left 1.1rem top 0.75rem;
+  }
+}
+
+@media screen and (-webkit-min-device-pixel-ratio: 0) {
+  #swiftyper {
+    border-width: 1px;
+  }
+}
+
+@-moz-document url-prefix() {
+  #swiftyper {
+    background-size: 1.2rem;
+    background-origin: border-box;
+    border-width: 1px;
+    background-position: left 1.1rem top 0.8rem;
+  }
+}

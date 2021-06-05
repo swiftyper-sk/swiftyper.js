@@ -1,0 +1,68 @@
+{
+  "name": "swiftyper.js",
+  "version": "1.0.6",
+  "description": "Simple address autocomplete Javascript library.",
+  "keywords": [
+    "autocomplete",
+    "javascript",
+    "autosuggestion",
+    "autosuggest",
+    "search",
+    "geo",
+    "geolocation",
+    "geocoder",
+    "dropdown"
+  ],
+  "homepage": "https://github.com/swiftyper-sk/swiftyper.js#readme",
+  "bugs": {
+    "url": "https://github.com/swiftyper-sk/swiftyper.js/issues",
+    "email": "support@swiftyper.sk"
+  },
+  "license": "MIT",
+  "files": [
+    "dist/js/swiftyper.js"
+  ],
+  "main": "dist/js/swiftyper.js",
+  "browser": "dist/js/swiftyper.min.js",
+  "unpkg": "dist/js/swiftyper.min.js",
+  "module": "dist/js/swiftyper.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/swiftyper-sk/swiftyper.js.git"
+  },
+  "scripts": {
+    "build": "rollup -c",
+    "dev": "rollup -c -w"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.13.10",
+    "@babel/preset-env": "^7.13.10",
+    "@rollup/plugin-babel": "^5.2.3",
+    "@rollup/plugin-commonjs": "^18.0.0",
+    "@rollup/plugin-node-resolve": "^11.2.1",
+    "acorn": "^8.1.0",
+    "events": "^3.3.0",
+    "insert-css": "^2.0.0",
+    "rollup": "^2.50.6",
+    "rollup-plugin-analyzer": "^4.0.0",
+    "rollup-plugin-cleanup": "^3.2.1",
+    "rollup-plugin-gzip": "^2.5.0",
+    "rollup-plugin-import-css": "^2.0.1",
+    "rollup-plugin-livereload": "^2.0.0",
+    "rollup-plugin-node-builtins": "^2.1.2",
+    "rollup-plugin-node-globals": "^1.4.0",
+    "rollup-plugin-nodent": "^0.2.2",
+    "rollup-plugin-serve": "^1.1.0",
+    "rollup-plugin-sizes": "^1.0.4",
+    "rollup-plugin-svg-import": "^1.5.1",
+    "rollup-plugin-terser": "^7.0.2"
+  },
+  "engines": {
+    "node": ">=12",
+    "npm": ">=6"
+  },
+  "dependencies": {
+    "@babel/plugin-proposal-object-rest-spread": "^7.14.4",
+    "swiftyper-node": "^1.0.1"
+  }
+}
