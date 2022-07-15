@@ -14,7 +14,7 @@ Register your project on [Swiftyper](https://swiftyper.sk).
 #### CDN
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/swiftyper.js@1.0.6"></script>
+<script src="https://cdn.jsdelivr.net/npm/swiftyper.js@1.0.7"></script>
 ```
 
 #### Package Manager

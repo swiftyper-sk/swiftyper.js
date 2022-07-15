@@ -2,85 +2,89 @@
   typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
   typeof define === 'function' && define.amd ? define(factory) :
   (global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.swiftyper = factory());
-}(this, (function () { 'use strict';
+})(this, (function () { 'use strict';
 
+  function _iterableToArrayLimit(arr, i) {
+    var _i = null == arr ? null : "undefined" != typeof Symbol && arr[Symbol.iterator] || arr["@@iterator"];
+    if (null != _i) {
+      var _s,
+        _e,
+        _x,
+        _r,
+        _arr = [],
+        _n = !0,
+        _d = !1;
+      try {
+        if (_x = (_i = _i.call(arr)).next, 0 === i) {
+          if (Object(_i) !== _i) return;
+          _n = !1;
+        } else for (; !(_n = (_s = _x.call(_i)).done) && (_arr.push(_s.value), _arr.length !== i); _n = !0);
+      } catch (err) {
+        _d = !0, _e = err;
+      } finally {
+        try {
+          if (!_n && null != _i.return && (_r = _i.return(), Object(_r) !== _r)) return;
+        } finally {
+          if (_d) throw _e;
+        }
+      }
+      return _arr;
+    }
+  }
   function ownKeys(object, enumerableOnly) {
     var keys = Object.keys(object);
-
     if (Object.getOwnPropertySymbols) {
       var symbols = Object.getOwnPropertySymbols(object);
-
-      if (enumerableOnly) {
-        symbols = symbols.filter(function (sym) {
-          return Object.getOwnPropertyDescriptor(object, sym).enumerable;
-        });
-      }
-
-      keys.push.apply(keys, symbols);
+      enumerableOnly && (symbols = symbols.filter(function (sym) {
+        return Object.getOwnPropertyDescriptor(object, sym).enumerable;
+      })), keys.push.apply(keys, symbols);
     }
-
     return keys;
   }
-
   function _objectSpread2(target) {
     for (var i = 1; i < arguments.length; i++) {
-      var source = arguments[i] != null ? arguments[i] : {};
-
-      if (i % 2) {
-        ownKeys(Object(source), true).forEach(function (key) {
-          _defineProperty(target, key, source[key]);
-        });
-      } else if (Object.getOwnPropertyDescriptors) {
-        Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));
-      } else {
-        ownKeys(Object(source)).forEach(function (key) {
-          Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
-        });
-      }
+      var source = null != arguments[i] ? arguments[i] : {};
+      i % 2 ? ownKeys(Object(source), !0).forEach(function (key) {
+        _defineProperty(target, key, source[key]);
+      }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) {
+        Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
+      });
     }
-
     return target;
   }
-
   function _typeof(obj) {
     "@babel/helpers - typeof";
 
-    if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
-      _typeof = function (obj) {
-        return typeof obj;
-      };
-    } else {
-      _typeof = function (obj) {
-        return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
-      };
-    }
-
-    return _typeof(obj);
+    return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) {
+      return typeof obj;
+    } : function (obj) {
+      return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+    }, _typeof(obj);
   }
-
   function _classCallCheck(instance, Constructor) {
     if (!(instance instanceof Constructor)) {
       throw new TypeError("Cannot call a class as a function");
     }
   }
-
   function _defineProperties(target, props) {
     for (var i = 0; i < props.length; i++) {
       var descriptor = props[i];
       descriptor.enumerable = descriptor.enumerable || false;
       descriptor.configurable = true;
       if ("value" in descriptor) descriptor.writable = true;
-      Object.defineProperty(target, descriptor.key, descriptor);
+      Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor);
     }
   }
-
   function _createClass(Constructor, protoProps, staticProps) {
     if (protoProps) _defineProperties(Constructor.prototype, protoProps);
     if (staticProps) _defineProperties(Constructor, staticProps);
+    Object.defineProperty(Constructor, "prototype", {
+      writable: false
+    });
     return Constructor;
   }
-
   function _defineProperty(obj, key, value) {
+    key = _toPropertyKey(key);
     if (key in obj) {
       Object.defineProperty(obj, key, {
         value: value,
@@ -91,15 +95,12 @@
     } else {
       obj[key] = value;
     }
-
     return obj;
   }
-
   function _inherits(subClass, superClass) {
     if (typeof superClass !== "function" && superClass !== null) {
       throw new TypeError("Super expression must either be null or a function");
     }
-
     subClass.prototype = Object.create(superClass && superClass.prototype, {
       constructor: {
         value: subClass,
@@ -107,30 +108,28 @@
         configurable: true
       }
     });
+    Object.defineProperty(subClass, "prototype", {
+      writable: false
+    });
     if (superClass) _setPrototypeOf(subClass, superClass);
   }
-
   function _getPrototypeOf(o) {
-    _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) {
+    _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) {
       return o.__proto__ || Object.getPrototypeOf(o);
     };
     return _getPrototypeOf(o);
   }
-
   function _setPrototypeOf(o, p) {
-    _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) {
+    _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) {
       o.__proto__ = p;
       return o;
     };
-
     return _setPrototypeOf(o, p);
   }
-
   function _isNativeReflectConstruct() {
     if (typeof Reflect === "undefined" || !Reflect.construct) return false;
     if (Reflect.construct.sham) return false;
     if (typeof Proxy === "function") return true;
-
     try {
       Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {}));
       return true;
@@ -138,10 +137,9 @@
       return false;
     }
   }
-
   function _construct(Parent, args, Class) {
     if (_isNativeReflectConstruct()) {
-      _construct = Reflect.construct;
+      _construct = Reflect.construct.bind();
     } else {
       _construct = function _construct(Parent, args, Class) {
         var a = [null];
@@ -152,34 +150,25 @@
         return instance;
       };
     }
-
     return _construct.apply(null, arguments);
   }
-
   function _isNativeFunction(fn) {
     return Function.toString.call(fn).indexOf("[native code]") !== -1;
   }
-
   function _wrapNativeSuper(Class) {
     var _cache = typeof Map === "function" ? new Map() : undefined;
-
     _wrapNativeSuper = function _wrapNativeSuper(Class) {
       if (Class === null || !_isNativeFunction(Class)) return Class;
-
       if (typeof Class !== "function") {
         throw new TypeError("Super expression must either be null or a function");
       }
-
       if (typeof _cache !== "undefined") {
         if (_cache.has(Class)) return _cache.get(Class);
-
         _cache.set(Class, Wrapper);
       }
-
       function Wrapper() {
         return _construct(Class, arguments, _getPrototypeOf(this).constructor);
       }
-
       Wrapper.prototype = Object.create(Class.prototype, {
         constructor: {
           value: Wrapper,
@@ -190,83 +179,42 @@
       });
       return _setPrototypeOf(Wrapper, Class);
     };
-
     return _wrapNativeSuper(Class);
   }
-
   function _assertThisInitialized(self) {
     if (self === void 0) {
       throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
     }
-
     return self;
   }
-
   function _possibleConstructorReturn(self, call) {
     if (call && (typeof call === "object" || typeof call === "function")) {
       return call;
+    } else if (call !== void 0) {
+      throw new TypeError("Derived constructors may only return object or undefined");
     }
-
     return _assertThisInitialized(self);
   }
-
   function _createSuper(Derived) {
     var hasNativeReflectConstruct = _isNativeReflectConstruct();
-
     return function _createSuperInternal() {
       var Super = _getPrototypeOf(Derived),
-          result;
-
+        result;
       if (hasNativeReflectConstruct) {
         var NewTarget = _getPrototypeOf(this).constructor;
-
         result = Reflect.construct(Super, arguments, NewTarget);
       } else {
         result = Super.apply(this, arguments);
       }
-
       return _possibleConstructorReturn(this, result);
     };
   }
-
   function _slicedToArray(arr, i) {
     return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest();
   }
-
   function _arrayWithHoles(arr) {
     if (Array.isArray(arr)) return arr;
   }
-
-  function _iterableToArrayLimit(arr, i) {
-    var _i = arr && (typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]);
-
-    if (_i == null) return;
-    var _arr = [];
-    var _n = true;
-    var _d = false;
-
-    var _s, _e;
-
-    try {
-      for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) {
-        _arr.push(_s.value);
-
-        if (i && _arr.length === i) break;
-      }
-    } catch (err) {
-      _d = true;
-      _e = err;
-    } finally {
-      try {
-        if (!_n && _i["return"] != null) _i["return"]();
-      } finally {
-        if (_d) throw _e;
-      }
-    }
-
-    return _arr;
-  }
-
   function _unsupportedIterableToArray(o, minLen) {
     if (!o) return;
     if (typeof o === "string") return _arrayLikeToArray(o, minLen);
@@ -275,17 +223,27 @@
     if (n === "Map" || n === "Set") return Array.from(o);
     if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);
   }
-
   function _arrayLikeToArray(arr, len) {
     if (len == null || len > arr.length) len = arr.length;
-
     for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i];
-
     return arr2;
   }
-
   function _nonIterableRest() {
     throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+  }
+  function _toPrimitive(input, hint) {
+    if (typeof input !== "object" || input === null) return input;
+    var prim = input[Symbol.toPrimitive];
+    if (prim !== undefined) {
+      var res = prim.call(input, hint || "default");
+      if (typeof res !== "object") return res;
+      throw new TypeError("@@toPrimitive must return a primitive value.");
+    }
+    return (hint === "string" ? String : Number)(input);
+  }
+  function _toPropertyKey(arg) {
+    var key = _toPrimitive(arg, "string");
+    return typeof key === "symbol" ? key : String(key);
   }
 
   var inputComponent = (function (config) {
@@ -336,7 +294,7 @@
     return result;
   });
 
-  var swiftyperLogo = "<svg version=\"1.1\" height=\"17\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" x=\"0px\" y=\"0px\"\n\t viewBox=\"0 0 116 14.1\" style=\"enable-background:new 0 0 116 14.1;\" xml:space=\"preserve\">\n<style type=\"text/css\">\n\t.st0{fill:#FFFFFF;}\n\t.st1{fill:#252C61;}\n\t.st2{enable-background:new    ;}\n\t.st3{fill:#fa0f00;}\n</style>\n<g>\n\t<g>\n\t\t<path class=\"st1\" d=\"M4.8,9.2c0,0.6-0.2,1.1-0.7,1.5S3,11.2,2.2,11.2s-1.4-0.1-2-0.4V9.7c0.3,0.2,0.7,0.3,1,0.4\n\t\t\tc0.4,0.1,0.7,0.1,1,0.1c0.5,0,0.8-0.1,1-0.3s0.3-0.4,0.3-0.7S3.4,8.7,3.2,8.5c0-0.1-0.4-0.3-1-0.6C1.5,7.7,1.1,7.4,0.8,7\n\t\t\tC0.6,6.7,0.4,6.3,0.4,5.8c0-0.6,0.2-1,0.6-1.4c0.4-0.3,1-0.5,1.7-0.5S4,4,4.7,4.3l-0.3,1C3.7,5.1,3.2,4.9,2.7,4.9\n\t\t\tC2.3,4.9,2,5,1.9,5.2C1.7,5.3,1.6,5.6,1.6,5.8c0,0.2,0,0.3,0.1,0.5c0.1,0.1,0.2,0.3,0.4,0.4s0.5,0.3,1,0.5S4,7.6,4.2,7.8\n\t\t\tC4.4,8,4.6,8.2,4.7,8.4C4.8,8.6,4.8,8.8,4.8,9.2L4.8,9.2z M8.4,11.2c-0.8,0-1.5-0.2-1.9-0.7C6,10,5.8,9.3,5.8,8.5\n\t\t\tc0-0.9,0.2-1.6,0.6-2c0.4-0.5,1-0.7,1.8-0.7c0.7,0,1.3,0.2,1.7,0.6s0.6,1,0.6,1.8v0.6H6.9c0,0.5,0.2,0.9,0.4,1.2\n\t\t\tc0.3,0.3,0.6,0.4,1.1,0.4c0.3,0,0.6,0,0.9-0.1c0.3-0.1,0.6-0.2,0.9-0.3v0.9c-0.3,0.1-0.5,0.2-0.8,0.3C9,11.1,8.7,11.2,8.4,11.2\n\t\t\tL8.4,11.2z M15.1,11.1l-0.2-0.7l0,0c-0.3,0.3-0.5,0.5-0.8,0.7c-0.3,0.1-0.6,0.2-1,0.2c-0.5,0-0.9-0.1-1.2-0.4\n\t\t\tc-0.3-0.3-0.4-0.7-0.4-1.2s0.2-1,0.6-1.2s1-0.4,1.9-0.5h0.9V7.5c0-0.3-0.1-0.6-0.2-0.8c-0.2-0.2-0.4-0.3-0.7-0.3s-0.5,0-0.8,0.1\n\t\t\tc-0.2,0.1-0.5,0.2-0.7,0.3L12.1,6c0.3-0.2,0.6-0.3,0.9-0.3c0.3-0.1,0.6-0.1,1-0.1c0.7,0,1.2,0.1,1.5,0.4S16,6.8,16,7.4V11h-0.9\n\t\t\tV11.1z M20.2,5.7c0.2,0,0.4,0,0.6,0l-0.1,1.1c-0.2,0-0.3-0.1-0.5-0.1c-0.5,0-0.8,0.1-1.1,0.4c-0.3,0.3-0.4,0.7-0.4,1.1V11h-1.1\n\t\t\tV5.8h0.9l0.1,0.9h0.1c0.2-0.3,0.4-0.6,0.7-0.8C19.5,5.8,19.8,5.7,20.2,5.7L20.2,5.7L20.2,5.7z M23.8,11.2c-0.8,0-1.4-0.2-1.8-0.7\n\t\t\ts-0.6-1.1-0.6-2s0.2-1.6,0.7-2.1s1.1-0.7,1.9-0.7c0.6,0,1.1,0.1,1.5,0.3l-0.3,0.9c-0.5-0.2-0.9-0.3-1.2-0.3\n\t\t\tc-0.9,0-1.4,0.6-1.4,1.8c0,0.6,0.1,1,0.3,1.3c0.2,0.3,0.6,0.4,1,0.4c0.5,0,1-0.1,1.4-0.4v1c-0.2,0.1-0.4,0.2-0.6,0.3\n\t\t\tC24.4,11.1,24.1,11.2,23.8,11.2L23.8,11.2z M31.3,11.1h-1.1V7.8c0-0.4-0.1-0.7-0.2-0.9c-0.2-0.2-0.4-0.3-0.8-0.3\n\t\t\tc-0.5,0-0.8,0.1-1,0.4s-0.3,0.8-0.3,1.4V11h-1.1V3.6h1.1v1.9c0,0.3,0,0.6-0.1,1h0.1c0.2-0.3,0.4-0.5,0.6-0.6\n\t\t\tc0.3-0.1,0.6-0.2,1-0.2c1.3,0,1.9,0.6,1.9,1.9L31.3,11.1L31.3,11.1L31.3,11.1z M38.1,5.7c0.7,0,1.2,0.2,1.5,0.7\n\t\t\tc0.4,0.5,0.6,1.2,0.6,2c0,0.9-0.2,1.5-0.6,2c-0.4,0.5-0.9,0.7-1.6,0.7c-0.7,0-1.2-0.2-1.6-0.7h-0.1L36.1,11h-0.8V3.6h1.1v1.8V6\n\t\t\tv0.5l0,0C36.9,5.9,37.4,5.7,38.1,5.7L38.1,5.7z M40.7,5.8h1.2l1.1,3c0.2,0.4,0.3,0.8,0.3,1.2l0,0c0-0.2,0.1-0.4,0.2-0.6\n\t\t\tC43.6,9.1,44,8,44.7,5.8H46l-2.3,6c-0.4,1.1-1.1,1.7-2.1,1.7c-0.2,0-0.5,0-0.7-0.1v-0.9c0.2,0,0.4,0.1,0.6,0.1\n\t\t\tc0.5,0,0.9-0.3,1.1-0.9l0.2-0.5L40.7,5.8L40.7,5.8L40.7,5.8z M37.8,6.6c-0.5,0-0.8,0.1-1,0.4s-0.3,0.7-0.3,1.3v0.1\n\t\t\tc0,0.6,0.1,1.1,0.3,1.4s0.5,0.4,1,0.4c0.4,0,0.7-0.2,0.9-0.5C38.9,9.5,39,9,39,8.4C39,7.2,38.6,6.6,37.8,6.6L37.8,6.6z M13.4,10.3\n\t\t\tc0.4,0,0.7-0.1,1-0.3c0.2-0.2,0.4-0.6,0.4-1V8.5h-0.7c-0.5,0-0.9,0.1-1.2,0.3c-0.2,0.2-0.4,0.4-0.4,0.7c0,0.2,0.1,0.4,0.2,0.6\n\t\t\tC12.9,10.2,13.1,10.3,13.4,10.3L13.4,10.3z M8.2,6.5c-0.4,0-0.6,0.1-0.9,0.3S7,7.4,6.9,7.9h2.4c0-0.4-0.1-0.8-0.3-1\n\t\t\tC8.8,6.6,8.6,6.5,8.2,6.5L8.2,6.5z\"/>\n\t</g>\n</g>\n<g class=\"st2\">\n\t<path class=\"st3\" d=\"M50.1,5.9c0,0.1,0,0.3,0.1,0.4c0.1,0.1,0.2,0.1,0.4,0.1h2.5c0.6,0,1.1,0.2,1.5,0.6c0.4,0.4,0.6,0.9,0.6,1.5\n\t\tv0.6c0,0.6-0.2,1.1-0.6,1.5c-0.4,0.4-0.9,0.6-1.5,0.6c-0.6,0-1.2,0-1.8,0c-0.6,0-1.2,0-1.7-0.1c-0.6,0-1.2,0-1.8-0.1V9.1\n\t\tc0.5,0.1,1,0.1,1.5,0.2c0.4,0,0.9,0,1.5,0c0.5,0,1,0,1.5,0c0.1,0,0.3,0,0.4-0.1s0.1-0.2,0.1-0.3V8.3h-3c-0.6,0-1.1-0.2-1.5-0.6\n\t\ts-0.6-0.9-0.6-1.5V5.7c0-0.6,0.2-1.1,0.6-1.5s0.9-0.6,1.5-0.6h4.8v1.8h-3.9c-0.1,0-0.3,0-0.4,0.1C50.1,5.7,50.1,5.8,50.1,5.9z\"/>\n\t<path class=\"st3\" d=\"M63.7,8.1L65,3.6h2.7l-2.3,7.4h-2.6l-1.4-4.5l-1.4,4.5h-2.6L55,3.6h2.7L59,8.1l1.3-4.5h2.2L63.7,8.1z\"/>\n\t<path class=\"st3\" d=\"M71.3,3.9v7.1h-2.5V5.8h-1V3.9H71.3z M68.8,1.1h2.5v2h-2.5V1.1z\"/>\n\t<path class=\"st3\" d=\"M76.2,3c-0.1,0-0.3,0-0.4,0.1c-0.1,0.1-0.1,0.2-0.1,0.3v0.7H78v1.9h-2.3v5h-2.5v-5h-1V4.2h1v-1\n\t\tc0-0.6,0.2-1.1,0.6-1.5s0.9-0.6,1.5-0.6c0.3,0,0.7,0,1.1,0c0.4,0,0.8,0,1.1,0c0.4,0,0.8,0,1.2,0v2c-0.3,0-0.6,0-0.8-0.1\n\t\tc-0.2,0-0.5,0-0.8,0S76.5,3,76.2,3z\"/>\n\t<path class=\"st3\" d=\"M81.9,3.6h1.8v1.9h-1.8v3.2c0,0.1,0,0.3,0.1,0.4c0.1,0.1,0.2,0.1,0.3,0.1h1.8v1.8c-0.3,0-0.6,0.1-0.9,0.1\n\t\tc-0.3,0-0.5,0.1-0.9,0.1s-0.6,0-1,0c-0.6,0-1.1-0.2-1.5-0.6c-0.4-0.4-0.6-0.9-0.6-1.5V5.5h-0.8V3.6h0.8L79.7,2h2.2V3.6z\"/>\n\t<path class=\"st3\" d=\"M89.8,3.6h2.6l-2.8,7.7c-0.3,0.7-0.6,1.3-1,1.7c-0.4,0.4-1,0.6-1.8,0.6c-0.2,0-0.4,0-0.6,0s-0.4,0-0.6,0\n\t\tc-0.2,0-0.4-0.1-0.6-0.1v-1.8h1.3c0.4,0,0.6-0.1,0.7-0.3c0.1-0.2,0.1-0.5-0.1-0.8L84,3.6h2.6l1.8,4.8L89.8,3.6z\"/>\n\t<path class=\"st3\" d=\"M95.3,11.1v2.4h-2.5V3.6H95l0.1,0.7c0.2-0.2,0.5-0.3,0.8-0.4c0.2-0.1,0.5-0.2,0.8-0.3s0.6-0.1,0.9-0.1h0.6\n\t\tc0.6,0,1.1,0.2,1.5,0.6c0.4,0.4,0.6,0.9,0.6,1.5v3.2c0,0.7-0.2,1.2-0.6,1.6s-0.9,0.6-1.6,0.6H95.3z M95.3,9.2h2.1\n\t\tC97.8,9.2,98,9,98,8.6V6c0-0.1,0-0.3-0.1-0.3c-0.1-0.1-0.2-0.1-0.3-0.1H97c-0.2,0-0.4,0-0.6,0c-0.2,0-0.4,0.1-0.5,0.1\n\t\tc-0.2,0-0.4,0.1-0.6,0.1V9.2z\"/>\n\t<path class=\"st3\" d=\"M101.5,5.7c0-0.7,0.2-1.2,0.6-1.6c0.4-0.4,0.9-0.6,1.6-0.6h2.8c0.7,0,1.2,0.2,1.6,0.6c0.4,0.4,0.6,0.9,0.6,1.6\n\t\tv2.6H104v0.5c0,0.1,0,0.2,0.1,0.3c0.1,0.1,0.2,0.1,0.4,0.1c0.4,0,0.8,0,1.3,0s0.9,0,1.3,0c0.5-0.1,1-0.1,1.4-0.2v1.8\n\t\tc-0.5,0.1-1.1,0.1-1.7,0.1c-0.5,0.1-1,0.1-1.6,0.1s-1.1,0-1.7,0c-0.6,0-1.1-0.2-1.5-0.6s-0.6-0.9-0.6-1.5V5.7z M104.5,5.2\n\t\tc-0.4,0-0.6,0.2-0.6,0.6v0.8h2.4V5.8c0-0.4-0.2-0.6-0.6-0.6H104.5z\"/>\n\t<path class=\"st3\" d=\"M112.2,3.6l0.1,0.9c0.2-0.2,0.5-0.4,0.7-0.5c0.2-0.1,0.5-0.3,0.8-0.4c0.3-0.1,0.6-0.2,1-0.2h0.6v2.2h-1.2\n\t\tc-0.2,0-0.5,0-0.7,0.1c-0.2,0-0.4,0.1-0.6,0.1c-0.2,0.1-0.4,0.1-0.5,0.2v5h-2.5V3.6H112.2z\"/>\n</g>\n</svg>\n";
+  var swiftyperLogo = "<svg version=\"1.1\" height=\"17\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" x=\"0px\" y=\"0px\"\r\n\t viewBox=\"0 0 116 14.1\" style=\"enable-background:new 0 0 116 14.1;\" xml:space=\"preserve\">\r\n<style type=\"text/css\">\r\n\t.st0{fill:#FFFFFF;}\r\n\t.st1{fill:#252C61;}\r\n\t.st2{enable-background:new    ;}\r\n\t.st3{fill:#fa0f00;}\r\n</style>\r\n<g>\r\n\t<g>\r\n\t\t<path class=\"st1\" d=\"M4.8,9.2c0,0.6-0.2,1.1-0.7,1.5S3,11.2,2.2,11.2s-1.4-0.1-2-0.4V9.7c0.3,0.2,0.7,0.3,1,0.4\r\n\t\t\tc0.4,0.1,0.7,0.1,1,0.1c0.5,0,0.8-0.1,1-0.3s0.3-0.4,0.3-0.7S3.4,8.7,3.2,8.5c0-0.1-0.4-0.3-1-0.6C1.5,7.7,1.1,7.4,0.8,7\r\n\t\t\tC0.6,6.7,0.4,6.3,0.4,5.8c0-0.6,0.2-1,0.6-1.4c0.4-0.3,1-0.5,1.7-0.5S4,4,4.7,4.3l-0.3,1C3.7,5.1,3.2,4.9,2.7,4.9\r\n\t\t\tC2.3,4.9,2,5,1.9,5.2C1.7,5.3,1.6,5.6,1.6,5.8c0,0.2,0,0.3,0.1,0.5c0.1,0.1,0.2,0.3,0.4,0.4s0.5,0.3,1,0.5S4,7.6,4.2,7.8\r\n\t\t\tC4.4,8,4.6,8.2,4.7,8.4C4.8,8.6,4.8,8.8,4.8,9.2L4.8,9.2z M8.4,11.2c-0.8,0-1.5-0.2-1.9-0.7C6,10,5.8,9.3,5.8,8.5\r\n\t\t\tc0-0.9,0.2-1.6,0.6-2c0.4-0.5,1-0.7,1.8-0.7c0.7,0,1.3,0.2,1.7,0.6s0.6,1,0.6,1.8v0.6H6.9c0,0.5,0.2,0.9,0.4,1.2\r\n\t\t\tc0.3,0.3,0.6,0.4,1.1,0.4c0.3,0,0.6,0,0.9-0.1c0.3-0.1,0.6-0.2,0.9-0.3v0.9c-0.3,0.1-0.5,0.2-0.8,0.3C9,11.1,8.7,11.2,8.4,11.2\r\n\t\t\tL8.4,11.2z M15.1,11.1l-0.2-0.7l0,0c-0.3,0.3-0.5,0.5-0.8,0.7c-0.3,0.1-0.6,0.2-1,0.2c-0.5,0-0.9-0.1-1.2-0.4\r\n\t\t\tc-0.3-0.3-0.4-0.7-0.4-1.2s0.2-1,0.6-1.2s1-0.4,1.9-0.5h0.9V7.5c0-0.3-0.1-0.6-0.2-0.8c-0.2-0.2-0.4-0.3-0.7-0.3s-0.5,0-0.8,0.1\r\n\t\t\tc-0.2,0.1-0.5,0.2-0.7,0.3L12.1,6c0.3-0.2,0.6-0.3,0.9-0.3c0.3-0.1,0.6-0.1,1-0.1c0.7,0,1.2,0.1,1.5,0.4S16,6.8,16,7.4V11h-0.9\r\n\t\t\tV11.1z M20.2,5.7c0.2,0,0.4,0,0.6,0l-0.1,1.1c-0.2,0-0.3-0.1-0.5-0.1c-0.5,0-0.8,0.1-1.1,0.4c-0.3,0.3-0.4,0.7-0.4,1.1V11h-1.1\r\n\t\t\tV5.8h0.9l0.1,0.9h0.1c0.2-0.3,0.4-0.6,0.7-0.8C19.5,5.8,19.8,5.7,20.2,5.7L20.2,5.7L20.2,5.7z M23.8,11.2c-0.8,0-1.4-0.2-1.8-0.7\r\n\t\t\ts-0.6-1.1-0.6-2s0.2-1.6,0.7-2.1s1.1-0.7,1.9-0.7c0.6,0,1.1,0.1,1.5,0.3l-0.3,0.9c-0.5-0.2-0.9-0.3-1.2-0.3\r\n\t\t\tc-0.9,0-1.4,0.6-1.4,1.8c0,0.6,0.1,1,0.3,1.3c0.2,0.3,0.6,0.4,1,0.4c0.5,0,1-0.1,1.4-0.4v1c-0.2,0.1-0.4,0.2-0.6,0.3\r\n\t\t\tC24.4,11.1,24.1,11.2,23.8,11.2L23.8,11.2z M31.3,11.1h-1.1V7.8c0-0.4-0.1-0.7-0.2-0.9c-0.2-0.2-0.4-0.3-0.8-0.3\r\n\t\t\tc-0.5,0-0.8,0.1-1,0.4s-0.3,0.8-0.3,1.4V11h-1.1V3.6h1.1v1.9c0,0.3,0,0.6-0.1,1h0.1c0.2-0.3,0.4-0.5,0.6-0.6\r\n\t\t\tc0.3-0.1,0.6-0.2,1-0.2c1.3,0,1.9,0.6,1.9,1.9L31.3,11.1L31.3,11.1L31.3,11.1z M38.1,5.7c0.7,0,1.2,0.2,1.5,0.7\r\n\t\t\tc0.4,0.5,0.6,1.2,0.6,2c0,0.9-0.2,1.5-0.6,2c-0.4,0.5-0.9,0.7-1.6,0.7c-0.7,0-1.2-0.2-1.6-0.7h-0.1L36.1,11h-0.8V3.6h1.1v1.8V6\r\n\t\t\tv0.5l0,0C36.9,5.9,37.4,5.7,38.1,5.7L38.1,5.7z M40.7,5.8h1.2l1.1,3c0.2,0.4,0.3,0.8,0.3,1.2l0,0c0-0.2,0.1-0.4,0.2-0.6\r\n\t\t\tC43.6,9.1,44,8,44.7,5.8H46l-2.3,6c-0.4,1.1-1.1,1.7-2.1,1.7c-0.2,0-0.5,0-0.7-0.1v-0.9c0.2,0,0.4,0.1,0.6,0.1\r\n\t\t\tc0.5,0,0.9-0.3,1.1-0.9l0.2-0.5L40.7,5.8L40.7,5.8L40.7,5.8z M37.8,6.6c-0.5,0-0.8,0.1-1,0.4s-0.3,0.7-0.3,1.3v0.1\r\n\t\t\tc0,0.6,0.1,1.1,0.3,1.4s0.5,0.4,1,0.4c0.4,0,0.7-0.2,0.9-0.5C38.9,9.5,39,9,39,8.4C39,7.2,38.6,6.6,37.8,6.6L37.8,6.6z M13.4,10.3\r\n\t\t\tc0.4,0,0.7-0.1,1-0.3c0.2-0.2,0.4-0.6,0.4-1V8.5h-0.7c-0.5,0-0.9,0.1-1.2,0.3c-0.2,0.2-0.4,0.4-0.4,0.7c0,0.2,0.1,0.4,0.2,0.6\r\n\t\t\tC12.9,10.2,13.1,10.3,13.4,10.3L13.4,10.3z M8.2,6.5c-0.4,0-0.6,0.1-0.9,0.3S7,7.4,6.9,7.9h2.4c0-0.4-0.1-0.8-0.3-1\r\n\t\t\tC8.8,6.6,8.6,6.5,8.2,6.5L8.2,6.5z\"/>\r\n\t</g>\r\n</g>\r\n<g class=\"st2\">\r\n\t<path class=\"st3\" d=\"M50.1,5.9c0,0.1,0,0.3,0.1,0.4c0.1,0.1,0.2,0.1,0.4,0.1h2.5c0.6,0,1.1,0.2,1.5,0.6c0.4,0.4,0.6,0.9,0.6,1.5\r\n\t\tv0.6c0,0.6-0.2,1.1-0.6,1.5c-0.4,0.4-0.9,0.6-1.5,0.6c-0.6,0-1.2,0-1.8,0c-0.6,0-1.2,0-1.7-0.1c-0.6,0-1.2,0-1.8-0.1V9.1\r\n\t\tc0.5,0.1,1,0.1,1.5,0.2c0.4,0,0.9,0,1.5,0c0.5,0,1,0,1.5,0c0.1,0,0.3,0,0.4-0.1s0.1-0.2,0.1-0.3V8.3h-3c-0.6,0-1.1-0.2-1.5-0.6\r\n\t\ts-0.6-0.9-0.6-1.5V5.7c0-0.6,0.2-1.1,0.6-1.5s0.9-0.6,1.5-0.6h4.8v1.8h-3.9c-0.1,0-0.3,0-0.4,0.1C50.1,5.7,50.1,5.8,50.1,5.9z\"/>\r\n\t<path class=\"st3\" d=\"M63.7,8.1L65,3.6h2.7l-2.3,7.4h-2.6l-1.4-4.5l-1.4,4.5h-2.6L55,3.6h2.7L59,8.1l1.3-4.5h2.2L63.7,8.1z\"/>\r\n\t<path class=\"st3\" d=\"M71.3,3.9v7.1h-2.5V5.8h-1V3.9H71.3z M68.8,1.1h2.5v2h-2.5V1.1z\"/>\r\n\t<path class=\"st3\" d=\"M76.2,3c-0.1,0-0.3,0-0.4,0.1c-0.1,0.1-0.1,0.2-0.1,0.3v0.7H78v1.9h-2.3v5h-2.5v-5h-1V4.2h1v-1\r\n\t\tc0-0.6,0.2-1.1,0.6-1.5s0.9-0.6,1.5-0.6c0.3,0,0.7,0,1.1,0c0.4,0,0.8,0,1.1,0c0.4,0,0.8,0,1.2,0v2c-0.3,0-0.6,0-0.8-0.1\r\n\t\tc-0.2,0-0.5,0-0.8,0S76.5,3,76.2,3z\"/>\r\n\t<path class=\"st3\" d=\"M81.9,3.6h1.8v1.9h-1.8v3.2c0,0.1,0,0.3,0.1,0.4c0.1,0.1,0.2,0.1,0.3,0.1h1.8v1.8c-0.3,0-0.6,0.1-0.9,0.1\r\n\t\tc-0.3,0-0.5,0.1-0.9,0.1s-0.6,0-1,0c-0.6,0-1.1-0.2-1.5-0.6c-0.4-0.4-0.6-0.9-0.6-1.5V5.5h-0.8V3.6h0.8L79.7,2h2.2V3.6z\"/>\r\n\t<path class=\"st3\" d=\"M89.8,3.6h2.6l-2.8,7.7c-0.3,0.7-0.6,1.3-1,1.7c-0.4,0.4-1,0.6-1.8,0.6c-0.2,0-0.4,0-0.6,0s-0.4,0-0.6,0\r\n\t\tc-0.2,0-0.4-0.1-0.6-0.1v-1.8h1.3c0.4,0,0.6-0.1,0.7-0.3c0.1-0.2,0.1-0.5-0.1-0.8L84,3.6h2.6l1.8,4.8L89.8,3.6z\"/>\r\n\t<path class=\"st3\" d=\"M95.3,11.1v2.4h-2.5V3.6H95l0.1,0.7c0.2-0.2,0.5-0.3,0.8-0.4c0.2-0.1,0.5-0.2,0.8-0.3s0.6-0.1,0.9-0.1h0.6\r\n\t\tc0.6,0,1.1,0.2,1.5,0.6c0.4,0.4,0.6,0.9,0.6,1.5v3.2c0,0.7-0.2,1.2-0.6,1.6s-0.9,0.6-1.6,0.6H95.3z M95.3,9.2h2.1\r\n\t\tC97.8,9.2,98,9,98,8.6V6c0-0.1,0-0.3-0.1-0.3c-0.1-0.1-0.2-0.1-0.3-0.1H97c-0.2,0-0.4,0-0.6,0c-0.2,0-0.4,0.1-0.5,0.1\r\n\t\tc-0.2,0-0.4,0.1-0.6,0.1V9.2z\"/>\r\n\t<path class=\"st3\" d=\"M101.5,5.7c0-0.7,0.2-1.2,0.6-1.6c0.4-0.4,0.9-0.6,1.6-0.6h2.8c0.7,0,1.2,0.2,1.6,0.6c0.4,0.4,0.6,0.9,0.6,1.6\r\n\t\tv2.6H104v0.5c0,0.1,0,0.2,0.1,0.3c0.1,0.1,0.2,0.1,0.4,0.1c0.4,0,0.8,0,1.3,0s0.9,0,1.3,0c0.5-0.1,1-0.1,1.4-0.2v1.8\r\n\t\tc-0.5,0.1-1.1,0.1-1.7,0.1c-0.5,0.1-1,0.1-1.6,0.1s-1.1,0-1.7,0c-0.6,0-1.1-0.2-1.5-0.6s-0.6-0.9-0.6-1.5V5.7z M104.5,5.2\r\n\t\tc-0.4,0-0.6,0.2-0.6,0.6v0.8h2.4V5.8c0-0.4-0.2-0.6-0.6-0.6H104.5z\"/>\r\n\t<path class=\"st3\" d=\"M112.2,3.6l0.1,0.9c0.2-0.2,0.5-0.4,0.7-0.5c0.2-0.1,0.5-0.3,0.8-0.4c0.3-0.1,0.6-0.2,1-0.2h0.6v2.2h-1.2\r\n\t\tc-0.2,0-0.5,0-0.7,0.1c-0.2,0-0.4,0.1-0.6,0.1c-0.2,0.1-0.4,0.1-0.5,0.2v5h-2.5V3.6H112.2z\"/>\r\n</g>\r\n</svg>\r\n";
 
   var footer = (function (service) {
     var result = document.createElement('li');
@@ -405,24 +363,32 @@
         };
         if (service === 'places') {
           var _config$_fields = config._fields,
-              address = _config$_fields.address,
-              street = _config$_fields.street,
-              streetName = _config$_fields.streetName,
-              streetNumber = _config$_fields.streetNumber,
-              postalCode = _config$_fields.postalCode,
-              municipality = _config$_fields.municipality,
-              country = _config$_fields.country;
+            address = _config$_fields.address,
+            street = _config$_fields.street,
+            streetName = _config$_fields.streetName,
+            streetNumber = _config$_fields.streetNumber,
+            streetNumberParts = _config$_fields.streetNumberParts,
+            buildingNumber = _config$_fields.buildingNumber,
+            postalCode = _config$_fields.postalCode,
+            municipality = _config$_fields.municipality,
+            country = _config$_fields.country;
           if (address && suggestion.formatted_address) {
             address.value = suggestion.formatted_address;
           }
           if (street && suggestion.formatted_street) {
             street.value = suggestion.formatted_street;
           }
+          if (streetNumberParts && suggestion.formatted_number) {
+            streetNumberParts.value = suggestion.formatted_number;
+          }
           if (streetName && suggestion.street) {
             streetName.value = suggestion.street;
           }
           if (streetNumber && suggestion.street_number) {
             streetNumber.value = suggestion.street_number;
+          }
+          if (buildingNumber && suggestion.building_number) {
+            buildingNumber.value = suggestion.building_number;
           }
           if (postalCode && suggestion.postal_code) {
             postalCode.value = suggestion.postal_code;
@@ -436,17 +402,19 @@
         }
         if (service === 'business') {
           var _config$_fields2 = config._fields,
-              name = _config$_fields2.name,
-              cin = _config$_fields2.cin,
-              tin = _config$_fields2.tin,
-              vatin = _config$_fields2.vatin,
-              _address = _config$_fields2.address,
-              _street = _config$_fields2.street,
-              _streetName = _config$_fields2.streetName,
-              _streetNumber = _config$_fields2.streetNumber,
-              _postalCode = _config$_fields2.postalCode,
-              _municipality = _config$_fields2.municipality,
-              _country = _config$_fields2.country;
+            name = _config$_fields2.name,
+            cin = _config$_fields2.cin,
+            tin = _config$_fields2.tin,
+            vatin = _config$_fields2.vatin,
+            _address = _config$_fields2.address,
+            _street = _config$_fields2.street,
+            _streetName = _config$_fields2.streetName,
+            _streetNumber = _config$_fields2.streetNumber,
+            _streetNumberParts = _config$_fields2.streetNumberParts,
+            _buildingNumber = _config$_fields2.buildingNumber,
+            _postalCode = _config$_fields2.postalCode,
+            _municipality = _config$_fields2.municipality,
+            _country = _config$_fields2.country;
           if (name) {
             name.value = suggestion.name;
           }
@@ -465,11 +433,17 @@
           if (_street) {
             _street.value = suggestion.formatted_street;
           }
+          if (_streetNumberParts && suggestion.formatted_number) {
+            _streetNumberParts.value = suggestion.formatted_number;
+          }
           if (_streetName) {
             _streetName.value = suggestion.street;
           }
           if (_streetNumber) {
             _streetNumber.value = suggestion.street_number;
+          }
+          if (_buildingNumber && suggestion.building_number) {
+            _buildingNumber.value = suggestion.building_number;
           }
           if (_postalCode) {
             _postalCode.value = suggestion.postal_code;
@@ -592,7 +566,7 @@
     EventEmitter$1.init.call(this);
   }
   var events = EventEmitter$1;
-  var once_1 = once;
+  var once_1 = once$1;
   EventEmitter$1.EventEmitter = EventEmitter$1;
   EventEmitter$1.prototype._events = undefined;
   EventEmitter$1.prototype._eventsCount = 0;
@@ -638,9 +612,7 @@
   };
   EventEmitter$1.prototype.emit = function emit(type) {
     var args = [];
-    for (var i = 1; i < arguments.length; i++) {
-      args.push(arguments[i]);
-    }
+    for (var i = 1; i < arguments.length; i++) args.push(arguments[i]);
     var doError = type === 'error';
     var events = this._events;
     if (events !== undefined) doError = doError && events.error === undefined;else if (!doError) return false;
@@ -661,9 +633,7 @@
     } else {
       var len = handler.length;
       var listeners = arrayClone(handler, len);
-      for (var i = 0; i < len; ++i) {
-        ReflectApply(listeners[i], this, args);
-      }
+      for (var i = 0; i < len; ++i) ReflectApply(listeners[i], this, args);
     }
     return true;
   };
@@ -851,15 +821,11 @@
   };
   function arrayClone(arr, n) {
     var copy = new Array(n);
-    for (var i = 0; i < n; ++i) {
-      copy[i] = arr[i];
-    }
+    for (var i = 0; i < n; ++i) copy[i] = arr[i];
     return copy;
   }
   function spliceOne(list, index) {
-    for (; index + 1 < list.length; index++) {
-      list[index] = list[index + 1];
-    }
+    for (; index + 1 < list.length; index++) list[index] = list[index + 1];
     list.pop();
   }
   function unwrapListeners(arr) {
@@ -869,7 +835,7 @@
     }
     return ret;
   }
-  function once(emitter, name) {
+  function once$1(emitter, name) {
     return new Promise(function (resolve, reject) {
       function errorListener(err) {
         emitter.removeListener(name, resolver);
@@ -1137,6 +1103,7 @@
   if (Buffer$1.TYPED_ARRAY_SUPPORT) {
     Buffer$1.prototype.__proto__ = Uint8Array.prototype;
     Buffer$1.__proto__ = Uint8Array;
+    if (typeof Symbol !== 'undefined' && Symbol.species && Buffer$1[Symbol.species] === Buffer$1) ;
   }
   function assertSize(size) {
     if (typeof size !== 'number') {
@@ -2519,9 +2486,83 @@
   Item.prototype.run = function () {
     this.fun.apply(null, this.array);
   };
+  var title = 'browser';
+  var platform = 'browser';
+  var browser = true;
+  var env = {};
+  var argv = [];
+  var version = '';
+  var versions = {};
+  var release = {};
+  var config = {};
+  function noop() {}
+  var on = noop;
+  var addListener = noop;
+  var once = noop;
+  var off = noop;
+  var removeListener = noop;
+  var removeAllListeners = noop;
+  var emit = noop;
+  function binding(name) {
+    throw new Error('process.binding is not supported');
+  }
+  function cwd() {
+    return '/';
+  }
+  function chdir(dir) {
+    throw new Error('process.chdir is not supported');
+  }
+  function umask() {
+    return 0;
+  }
   var performance = global$1.performance || {};
-  performance.now || performance.mozNow || performance.msNow || performance.oNow || performance.webkitNow || function () {
+  var performanceNow = performance.now || performance.mozNow || performance.msNow || performance.oNow || performance.webkitNow || function () {
     return new Date().getTime();
+  };
+  function hrtime(previousTimestamp) {
+    var clocktime = performanceNow.call(performance) * 1e-3;
+    var seconds = Math.floor(clocktime);
+    var nanoseconds = Math.floor(clocktime % 1 * 1e9);
+    if (previousTimestamp) {
+      seconds = seconds - previousTimestamp[0];
+      nanoseconds = nanoseconds - previousTimestamp[1];
+      if (nanoseconds < 0) {
+        seconds--;
+        nanoseconds += 1e9;
+      }
+    }
+    return [seconds, nanoseconds];
+  }
+  var startTime = new Date();
+  function uptime() {
+    var currentTime = new Date();
+    var dif = currentTime - startTime;
+    return dif / 1000;
+  }
+  var process = {
+    nextTick: nextTick,
+    title: title,
+    browser: browser,
+    env: env,
+    argv: argv,
+    version: version,
+    versions: versions,
+    on: on,
+    addListener: addListener,
+    once: once,
+    off: off,
+    removeListener: removeListener,
+    removeAllListeners: removeAllListeners,
+    emit: emit,
+    binding: binding,
+    cwd: cwd,
+    chdir: chdir,
+    umask: umask,
+    hrtime: hrtime,
+    platform: platform,
+    release: release,
+    config: config,
+    uptime: uptime
   };
 
   var hasFetch = isFunction$1(global$1.fetch) && isFunction$1(global$1.ReadableStream);
@@ -2592,7 +2633,7 @@
     if (!isString$1(f)) {
       var objects = [];
       for (var i = 0; i < arguments.length; i++) {
-        objects.push(inspect(arguments[i]));
+        objects.push(inspect$1(arguments[i]));
       }
       return objects.join(' ');
     }
@@ -2621,7 +2662,7 @@
       if (isNull(x) || !isObject(x)) {
         str += ' ' + x;
       } else {
-        str += ' ' + inspect(x);
+        str += ' ' + inspect$1(x);
       }
     }
     return str;
@@ -2632,10 +2673,17 @@
         return deprecate(fn, msg).apply(this, arguments);
       };
     }
+    if (process.noDeprecation === true) {
+      return fn;
+    }
     var warned = false;
     function deprecated() {
       if (!warned) {
-        {
+        if (process.throwDeprecation) {
+          throw new Error(msg);
+        } else if (process.traceDeprecation) {
+          console.trace(msg);
+        } else {
           console.error(msg);
         }
         warned = true;
@@ -2647,7 +2695,7 @@
   var debugs = {};
   var debugEnviron;
   function debuglog(set) {
-    if (isUndefined(debugEnviron)) debugEnviron = '';
+    if (isUndefined(debugEnviron)) debugEnviron = process.env.NODE_DEBUG || '';
     set = set.toUpperCase();
     if (!debugs[set]) {
       if (new RegExp('\\b' + set + '\\b', 'i').test(debugEnviron)) {
@@ -2662,7 +2710,7 @@
     }
     return debugs[set];
   }
-  function inspect(obj, opts) {
+  function inspect$1(obj, opts) {
     var ctx = {
       seen: [],
       stylize: stylizeNoColor
@@ -2681,7 +2729,7 @@
     if (ctx.colors) ctx.stylize = stylizeWithColor;
     return formatValue(ctx, obj, ctx.depth);
   }
-  inspect.colors = {
+  inspect$1.colors = {
     'bold': [1, 22],
     'italic': [3, 23],
     'underline': [4, 24],
@@ -2696,7 +2744,7 @@
     'red': [31, 39],
     'yellow': [33, 39]
   };
-  inspect.styles = {
+  inspect$1.styles = {
     'special': 'cyan',
     'number': 'yellow',
     'boolean': 'yellow',
@@ -2707,9 +2755,9 @@
     'regexp': 'red'
   };
   function stylizeWithColor(str, styleType) {
-    var style = inspect.styles[styleType];
+    var style = inspect$1.styles[styleType];
     if (style) {
-      return "\x1B[" + inspect.colors[style][0] + 'm' + str + "\x1B[" + inspect.colors[style][1] + 'm';
+      return "\x1B[" + inspect$1.colors[style][0] + 'm' + str + "\x1B[" + inspect$1.colors[style][1] + 'm';
     } else {
       return str;
     }
@@ -2725,7 +2773,7 @@
     return hash;
   }
   function formatValue(ctx, value, recurseTimes) {
-    if (ctx.customInspect && value && isFunction(value.inspect) && value.inspect !== inspect && !(value.constructor && value.constructor.prototype === value)) {
+    if (ctx.customInspect && value && isFunction(value.inspect) && value.inspect !== inspect$1 && !(value.constructor && value.constructor.prototype === value)) {
       var ret = value.inspect(recurseTimes, ctx);
       if (!isString$1(ret)) {
         ret = formatValue(ctx, ret, recurseTimes);
@@ -2760,8 +2808,8 @@
       }
     }
     var base = '',
-        array = false,
-        braces = ['{', '}'];
+      array = false,
+      braces = ['{', '}'];
     if (isArray$5(value)) {
       array = true;
       braces = ['[', ']'];
@@ -4491,9 +4539,7 @@
           var newData = response.substr(self._pos);
           if (self._charset === 'x-user-defined') {
             var buffer = new Buffer$1(newData.length);
-            for (var i = 0; i < newData.length; i++) {
-              buffer[i] = newData.charCodeAt(i) & 0xff;
-            }
+            for (var i = 0; i < newData.length; i++) buffer[i] = newData.charCodeAt(i) & 0xff;
             self.push(buffer);
           } else {
             self.push(newData, self._charset);
@@ -4641,7 +4687,6 @@
         headers: headers,
         body: body,
         mode: 'cors',
-        referrerPolicy: 'unsafe-url',
         credentials: opts.withCredentials ? 'include' : 'same-origin'
       }).then(function (response) {
         self._fetchResponse = response;
@@ -4781,10 +4826,10 @@
   }
   function ucs2decode(string) {
     var output = [],
-        counter = 0,
-        length = string.length,
-        value,
-        extra;
+      counter = 0,
+      length = string.length,
+      value,
+      extra;
     while (counter < length) {
       value = string.charCodeAt(counter++);
       if (value >= 0xD800 && value <= 0xDBFF && counter < length) {
@@ -4815,21 +4860,21 @@
   }
   function encode$1(input) {
     var n,
-        delta,
-        handledCPCount,
-        basicLength,
-        bias,
-        j,
-        m,
-        q,
-        k,
-        t,
-        currentValue,
-        output = [],
-        inputLength,
-        handledCPCountPlusOne,
-        baseMinusT,
-        qMinusT;
+      delta,
+      handledCPCount,
+      basicLength,
+      bias,
+      j,
+      m,
+      q,
+      k,
+      t,
+      currentValue,
+      output = [],
+      inputLength,
+      handledCPCountPlusOne,
+      baseMinusT,
+      qMinusT;
     input = ucs2decode(input);
     inputLength = input.length;
     n = initialN;
@@ -4964,11 +5009,11 @@
     }
     for (var i = 0; i < len; ++i) {
       var x = qs[i].replace(regexp, '%20'),
-          idx = x.indexOf(eq),
-          kstr,
-          vstr,
-          k,
-          v;
+        idx = x.indexOf(eq),
+        kstr,
+        vstr,
+        k,
+        v;
       if (idx >= 0) {
         kstr = x.substr(0, idx);
         vstr = x.substr(idx + 1);
@@ -5004,36 +5049,36 @@
     this.href = null;
   }
   var protocolPattern = /^([a-z0-9.+-]+:)/i,
-      portPattern = /:[0-9]*$/,
-      simplePathPattern = /^(\/\/?(?!\/)[^\?\s]*)(\?[^\s]*)?$/,
-      delims = ['<', '>', '"', '`', ' ', '\r', '\n', '\t'],
-      unwise = ['{', '}', '|', '\\', '^', '`'].concat(delims),
-      autoEscape = ['\''].concat(unwise),
-      nonHostChars = ['%', '/', '?', ';', '#'].concat(autoEscape),
-      hostEndingChars = ['/', '?', '#'],
-      hostnameMaxLen = 255,
-      hostnamePartPattern = /^[+a-z0-9A-Z_-]{0,63}$/,
-      hostnamePartStart = /^([+a-z0-9A-Z_-]{0,63})(.*)$/,
-      unsafeProtocol = {
-    'javascript': true,
-    'javascript:': true
-  },
-      hostlessProtocol = {
-    'javascript': true,
-    'javascript:': true
-  },
-      slashedProtocol = {
-    'http': true,
-    'https': true,
-    'ftp': true,
-    'gopher': true,
-    'file': true,
-    'http:': true,
-    'https:': true,
-    'ftp:': true,
-    'gopher:': true,
-    'file:': true
-  };
+    portPattern = /:[0-9]*$/,
+    simplePathPattern = /^(\/\/?(?!\/)[^\?\s]*)(\?[^\s]*)?$/,
+    delims = ['<', '>', '"', '`', ' ', '\r', '\n', '\t'],
+    unwise = ['{', '}', '|', '\\', '^', '`'].concat(delims),
+    autoEscape = ['\''].concat(unwise),
+    nonHostChars = ['%', '/', '?', ';', '#'].concat(autoEscape),
+    hostEndingChars = ['/', '?', '#'],
+    hostnameMaxLen = 255,
+    hostnamePartPattern = /^[+a-z0-9A-Z_-]{0,63}$/,
+    hostnamePartStart = /^([+a-z0-9A-Z_-]{0,63})(.*)$/,
+    unsafeProtocol = {
+      'javascript': true,
+      'javascript:': true
+    },
+    hostlessProtocol = {
+      'javascript': true,
+      'javascript:': true
+    },
+    slashedProtocol = {
+      'http': true,
+      'https': true,
+      'ftp': true,
+      'gopher': true,
+      'file': true,
+      'http:': true,
+      'https:': true,
+      'ftp:': true,
+      'gopher:': true,
+      'file:': true
+    };
   function urlParse(url, parseQueryString, slashesDenoteHost) {
     if (url && isObject(url) && url instanceof Url) return url;
     var u = new Url();
@@ -5048,9 +5093,9 @@
       throw new TypeError('Parameter \'url\' must be a string, not ' + _typeof(url));
     }
     var queryIndex = url.indexOf('?'),
-        splitter = queryIndex !== -1 && queryIndex < url.indexOf('#') ? '?' : '#',
-        uSplit = url.split(splitter),
-        slashRegex = /\\/g;
+      splitter = queryIndex !== -1 && queryIndex < url.indexOf('#') ? '?' : '#',
+      uSplit = url.split(splitter),
+      slashRegex = /\\/g;
     uSplit[0] = uSplit[0].replace(slashRegex, '/');
     url = uSplit.join(splitter);
     var rest = url;
@@ -5216,10 +5261,10 @@
       auth += '@';
     }
     var protocol = self.protocol || '',
-        pathname = self.pathname || '',
-        hash = self.hash || '',
-        host = false,
-        query = '';
+      pathname = self.pathname || '',
+      hash = self.hash || '',
+      host = false,
+      query = '';
     if (self.host) {
       host = auth + self.host;
     } else if (self.hostname) {
@@ -5296,8 +5341,7 @@
       result.protocol = relative.protocol;
       if (!relative.host && !hostlessProtocol[relative.protocol]) {
         relPath = (relative.pathname || '').split('/');
-        while (relPath.length && !(relative.host = relPath.shift())) {
-        }
+        while (relPath.length && !(relative.host = relPath.shift()));
         if (!relative.host) relative.host = '';
         if (!relative.hostname) relative.hostname = '';
         if (relPath[0] !== '') relPath.unshift('');
@@ -5322,11 +5366,11 @@
       return result;
     }
     var isSourceAbs = result.pathname && result.pathname.charAt(0) === '/',
-        isRelAbs = relative.host || relative.pathname && relative.pathname.charAt(0) === '/',
-        mustEndAbs = isRelAbs || isSourceAbs || result.host && relative.pathname,
-        removeAllDots = mustEndAbs,
-        srcPath = result.pathname && result.pathname.split('/') || [],
-        psychotic = result.protocol && !slashedProtocol[result.protocol];
+      isRelAbs = relative.host || relative.pathname && relative.pathname.charAt(0) === '/',
+      mustEndAbs = isRelAbs || isSourceAbs || result.host && relative.pathname,
+      removeAllDots = mustEndAbs,
+      srcPath = result.pathname && result.pathname.split('/') || [],
+      psychotic = result.protocol && !slashedProtocol[result.protocol];
     relPath = relative.pathname && relative.pathname.split('/') || [];
     if (psychotic) {
       result.hostname = '';
@@ -5580,7 +5624,7 @@
   };
   function resolve() {
     var resolvedPath = '',
-        resolvedAbsolute = false;
+      resolvedAbsolute = false;
     for (var i = arguments.length - 1; i >= -1 && !resolvedAbsolute; i--) {
       var path = i >= 0 ? arguments[i] : '/';
       if (typeof path !== 'string') {
@@ -5598,7 +5642,7 @@
   }
   function normalize(path) {
     var isPathAbsolute = isAbsolute(path),
-        trailingSlash = substr(path, -1) === '/';
+      trailingSlash = substr(path, -1) === '/';
     path = normalizeArray(filter(path.split('/'), function (p) {
       return !!p;
     }), !isPathAbsolute).join('/');
@@ -5658,8 +5702,8 @@
   var delimiter = ':';
   function dirname(path) {
     var result = splitPath(path),
-        root = result[0],
-        dir = result[1];
+      root = result[0],
+      dir = result[1];
     if (!root && !dir) {
       return '.';
     }
@@ -6003,10 +6047,11 @@
     '%WeakMapPrototype%': ['WeakMap', 'prototype'],
     '%WeakSetPrototype%': ['WeakSet', 'prototype']
   };
-  var $concat = functionBind.call(Function.call, Array.prototype.concat);
+  var $concat$1 = functionBind.call(Function.call, Array.prototype.concat);
   var $spliceApply = functionBind.call(Function.apply, Array.prototype.splice);
-  var $replace = functionBind.call(Function.call, String.prototype.replace);
+  var $replace$1 = functionBind.call(Function.call, String.prototype.replace);
   var $strSlice = functionBind.call(Function.call, String.prototype.slice);
+  var $exec = functionBind.call(Function.call, RegExp.prototype.exec);
   var rePropName = /[^%.[\]]+|\[(?:(-?\d+(?:\.\d+)?)|(["'])((?:(?!\2)[^\\]|\\.)*?)\2)\]|(?=(?:\.|\[\])(?:\.|\[\]|%$))/g;
   var reEscapeChar = /\\(\\)?/g;
   var stringToPath = function stringToPath(string) {
@@ -6018,8 +6063,8 @@
       throw new $SyntaxError('invalid intrinsic syntax, expected opening `%`');
     }
     var result = [];
-    $replace(string, rePropName, function (match, number, quote, subString) {
-      result[result.length] = quote ? $replace(subString, reEscapeChar, '$1') : number || match;
+    $replace$1(string, rePropName, function (match, number, quote, subString) {
+      result[result.length] = quote ? $replace$1(subString, reEscapeChar, '$1') : number || match;
     });
     return result;
   };
@@ -6053,6 +6098,9 @@
     if (arguments.length > 1 && typeof allowMissing !== 'boolean') {
       throw new $TypeError$1('"allowMissing" argument must be a boolean');
     }
+    if ($exec(/^%?[^%]*%?$/, name) === null) {
+      throw new $SyntaxError('`%` may not be present anywhere but at the beginning and end of the intrinsic name');
+    }
     var parts = stringToPath(name);
     var intrinsicBaseName = parts.length > 0 ? parts[0] : '';
     var intrinsic = getBaseIntrinsic('%' + intrinsicBaseName + '%', allowMissing);
@@ -6062,7 +6110,7 @@
     var alias = intrinsic.alias;
     if (alias) {
       intrinsicBaseName = alias[0];
-      $spliceApply(parts, $concat([0, 1], alias));
+      $spliceApply(parts, $concat$1([0, 1], alias));
     }
     for (var i = 1, isOwn = true; i < parts.length; i += 1) {
       var part = parts[i];
@@ -6161,7 +6209,7 @@
     'default': _nodeResolve_empty
   });
 
-  var require$$0 = /*@__PURE__*/getAugmentedNamespace(_nodeResolve_empty$1);
+  var utilInspect = /*@__PURE__*/getAugmentedNamespace(_nodeResolve_empty$1);
 
   var hasMap = typeof Map === 'function' && Map.prototype;
   var mapSizeDescriptor = Object.getOwnPropertyDescriptor && hasMap ? Object.getOwnPropertyDescriptor(Map.prototype, 'size') : null;
@@ -6180,18 +6228,42 @@
   var booleanValueOf = Boolean.prototype.valueOf;
   var objectToString = Object.prototype.toString;
   var functionToString = Function.prototype.toString;
-  var match = String.prototype.match;
+  var $match = String.prototype.match;
+  var $slice = String.prototype.slice;
+  var $replace = String.prototype.replace;
+  var $toUpperCase = String.prototype.toUpperCase;
+  var $toLowerCase = String.prototype.toLowerCase;
+  var $test = RegExp.prototype.test;
+  var $concat = Array.prototype.concat;
+  var $join = Array.prototype.join;
+  var $arrSlice = Array.prototype.slice;
+  var $floor = Math.floor;
   var bigIntValueOf = typeof BigInt === 'function' ? BigInt.prototype.valueOf : null;
   var gOPS = Object.getOwnPropertySymbols;
   var symToString = typeof Symbol === 'function' && _typeof(Symbol.iterator) === 'symbol' ? Symbol.prototype.toString : null;
   var hasShammedSymbols = typeof Symbol === 'function' && _typeof(Symbol.iterator) === 'object';
+  var toStringTag = typeof Symbol === 'function' && Symbol.toStringTag && (_typeof(Symbol.toStringTag) === hasShammedSymbols ? 'object' : 'symbol') ? Symbol.toStringTag : null;
   var isEnumerable = Object.prototype.propertyIsEnumerable;
   var gPO = (typeof Reflect === 'function' ? Reflect.getPrototypeOf : Object.getPrototypeOf) || ([].__proto__ === Array.prototype ? function (O) {
     return O.__proto__;
   } : null);
-  var inspectCustom = require$$0.custom;
-  var inspectSymbol = inspectCustom && isSymbol(inspectCustom) ? inspectCustom : null;
-  var toStringTag = typeof Symbol === 'function' && typeof Symbol.toStringTag !== 'undefined' ? Symbol.toStringTag : null;
+  function addNumericSeparator(num, str) {
+    if (num === Infinity || num === -Infinity || num !== num || num && num > -1000 && num < 1000 || $test.call(/e/, str)) {
+      return str;
+    }
+    var sepRegex = /[0-9](?=(?:[0-9]{3})+(?![0-9]))/g;
+    if (typeof num === 'number') {
+      var _int = num < 0 ? -$floor(-num) : $floor(num);
+      if (_int !== num) {
+        var intStr = String(_int);
+        var dec = $slice.call(str, intStr.length + 1);
+        return $replace.call(intStr, sepRegex, '$&_') + '.' + $replace.call($replace.call(dec, /([0-9]{3})/g, '$&_'), /_$/, '');
+      }
+    }
+    return $replace.call(str, sepRegex, '$&_');
+  }
+  var inspectCustom = utilInspect.custom;
+  var inspectSymbol = isSymbol(inspectCustom) ? inspectCustom : null;
   var objectInspect = function inspect_(obj, options, depth, seen) {
     var opts = options || {};
     if (has$3(opts, 'quoteStyle') && opts.quoteStyle !== 'single' && opts.quoteStyle !== 'double') {
@@ -6201,12 +6273,16 @@
       throw new TypeError('option "maxStringLength", if provided, must be a positive integer, Infinity, or `null`');
     }
     var customInspect = has$3(opts, 'customInspect') ? opts.customInspect : true;
-    if (typeof customInspect !== 'boolean') {
-      throw new TypeError('option "customInspect", if provided, must be `true` or `false`');
+    if (typeof customInspect !== 'boolean' && customInspect !== 'symbol') {
+      throw new TypeError('option "customInspect", if provided, must be `true`, `false`, or `\'symbol\'`');
     }
     if (has$3(opts, 'indent') && opts.indent !== null && opts.indent !== '\t' && !(parseInt(opts.indent, 10) === opts.indent && opts.indent > 0)) {
-      throw new TypeError('options "indent" must be "\\t", an integer > 0, or `null`');
+      throw new TypeError('option "indent" must be "\\t", an integer > 0, or `null`');
     }
+    if (has$3(opts, 'numericSeparator') && typeof opts.numericSeparator !== 'boolean') {
+      throw new TypeError('option "numericSeparator", if provided, must be `true` or `false`');
+    }
+    var numericSeparator = opts.numericSeparator;
     if (typeof obj === 'undefined') {
       return 'undefined';
     }
@@ -6223,10 +6299,12 @@
       if (obj === 0) {
         return Infinity / obj > 0 ? '0' : '-0';
       }
-      return String(obj);
+      var str = String(obj);
+      return numericSeparator ? addNumericSeparator(obj, str) : str;
     }
     if (typeof obj === 'bigint') {
-      return String(obj) + 'n';
+      var bigIntStr = String(obj) + 'n';
+      return numericSeparator ? addNumericSeparator(obj, bigIntStr) : bigIntStr;
     }
     var maxDepth = typeof opts.depth === 'undefined' ? 5 : opts.depth;
     if (typeof depth === 'undefined') {
@@ -6243,7 +6321,7 @@
     }
     function inspect(value, from, noIndent) {
       if (from) {
-        seen = seen.slice();
+        seen = $arrSlice.call(seen);
         seen.push(from);
       }
       if (noIndent) {
@@ -6257,17 +6335,17 @@
       }
       return inspect_(value, opts, depth + 1, seen);
     }
-    if (typeof obj === 'function') {
+    if (typeof obj === 'function' && !isRegExp$1(obj)) {
       var name = nameOf(obj);
       var keys = arrObjKeys(obj, inspect);
-      return '[Function' + (name ? ': ' + name : ' (anonymous)') + ']' + (keys.length > 0 ? ' { ' + keys.join(', ') + ' }' : '');
+      return '[Function' + (name ? ': ' + name : ' (anonymous)') + ']' + (keys.length > 0 ? ' { ' + $join.call(keys, ', ') + ' }' : '');
     }
     if (isSymbol(obj)) {
-      var symString = hasShammedSymbols ? String(obj).replace(/^(Symbol\(.*\))_[^)]*$/, '$1') : symToString.call(obj);
+      var symString = hasShammedSymbols ? $replace.call(String(obj), /^(Symbol\(.*\))_[^)]*$/, '$1') : symToString.call(obj);
       return _typeof(obj) === 'object' && !hasShammedSymbols ? markBoxed(symString) : symString;
     }
     if (isElement(obj)) {
-      var s = '<' + String(obj.nodeName).toLowerCase();
+      var s = '<' + $toLowerCase.call(String(obj.nodeName));
       var attrs = obj.attributes || [];
       for (var i = 0; i < attrs.length; i++) {
         s += ' ' + attrs[i].name + '=' + wrapQuotes(quote(attrs[i].value), 'double', opts);
@@ -6276,7 +6354,7 @@
       if (obj.childNodes && obj.childNodes.length) {
         s += '...';
       }
-      s += '</' + String(obj.nodeName).toLowerCase() + '>';
+      s += '</' + $toLowerCase.call(String(obj.nodeName)) + '>';
       return s;
     }
     if (isArray$3(obj)) {
@@ -6287,34 +6365,43 @@
       if (indent && !singleLineValues(xs)) {
         return '[' + indentedJoin(xs, indent) + ']';
       }
-      return '[ ' + xs.join(', ') + ' ]';
+      return '[ ' + $join.call(xs, ', ') + ' ]';
     }
     if (isError(obj)) {
       var parts = arrObjKeys(obj, inspect);
+      if (!('cause' in Error.prototype) && 'cause' in obj && !isEnumerable.call(obj, 'cause')) {
+        return '{ [' + String(obj) + '] ' + $join.call($concat.call('[cause]: ' + inspect(obj.cause), parts), ', ') + ' }';
+      }
       if (parts.length === 0) {
         return '[' + String(obj) + ']';
       }
-      return '{ [' + String(obj) + '] ' + parts.join(', ') + ' }';
+      return '{ [' + String(obj) + '] ' + $join.call(parts, ', ') + ' }';
     }
     if (_typeof(obj) === 'object' && customInspect) {
-      if (inspectSymbol && typeof obj[inspectSymbol] === 'function') {
-        return obj[inspectSymbol]();
-      } else if (typeof obj.inspect === 'function') {
+      if (inspectSymbol && typeof obj[inspectSymbol] === 'function' && utilInspect) {
+        return utilInspect(obj, {
+          depth: maxDepth - depth
+        });
+      } else if (customInspect !== 'symbol' && typeof obj.inspect === 'function') {
         return obj.inspect();
       }
     }
     if (isMap(obj)) {
       var mapParts = [];
-      mapForEach.call(obj, function (value, key) {
-        mapParts.push(inspect(key, obj, true) + ' => ' + inspect(value, obj));
-      });
+      if (mapForEach) {
+        mapForEach.call(obj, function (value, key) {
+          mapParts.push(inspect(key, obj, true) + ' => ' + inspect(value, obj));
+        });
+      }
       return collectionOf('Map', mapSize.call(obj), mapParts, indent);
     }
     if (isSet(obj)) {
       var setParts = [];
-      setForEach.call(obj, function (value) {
-        setParts.push(inspect(value, obj));
-      });
+      if (setForEach) {
+        setForEach.call(obj, function (value) {
+          setParts.push(inspect(value, obj));
+        });
+      }
       return collectionOf('Set', setSize.call(obj), setParts, indent);
     }
     if (isWeakMap(obj)) {
@@ -6342,16 +6429,16 @@
       var ys = arrObjKeys(obj, inspect);
       var isPlainObject = gPO ? gPO(obj) === Object.prototype : obj instanceof Object || obj.constructor === Object;
       var protoTag = obj instanceof Object ? '' : 'null prototype';
-      var stringTag = !isPlainObject && toStringTag && Object(obj) === obj && toStringTag in obj ? toStr(obj).slice(8, -1) : protoTag ? 'Object' : '';
+      var stringTag = !isPlainObject && toStringTag && Object(obj) === obj && toStringTag in obj ? $slice.call(toStr(obj), 8, -1) : protoTag ? 'Object' : '';
       var constructorTag = isPlainObject || typeof obj.constructor !== 'function' ? '' : obj.constructor.name ? obj.constructor.name + ' ' : '';
-      var tag = constructorTag + (stringTag || protoTag ? '[' + [].concat(stringTag || [], protoTag || []).join(': ') + '] ' : '');
+      var tag = constructorTag + (stringTag || protoTag ? '[' + $join.call($concat.call([], stringTag || [], protoTag || []), ': ') + '] ' : '');
       if (ys.length === 0) {
         return tag + '{}';
       }
       if (indent) {
         return tag + '{' + indentedJoin(ys, indent) + '}';
       }
-      return tag + '{ ' + ys.join(', ') + ' }';
+      return tag + '{ ' + $join.call(ys, ', ') + ' }';
     }
     return String(obj);
   };
@@ -6360,7 +6447,7 @@
     return quoteChar + s + quoteChar;
   }
   function quote(s) {
-    return String(s).replace(/"/g, '&quot;');
+    return $replace.call(String(s), /"/g, '&quot;');
   }
   function isArray$3(obj) {
     return toStr(obj) === '[object Array]' && (!toStringTag || !(_typeof(obj) === 'object' && toStringTag in obj));
@@ -6422,7 +6509,7 @@
     if (f.name) {
       return f.name;
     }
-    var m = match.call(functionToString.call(f), /^function\s*([\w$]+)/);
+    var m = $match.call(functionToString.call(f), /^function\s*([\w$]+)/);
     if (m) {
       return m[1];
     }
@@ -6522,9 +6609,9 @@
     if (str.length > opts.maxStringLength) {
       var remaining = str.length - opts.maxStringLength;
       var trailer = '... ' + remaining + ' more character' + (remaining > 1 ? 's' : '');
-      return inspectString(str.slice(0, opts.maxStringLength), opts) + trailer;
+      return inspectString($slice.call(str, 0, opts.maxStringLength), opts) + trailer;
     }
-    var s = str.replace(/(['\\])/g, '\\$1').replace(/[\x00-\x1f]/g, lowbyte);
+    var s = $replace.call($replace.call(str, /(['\\])/g, '\\$1'), /[\x00-\x1f]/g, lowbyte);
     return wrapQuotes(s, 'single', opts);
   }
   function lowbyte(c) {
@@ -6539,7 +6626,7 @@
     if (x) {
       return '\\' + x;
     }
-    return '\\x' + (n < 0x10 ? '0' : '') + n.toString(16).toUpperCase();
+    return '\\x' + (n < 0x10 ? '0' : '') + $toUpperCase.call(n.toString(16));
   }
   function markBoxed(str) {
     return 'Object(' + str + ')';
@@ -6548,7 +6635,7 @@
     return type + ' { ? }';
   }
   function collectionOf(type, size, entries, indent) {
-    var joinedEntries = indent ? indentedJoin(entries, indent) : entries.join(', ');
+    var joinedEntries = indent ? indentedJoin(entries, indent) : $join.call(entries, ', ');
     return type + ' (' + size + ') {' + joinedEntries + '}';
   }
   function singleLineValues(xs) {
@@ -6564,13 +6651,13 @@
     if (opts.indent === '\t') {
       baseIndent = '\t';
     } else if (typeof opts.indent === 'number' && opts.indent > 0) {
-      baseIndent = Array(opts.indent + 1).join(' ');
+      baseIndent = $join.call(Array(opts.indent + 1), ' ');
     } else {
       return null;
     }
     return {
       base: baseIndent,
-      prev: Array(depth + 1).join(baseIndent)
+      prev: $join.call(Array(depth + 1), baseIndent)
     };
   }
   function indentedJoin(xs, indent) {
@@ -6578,7 +6665,7 @@
       return '';
     }
     var lineJoiner = '\n' + indent.prev + indent.base;
-    return lineJoiner + xs.join(',' + lineJoiner) + '\n' + indent.prev;
+    return lineJoiner + $join.call(xs, ',' + lineJoiner) + '\n' + indent.prev;
   }
   function arrObjKeys(obj, inspect) {
     var isArr = isArray$3(obj);
@@ -6606,7 +6693,7 @@
       }
       if (hasShammedSymbols && symMap['$' + key] instanceof Symbol) {
         continue;
-      } else if (/[^\w$]/.test(key)) {
+      } else if ($test.call(/[^\w$]/, key)) {
         xs.push(inspect(key, obj) + ': ' + inspect(obj[key], obj));
       } else {
         xs.push(key + ': ' + inspect(obj[key], obj));
@@ -6621,6 +6708,8 @@
     }
     return xs;
   }
+
+  var inspect = objectInspect;
 
   var $TypeError = getIntrinsic('%TypeError%');
   var $WeakMap = getIntrinsic('%WeakMap%', true);
@@ -6667,7 +6756,7 @@
     var channel = {
       assert: function assert(key) {
         if (!channel.has(key)) {
-          throw new $TypeError('Side channel does not contain ' + objectInspect(key));
+          throw new $TypeError('Side channel does not contain ' + inspect(key));
         }
       },
       get: function get(key) {
@@ -6960,6 +7049,7 @@
     }
   };
   var isArray$1 = Array.isArray;
+  var split = String.prototype.split;
   var push = Array.prototype.push;
   var pushToArray = function pushToArray(arr, valueOrArray) {
     push.apply(arr, isArray$1(valueOrArray) ? valueOrArray : [valueOrArray]);
@@ -6987,10 +7077,25 @@
   var isNonNullishPrimitive = function isNonNullishPrimitive(v) {
     return typeof v === 'string' || typeof v === 'number' || typeof v === 'boolean' || _typeof(v) === 'symbol' || typeof v === 'bigint';
   };
-  var stringify = function stringify(object, prefix, generateArrayPrefix, strictNullHandling, skipNulls, encoder, filter, sort, allowDots, serializeDate, format, formatter, encodeValuesOnly, charset, sideChannel$1) {
+  var sentinel = {};
+  var stringify = function stringify(object, prefix, generateArrayPrefix, commaRoundTrip, strictNullHandling, skipNulls, encoder, filter, sort, allowDots, serializeDate, format, formatter, encodeValuesOnly, charset, sideChannel$1) {
     var obj = object;
-    if (sideChannel$1.has(object)) {
-      throw new RangeError('Cyclic object value');
+    var tmpSc = sideChannel$1;
+    var step = 0;
+    var findFlag = false;
+    while ((tmpSc = tmpSc.get(sentinel)) !== void undefined && !findFlag) {
+      var pos = tmpSc.get(object);
+      step += 1;
+      if (typeof pos !== 'undefined') {
+        if (pos === step) {
+          throw new RangeError('Cyclic object value');
+        } else {
+          findFlag = true;
+        }
+      }
+      if (typeof tmpSc.get(sentinel) === 'undefined') {
+        step = 0;
+      }
     }
     if (typeof filter === 'function') {
       obj = filter(prefix, obj);
@@ -7013,6 +7118,14 @@
     if (isNonNullishPrimitive(obj) || utils.isBuffer(obj)) {
       if (encoder) {
         var keyValue = encodeValuesOnly ? prefix : encoder(prefix, defaults$1.encoder, charset, 'key', format);
+        if (generateArrayPrefix === 'comma' && encodeValuesOnly) {
+          var valuesArray = split.call(String(obj), ',');
+          var valuesJoined = '';
+          for (var i = 0; i < valuesArray.length; ++i) {
+            valuesJoined += (i === 0 ? '' : ',') + formatter(encoder(valuesArray[i], defaults$1.encoder, charset, 'value', format));
+          }
+          return [formatter(keyValue) + (commaRoundTrip && isArray$1(obj) && valuesArray.length === 1 ? '[]' : '') + '=' + valuesJoined];
+        }
         return [formatter(keyValue) + '=' + formatter(encoder(obj, defaults$1.encoder, charset, 'value', format))];
       }
       return [formatter(prefix) + '=' + formatter(String(obj))];
@@ -7024,7 +7137,7 @@
     var objKeys;
     if (generateArrayPrefix === 'comma' && isArray$1(obj)) {
       objKeys = [{
-        value: obj.length > 0 ? obj.join(',') || null : undefined
+        value: obj.length > 0 ? obj.join(',') || null : void undefined
       }];
     } else if (isArray$1(filter)) {
       objKeys = filter;
@@ -7032,16 +7145,18 @@
       var keys = Object.keys(obj);
       objKeys = sort ? keys.sort(sort) : keys;
     }
-    for (var i = 0; i < objKeys.length; ++i) {
-      var key = objKeys[i];
-      var value = _typeof(key) === 'object' && key.value !== undefined ? key.value : obj[key];
+    var adjustedPrefix = commaRoundTrip && isArray$1(obj) && obj.length === 1 ? prefix + '[]' : prefix;
+    for (var j = 0; j < objKeys.length; ++j) {
+      var key = objKeys[j];
+      var value = _typeof(key) === 'object' && typeof key.value !== 'undefined' ? key.value : obj[key];
       if (skipNulls && value === null) {
         continue;
       }
-      var keyPrefix = isArray$1(obj) ? typeof generateArrayPrefix === 'function' ? generateArrayPrefix(prefix, key) : prefix : prefix + (allowDots ? '.' + key : '[' + key + ']');
-      sideChannel$1.set(object, true);
+      var keyPrefix = isArray$1(obj) ? typeof generateArrayPrefix === 'function' ? generateArrayPrefix(adjustedPrefix, key) : adjustedPrefix : adjustedPrefix + (allowDots ? '.' + key : '[' + key + ']');
+      sideChannel$1.set(object, step);
       var valueSideChannel = sideChannel();
-      pushToArray(values, stringify(value, keyPrefix, generateArrayPrefix, strictNullHandling, skipNulls, encoder, filter, sort, allowDots, serializeDate, format, formatter, encodeValuesOnly, charset, valueSideChannel));
+      valueSideChannel.set(sentinel, sideChannel$1);
+      pushToArray(values, stringify(value, keyPrefix, generateArrayPrefix, commaRoundTrip, strictNullHandling, skipNulls, encoder, filter, sort, allowDots, serializeDate, format, formatter, encodeValuesOnly, charset, valueSideChannel));
     }
     return values;
   };
@@ -7049,7 +7164,7 @@
     if (!opts) {
       return defaults$1;
     }
-    if (opts.encoder !== null && opts.encoder !== undefined && typeof opts.encoder !== 'function') {
+    if (opts.encoder !== null && typeof opts.encoder !== 'undefined' && typeof opts.encoder !== 'function') {
       throw new TypeError('Encoder has to be a function.');
     }
     var charset = opts.charset || defaults$1.charset;
@@ -7111,6 +7226,10 @@
       arrayFormat = 'indices';
     }
     var generateArrayPrefix = arrayPrefixGenerators[arrayFormat];
+    if (opts && 'commaRoundTrip' in opts && typeof opts.commaRoundTrip !== 'boolean') {
+      throw new TypeError('`commaRoundTrip` must be a boolean, or absent');
+    }
+    var commaRoundTrip = generateArrayPrefix === 'comma' && opts && opts.commaRoundTrip;
     if (!objKeys) {
       objKeys = Object.keys(obj);
     }
@@ -7123,7 +7242,7 @@
       if (options.skipNulls && obj[key] === null) {
         continue;
       }
-      pushToArray(keys, stringify(obj[key], key, generateArrayPrefix, options.strictNullHandling, options.skipNulls, options.encode ? options.encoder : null, options.filter, options.sort, options.allowDots, options.serializeDate, options.format, options.formatter, options.encodeValuesOnly, options.charset, sideChannel$1));
+      pushToArray(keys, stringify(obj[key], key, generateArrayPrefix, commaRoundTrip, options.strictNullHandling, options.skipNulls, options.encode ? options.encoder : null, options.filter, options.sort, options.allowDots, options.serializeDate, options.format, options.formatter, options.encodeValuesOnly, options.charset, sideChannel$1));
     }
     var joined = keys.join(options.delimiter);
     var prefix = options.addQueryPrefix === true ? '?' : '';
@@ -7240,7 +7359,7 @@
         } else if (!isNaN(index) && root !== cleanRoot && String(index) === cleanRoot && index >= 0 && options.parseArrays && index <= options.arrayLimit) {
           obj = [];
           obj[index] = leaf;
-        } else {
+        } else if (cleanRoot !== '__proto__') {
           obj[cleanRoot] = leaf;
         }
       }
@@ -7510,9 +7629,10 @@
       }
     };
     function emitWarning(warning) {
-      {
+      if (typeof process.emitWarning !== 'function') {
         return console.warn("Swiftyper: ".concat(warning));
       }
+      return process.emitWarning(warning, 'Swiftyper');
     }
   });
 
@@ -7537,12 +7657,12 @@
     _createClass(SwiftyperError, null, [{
       key: "generate",
       value: function generate(rawSwiftyperError) {
-        switch (rawSwiftyperError.code) {
-          case "over_query_limit":
+        switch (rawSwiftyperError.type) {
+          case 'over_query_limit':
             return new SwiftyperQuotaError(rawSwiftyperError);
-          case "missing":
+          case 'missing':
             return new SwiftyperMissingError(rawSwiftyperError);
-          case "restricted":
+          case 'restricted':
             return new SwiftyperRestrictedError(rawSwiftyperError);
           case 'unexpected_parameter':
             return new SwiftyperUnexpectedParameterError(rawSwiftyperError);
@@ -7555,7 +7675,7 @@
           case 'invalid_api_key':
             return new SwiftyperInvalidApiKeyError(rawSwiftyperError);
           case 'rate_limit':
-            return new SwiftypeRateLimitError(rawSwiftyperError);
+            return new SwiftyperRateLimitError(rawSwiftyperError);
           default:
             return new GenericError({
               message: 'Unknown Error'
@@ -7572,7 +7692,7 @@
       _classCallCheck(this, GenericError);
       return _super2.apply(this, arguments);
     }
-    return GenericError;
+    return _createClass(GenericError);
   }(SwiftyperError$1);
   var SwiftyperUnexpectedParameterError = function (_SwiftyperError2) {
     _inherits(SwiftyperUnexpectedParameterError, _SwiftyperError2);
@@ -7581,16 +7701,16 @@
       _classCallCheck(this, SwiftyperUnexpectedParameterError);
       return _super3.apply(this, arguments);
     }
-    return SwiftyperUnexpectedParameterError;
+    return _createClass(SwiftyperUnexpectedParameterError);
   }(SwiftyperError$1);
-  var SwiftypeRateLimitError = function (_SwiftyperError3) {
-    _inherits(SwiftypeRateLimitError, _SwiftyperError3);
-    var _super4 = _createSuper(SwiftypeRateLimitError);
-    function SwiftypeRateLimitError() {
-      _classCallCheck(this, SwiftypeRateLimitError);
+  var SwiftyperRateLimitError = function (_SwiftyperError3) {
+    _inherits(SwiftyperRateLimitError, _SwiftyperError3);
+    var _super4 = _createSuper(SwiftyperRateLimitError);
+    function SwiftyperRateLimitError() {
+      _classCallCheck(this, SwiftyperRateLimitError);
       return _super4.apply(this, arguments);
     }
-    return SwiftypeRateLimitError;
+    return _createClass(SwiftyperRateLimitError);
   }(SwiftyperError$1);
   var SwiftyperInvalidRequestError = function (_SwiftyperError4) {
     _inherits(SwiftyperInvalidRequestError, _SwiftyperError4);
@@ -7599,7 +7719,7 @@
       _classCallCheck(this, SwiftyperInvalidRequestError);
       return _super5.apply(this, arguments);
     }
-    return SwiftyperInvalidRequestError;
+    return _createClass(SwiftyperInvalidRequestError);
   }(SwiftyperError$1);
   var SwiftyperInvalidParameterError = function (_SwiftyperError5) {
     _inherits(SwiftyperInvalidParameterError, _SwiftyperError5);
@@ -7608,7 +7728,7 @@
       _classCallCheck(this, SwiftyperInvalidParameterError);
       return _super6.apply(this, arguments);
     }
-    return SwiftyperInvalidParameterError;
+    return _createClass(SwiftyperInvalidParameterError);
   }(SwiftyperError$1);
   var SwiftyperMissingParameterError = function (_SwiftyperError6) {
     _inherits(SwiftyperMissingParameterError, _SwiftyperError6);
@@ -7617,7 +7737,7 @@
       _classCallCheck(this, SwiftyperMissingParameterError);
       return _super7.apply(this, arguments);
     }
-    return SwiftyperMissingParameterError;
+    return _createClass(SwiftyperMissingParameterError);
   }(SwiftyperError$1);
   var SwiftyperInvalidApiKeyError = function (_SwiftyperError7) {
     _inherits(SwiftyperInvalidApiKeyError, _SwiftyperError7);
@@ -7626,7 +7746,7 @@
       _classCallCheck(this, SwiftyperInvalidApiKeyError);
       return _super8.apply(this, arguments);
     }
-    return SwiftyperInvalidApiKeyError;
+    return _createClass(SwiftyperInvalidApiKeyError);
   }(SwiftyperError$1);
   var SwiftyperAPIError$1 = function (_SwiftyperError8) {
     _inherits(SwiftyperAPIError, _SwiftyperError8);
@@ -7635,7 +7755,7 @@
       _classCallCheck(this, SwiftyperAPIError);
       return _super9.apply(this, arguments);
     }
-    return SwiftyperAPIError;
+    return _createClass(SwiftyperAPIError);
   }(SwiftyperError$1);
   var SwiftyperQuotaError = function (_SwiftyperError9) {
     _inherits(SwiftyperQuotaError, _SwiftyperError9);
@@ -7644,7 +7764,7 @@
       _classCallCheck(this, SwiftyperQuotaError);
       return _super10.apply(this, arguments);
     }
-    return SwiftyperQuotaError;
+    return _createClass(SwiftyperQuotaError);
   }(SwiftyperError$1);
   var SwiftyperMissingError = function (_SwiftyperError10) {
     _inherits(SwiftyperMissingError, _SwiftyperError10);
@@ -7653,7 +7773,7 @@
       _classCallCheck(this, SwiftyperMissingError);
       return _super11.apply(this, arguments);
     }
-    return SwiftyperMissingError;
+    return _createClass(SwiftyperMissingError);
   }(SwiftyperError$1);
   var SwiftyperRestrictedError = function (_SwiftyperError11) {
     _inherits(SwiftyperRestrictedError, _SwiftyperError11);
@@ -7662,7 +7782,7 @@
       _classCallCheck(this, SwiftyperRestrictedError);
       return _super12.apply(this, arguments);
     }
-    return SwiftyperRestrictedError;
+    return _createClass(SwiftyperRestrictedError);
   }(SwiftyperError$1);
   var SwiftyperConnectionError$1 = function (_SwiftyperError12) {
     _inherits(SwiftyperConnectionError, _SwiftyperError12);
@@ -7671,12 +7791,12 @@
       _classCallCheck(this, SwiftyperConnectionError);
       return _super13.apply(this, arguments);
     }
-    return SwiftyperConnectionError;
+    return _createClass(SwiftyperConnectionError);
   }(SwiftyperError$1);
   var generate = SwiftyperError$1.generate;
   var SwiftyperError_1 = SwiftyperError$1;
   var SwiftyperUnexpectedParameterError_1 = SwiftyperUnexpectedParameterError;
-  var SwiftypeRateLimitError_1 = SwiftypeRateLimitError;
+  var SwiftypeRateLimitError = SwiftyperRateLimitError;
   var SwiftyperInvalidApiKeyError_1 = SwiftyperInvalidApiKeyError;
   var SwiftyperInvalidParameterError_1 = SwiftyperInvalidParameterError;
   var SwiftyperAPIError_1 = SwiftyperAPIError$1;
@@ -7687,7 +7807,7 @@
     generate: generate,
     SwiftyperError: SwiftyperError_1,
     SwiftyperUnexpectedParameterError: SwiftyperUnexpectedParameterError_1,
-    SwiftypeRateLimitError: SwiftypeRateLimitError_1,
+    SwiftypeRateLimitError: SwiftypeRateLimitError,
     SwiftyperInvalidApiKeyError: SwiftyperInvalidApiKeyError_1,
     SwiftyperInvalidParameterError: SwiftyperInvalidParameterError_1,
     SwiftyperAPIError: SwiftyperAPIError_1,
@@ -7762,8 +7882,8 @@
       var emptyQuery = Object.keys(opts.queryData).length === 0;
       var path = [opts.requestPath, emptyQuery ? '' : '?', utils_1.stringifyRequestData(opts.queryData)].join('');
       var _opts = opts,
-          headers = _opts.headers,
-          settings = _opts.settings;
+        headers = _opts.headers,
+        settings = _opts.settings;
       self._request(opts.requestMethod, opts.host, path, opts.bodyData, opts.auth, {
         headers: headers,
         settings: settings
@@ -7772,7 +7892,7 @@
   }
   var makeRequest_1 = makeRequest;
 
-  function swiftyperMethod$2(spec) {
+  function swiftyperMethod$5(spec) {
     return function () {
       for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
         args[_key] = arguments[_key];
@@ -7782,15 +7902,15 @@
       return utils_1.callbackifyPromiseWithTimeout(makeRequest_1(this, args, spec, {}), callback);
     };
   }
-  var SwiftyperMethod = swiftyperMethod$2;
+  var SwiftyperMethod = swiftyperMethod$5;
 
   var https = /*@__PURE__*/getAugmentedNamespace(http$1);
 
   var path = /*@__PURE__*/getAugmentedNamespace(path$2);
 
   var SwiftyperConnectionError = _Error.SwiftyperConnectionError,
-      SwiftyperError = _Error.SwiftyperError,
-      SwiftyperAPIError = _Error.SwiftyperAPIError;
+    SwiftyperError = _Error.SwiftyperError,
+    SwiftyperAPIError = _Error.SwiftyperAPIError;
   var defaultHttpAgent = new https.Agent({
     keepAlive: true
   });
@@ -7942,7 +8062,7 @@
         var req = (isInsecureConnection ? https : https).request({
           host: host || _this2._swiftyper.getApiField('host'),
           port: _this2._swiftyper.getApiField('port'),
-          protocol: protocol + ":",
+          protocol: protocol + ':',
           path: path,
           method: method,
           agent: agent,
@@ -8005,67 +8125,129 @@
   };
   var SwiftyperResource_1 = SwiftyperResource;
 
-  var swiftyperMethod$1 = SwiftyperResource_1.method;
-  var Business = SwiftyperResource_1.extend({
-    path: 'business',
-    query: swiftyperMethod$1({
+  var swiftyperMethod$4 = SwiftyperResource_1.method;
+  var Translation = SwiftyperResource_1.extend({
+    path: 'intl/translations',
+    query: swiftyperMethod$4({
       method: 'POST',
       path: '/query'
     }),
-    identifier: swiftyperMethod$1({
+    translate: swiftyperMethod$4({
+      method: 'POST',
+      path: '/submit'
+    }),
+    upload: swiftyperMethod$4({
+      method: 'POST',
+      path: '/upload'
+    }),
+    vote: swiftyperMethod$4({
+      method: 'POST',
+      path: '/vote'
+    }),
+    raw: swiftyperMethod$4({
+      method: 'GET',
+      path: '/raw'
+    }),
+    variationGrid: swiftyperMethod$4({
+      method: 'POST',
+      path: '/variationGrid'
+    })
+  });
+
+  var swiftyperMethod$3 = SwiftyperResource_1.method;
+  var Business = SwiftyperResource_1.extend({
+    path: 'business',
+    query: swiftyperMethod$3({
+      method: 'POST',
+      path: '/query'
+    }),
+    identifier: swiftyperMethod$3({
       method: 'POST',
       path: '/identifier'
     }),
-    detail: swiftyperMethod$1({
+    detail: swiftyperMethod$3({
       method: 'POST',
       path: '/{business_id}'
     })
   });
 
-  var swiftyperMethod = SwiftyperResource_1.method;
-  var Places = SwiftyperResource_1.extend({
-    path: 'places',
-    query: swiftyperMethod({
+  var swiftyperMethod$2 = SwiftyperResource_1.method;
+  var Phrase = SwiftyperResource_1.extend({
+    path: 'intl/phrases',
+    query: swiftyperMethod$2({
       method: 'POST',
       path: '/query'
     }),
-    validate: swiftyperMethod({
+    upload: swiftyperMethod$2({
+      method: 'POST',
+      path: '/upload'
+    }),
+    raw: swiftyperMethod$2({
+      method: 'GET',
+      path: '/raw'
+    })
+  });
+
+  var swiftyperMethod$1 = SwiftyperResource_1.method;
+  var Places = SwiftyperResource_1.extend({
+    path: 'places',
+    query: swiftyperMethod$1({
+      method: 'POST',
+      path: '/query'
+    }),
+    validate: swiftyperMethod$1({
       method: 'POST',
       path: '/validate'
     }),
-    street: swiftyperMethod({
+    street: swiftyperMethod$1({
       method: 'POST',
       path: '/street'
     }),
-    municipality: swiftyperMethod({
+    municipality: swiftyperMethod$1({
       method: 'POST',
       path: '/municipality'
     }),
-    postal: swiftyperMethod({
+    postal: swiftyperMethod$1({
       method: 'POST',
       path: '/postal'
     }),
-    reverse: swiftyperMethod({
+    reverse: swiftyperMethod$1({
       method: 'POST',
       path: '/reverse'
     }),
-    regions: swiftyperMethod({
+    regions: swiftyperMethod$1({
       method: 'POST',
       path: '/regions'
     }),
-    counties: swiftyperMethod({
+    counties: swiftyperMethod$1({
       method: 'POST',
       path: '/counties'
     }),
-    detail: swiftyperMethod({
+    municipalities: swiftyperMethod$1({
+      method: 'POST',
+      path: '/municipalities'
+    }),
+    detail: swiftyperMethod$1({
       method: 'POST',
       path: '/{place_id}'
     })
   });
 
+  var swiftyperMethod = SwiftyperResource_1.method;
+  var Fbt = SwiftyperResource_1.extend({
+    path: 'intl/fbt',
+    init: swiftyperMethod({
+      method: 'POST',
+      path: '/initialize'
+    })
+  });
+
   var resources = {
+    Translations: Translation,
     Business: Business,
-    Places: Places
+    Phrases: Phrase,
+    Places: Places,
+    Fbt: Fbt
   };
 
   var DEFAULT_HOST = 'api.swiftyper.sk';
@@ -8205,11 +8387,11 @@
   var insertCss_2 = insertCss;
   insertCss_1.insertCss = insertCss_2;
 
-  var modernLight = ".swiftyper_wrapper {\n  position: relative;\n}\n\n#swiftyper {\n  height: 3rem;\n  width: 370px;\n  margin: 0;\n  padding: 0 2rem 0 3.2rem;\n  box-sizing: border-box;\n  -moz-box-sizing: border-box;\n  -webkit-box-sizing: border-box;\n  font-size: 1rem;\n  text-overflow: ellipsis;\n  color: rgba(255, 122, 122, 0.3);\n  outline: none;\n  border-radius: 10rem;\n  border: 0;\n  border: 0.05rem solid rgba(255, 122, 122, 0.5);\n  background-image: url(./images/search.svg);\n  background-size: 1.4rem;\n  background-position: left 1.05rem top 0.8rem;\n  background-repeat: no-repeat;\n  background-origin: border-box;\n  background-color: #fff;\n  transition: all 0.4s ease;\n  -webkit-transition: all -webkit-transform 0.4s ease;\n}\n\n#swiftyper::placeholder {\n  color: rgba(255, 122, 122, 0.5);\n  transition: all 0.3s ease;\n  -webkit-transition: all -webkit-transform 0.3s ease;\n}\n\n#swiftyper:hover::placeholder {\n  color: rgba(255, 122, 122, 0.6);\n  transition: all 0.3s ease;\n  -webkit-transition: all -webkit-transform 0.3s ease;\n}\n\n#swiftyper:focus::placeholder {\n  padding: 0.1rem 0.6rem;\n  font-size: 0.95rem;\n  color: rgba(255, 122, 122, 0.4);\n}\n\n#swiftyper:focus::selection {\n  background-color: rgba(255, 122, 122, 0.15);\n}\n\n#swiftyper::selection {\n  background-color: rgba(255, 122, 122, 0.15);\n}\n\n#swiftyper:hover {\n  color: rgba(255, 122, 122, 0.8);\n  transition: all 0.3s ease;\n  -webkit-transition: all -webkit-transform 0.3s ease;\n}\n\n#swiftyper:focus {\n  color: rgba(255, 122, 122, 1);\n  border: 0.06rem solid rgba(255, 122, 122, 0.8);\n}\n\n#swiftyper_list {\n  position: absolute;\n  top: 100%;\n  left: 0;\n  right: 0;\n  padding: 0;\n  margin-top: 5px;\n  border-radius: 0.6rem;\n  background-color: #fff;\n  box-shadow: 0 3px 6px rgba(149, 157, 165, 0.15);\n  border: 1px solid rgba(33, 33, 33, 0.07);\n  z-index: 1000;\n  outline: none;\n}\n\n.swiftyper_result, .swiftyper_footer {\n  margin: 0.3rem;\n  padding: 0.3rem 0.5rem;\n  list-style: none;\n  text-align: left;\n  font-size: 1rem;\n  color: #212121;\n  transition: all 0.1s ease-in-out;\n  border-radius: 0.35rem;\n  background-color: rgba(255, 255, 255, 1);\n  white-space: nowrap;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  transition: all 0.2s ease;\n}\n\n.swiftyper_footer svg {\n  display: inline-block;\n}\n\n.swiftyper_result::selection {\n  color: rgba(#ffffff, 0);\n  background-color: rgba(#ffffff, 0);\n}\n\n.swiftyper_result:hover {\n  cursor: pointer;\n  background: #e43a15;\n  background: -webkit-linear-gradient(to right, #e43a15, #e65245);\n  background: linear-gradient(to right, #e43a15, #e65245);\n}\n\n.swiftyper_result:hover * {\n  color: #ffffff!important;\n}\n\n.swiftyper_footer {\n  opacity: .8;\n  text-align: center;\n  padding: 0.2rem 0;\n  background: #ffffff!important;\n}\n\n.swiftyper_footer:hover {\n  opacity: 1;\n}\n\n#swiftyper_list .no_result {\n  margin: 0.3rem;\n  padding: 0.3rem 0.5rem;\n  list-style: none;\n  text-align: left;\n  font-size: 1rem;\n  color: #212121;\n  transition: all 0.1s ease-in-out;\n  border-radius: 0.35rem;\n  background-color: rgba(255, 255, 255, 1);\n  white-space: nowrap;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  transition: all 0.2s ease;\n  outline: none;\n}\n\n#swiftyper_list em {\n  font-style: normal;\n  font-weight: bold;\n}\n\n#swiftyper_list em::selection {\n  color: rgba(#ffffff, 0);\n  background-color: rgba(#ffffff, 0);\n}\n\n.swiftyper_selected {\n  cursor: pointer;\n  background-color: rgba(255, 122, 122, 0.15);\n}\n\n@media only screen and (max-width: 600px) {\n  #swiftyper {\n    width: 18rem;\n    background-size: 1.6rem;\n    background-position: left 1.1rem top 0.75rem;\n  }\n}\n\n@media screen and (-webkit-min-device-pixel-ratio: 0) {\n  #swiftyper {\n    border-width: 1px;\n  }\n}\n\n@-moz-document url-prefix() {\n  #swiftyper {\n    background-size: 1.2rem;\n    background-origin: border-box;\n    border-width: 1px;\n    background-position: left 1.1rem top 0.8rem;\n  }\n}\n";
+  var modernLight = ".swiftyper_wrapper {\r\n  position: relative;\r\n}\r\n\r\n#swiftyper {\r\n  height: 3rem;\r\n  width: 370px;\r\n  margin: 0;\r\n  padding: 0 2rem 0 3.2rem;\r\n  box-sizing: border-box;\r\n  -moz-box-sizing: border-box;\r\n  -webkit-box-sizing: border-box;\r\n  font-size: 1rem;\r\n  text-overflow: ellipsis;\r\n  color: rgba(255, 122, 122, 0.3);\r\n  outline: none;\r\n  border-radius: 10rem;\r\n  border: 0;\r\n  border: 0.05rem solid rgba(255, 122, 122, 0.5);\r\n  background-image: url(./images/search.svg);\r\n  background-size: 1.4rem;\r\n  background-position: left 1.05rem top 0.8rem;\r\n  background-repeat: no-repeat;\r\n  background-origin: border-box;\r\n  background-color: #fff;\r\n  transition: all 0.4s ease;\r\n  -webkit-transition: all -webkit-transform 0.4s ease;\r\n}\r\n\r\n#swiftyper::placeholder {\r\n  color: rgba(255, 122, 122, 0.5);\r\n  transition: all 0.3s ease;\r\n  -webkit-transition: all -webkit-transform 0.3s ease;\r\n}\r\n\r\n#swiftyper:hover::placeholder {\r\n  color: rgba(255, 122, 122, 0.6);\r\n  transition: all 0.3s ease;\r\n  -webkit-transition: all -webkit-transform 0.3s ease;\r\n}\r\n\r\n#swiftyper:focus::placeholder {\r\n  padding: 0.1rem 0.6rem;\r\n  font-size: 0.95rem;\r\n  color: rgba(255, 122, 122, 0.4);\r\n}\r\n\r\n#swiftyper:focus::selection {\r\n  background-color: rgba(255, 122, 122, 0.15);\r\n}\r\n\r\n#swiftyper::selection {\r\n  background-color: rgba(255, 122, 122, 0.15);\r\n}\r\n\r\n#swiftyper:hover {\r\n  color: rgba(255, 122, 122, 0.8);\r\n  transition: all 0.3s ease;\r\n  -webkit-transition: all -webkit-transform 0.3s ease;\r\n}\r\n\r\n#swiftyper:focus {\r\n  color: rgba(255, 122, 122, 1);\r\n  border: 0.06rem solid rgba(255, 122, 122, 0.8);\r\n}\r\n\r\n#swiftyper_list {\r\n  position: absolute;\r\n  top: 100%;\r\n  left: 0;\r\n  right: 0;\r\n  padding: 0;\r\n  margin-top: 5px;\r\n  border-radius: 0.6rem;\r\n  background-color: #fff;\r\n  box-shadow: 0 3px 6px rgba(149, 157, 165, 0.15);\r\n  border: 1px solid rgba(33, 33, 33, 0.07);\r\n  z-index: 1000;\r\n  outline: none;\r\n}\r\n\r\n.swiftyper_result, .swiftyper_footer {\r\n  margin: 0.3rem;\r\n  padding: 0.3rem 0.5rem;\r\n  list-style: none;\r\n  text-align: left;\r\n  font-size: 1rem;\r\n  color: #212121;\r\n  transition: all 0.1s ease-in-out;\r\n  border-radius: 0.35rem;\r\n  background-color: rgba(255, 255, 255, 1);\r\n  white-space: nowrap;\r\n  overflow: hidden;\r\n  text-overflow: ellipsis;\r\n  transition: all 0.2s ease;\r\n}\r\n\r\n.swiftyper_footer svg {\r\n  display: inline-block;\r\n}\r\n\r\n.swiftyper_result::selection {\r\n  color: rgba(#ffffff, 0);\r\n  background-color: rgba(#ffffff, 0);\r\n}\r\n\r\n.swiftyper_result:hover {\r\n  cursor: pointer;\r\n  background: #e43a15;\r\n  background: -webkit-linear-gradient(to right, #e43a15, #e65245);\r\n  background: linear-gradient(to right, #e43a15, #e65245);\r\n}\r\n\r\n.swiftyper_result:hover * {\r\n  color: #ffffff!important;\r\n}\r\n\r\n.swiftyper_footer {\r\n  opacity: .8;\r\n  text-align: center;\r\n  padding: 0.2rem 0;\r\n  background: #ffffff!important;\r\n}\r\n\r\n.swiftyper_footer:hover {\r\n  opacity: 1;\r\n}\r\n\r\n#swiftyper_list .no_result {\r\n  margin: 0.3rem;\r\n  padding: 0.3rem 0.5rem;\r\n  list-style: none;\r\n  text-align: left;\r\n  font-size: 1rem;\r\n  color: #212121;\r\n  transition: all 0.1s ease-in-out;\r\n  border-radius: 0.35rem;\r\n  background-color: rgba(255, 255, 255, 1);\r\n  white-space: nowrap;\r\n  overflow: hidden;\r\n  text-overflow: ellipsis;\r\n  transition: all 0.2s ease;\r\n  outline: none;\r\n}\r\n\r\n#swiftyper_list em {\r\n  font-style: normal;\r\n  font-weight: bold;\r\n}\r\n\r\n#swiftyper_list em::selection {\r\n  color: rgba(#ffffff, 0);\r\n  background-color: rgba(#ffffff, 0);\r\n}\r\n\r\n.swiftyper_selected {\r\n  cursor: pointer;\r\n  background-color: rgba(255, 122, 122, 0.15);\r\n}\r\n\r\n@media only screen and (max-width: 600px) {\r\n  #swiftyper {\r\n    width: 18rem;\r\n    background-size: 1.6rem;\r\n    background-position: left 1.1rem top 0.75rem;\r\n  }\r\n}\r\n\r\n@media screen and (-webkit-min-device-pixel-ratio: 0) {\r\n  #swiftyper {\r\n    border-width: 1px;\r\n  }\r\n}\r\n\r\n@-moz-document url-prefix() {\r\n  #swiftyper {\r\n    background-size: 1.2rem;\r\n    background-origin: border-box;\r\n    border-width: 1px;\r\n    background-position: left 1.1rem top 0.8rem;\r\n  }\r\n}\r\n";
 
-  var modernDark = ".swiftyper_wrapper {\n  position: relative;\n}\n\n#swiftyper {\n  width: 90%;\n  height: 40px;\n  padding-left: 20px;\n  font-size: 1rem;\n  color: rgba(123, 123, 123, 1);\n  border-radius: 8px;\n  border: 0;\n  outline: none;\n  background-color: #f1f3f4;\n}\n\n#swiftyper::placeholder {\n  color: rgba(123, 123, 123, 0.5);\n  transition: all 0.3s ease;\n}\n\n#swiftyper_list {\n  position: absolute;\n  top: 100%;\n  left: 0;\n  right: 0;\n  padding: 0;\n  margin: 5px 0;\n  border-radius: 0.6rem;\n  background-color: #fff;\n  box-shadow: 0 3px 6px rgba(149, 157, 165, 0.15);\n  border: 1px solid rgba(33, 33, 33, 0.07);\n  z-index: 1000;\n  outline: none;\n}\n\n.swiftyper_result, .swiftyper_footer {\n  margin: 0.3rem;\n  padding: 0.3rem 0.5rem;\n  list-style: none;\n  text-align: left;\n  font-size: 1rem;\n  color: #212121;\n  transition: all 0.1s ease-in-out;\n  border-radius: 0.35rem;\n  background-color: rgba(255, 255, 255, 1);\n  white-space: nowrap;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  transition: all 0.2s ease;\n}\n\n.swiftyper_footer svg {\n  display: inline-block;\n}\n\n.swiftyper_result::selection {\n  color: rgba(#ffffff, 0);\n  background-color: rgba(#ffffff, 0);\n}\n\n.swiftyper_result:hover {\n  cursor: pointer;\n  background-color: rgba(123, 123, 123, 0.1);\n}\n\n.swiftyper_footer {\n  opacity: .8;\n  text-align: center;\n  padding: 0.2rem 0;\n  background: #ffffff!important;\n}\n\n.swiftyper_footer:hover {\n  opacity: 1;\n}\n\n#swiftyper_list .no_result {\n  margin: 0.3rem;\n  padding: 0.3rem 0.5rem;\n  list-style: none;\n  text-align: left;\n  font-size: 1rem;\n  color: #212121;\n  transition: all 0.1s ease-in-out;\n  border-radius: 0.35rem;\n  background-color: rgba(255, 255, 255, 1);\n  white-space: nowrap;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  transition: all 0.2s ease;\n  outline: none;\n}\n\n#swiftyper_list em {\n  font-style: normal;\n  font-weight: bold;\n}\n\n#swiftyper_list em::selection {\n  color: rgba(#ffffff, 0);\n  background-color: rgba(#ffffff, 0);\n}\n\n.swiftyper_selected {\n  cursor: pointer;\n  background-color: rgba(123, 123, 123, 0.1);\n}\n\n@media only screen and (max-width: 600px) {\n  #swiftyper {\n    width: 18rem;\n    background-size: 1.6rem;\n    background-position: left 1.1rem top 0.75rem;\n  }\n}\n\n@media screen and (-webkit-min-device-pixel-ratio: 0) {\n  #swiftyper {\n    border-width: 1px;\n  }\n}\n\n@-moz-document url-prefix() {\n  #swiftyper {\n    background-size: 1.2rem;\n    background-origin: border-box;\n    border-width: 1px;\n    background-position: left 1.1rem top 0.8rem;\n  }\n}\n";
+  var modernDark = ".swiftyper_wrapper {\r\n  position: relative;\r\n}\r\n\r\n#swiftyper {\r\n  width: 90%;\r\n  height: 40px;\r\n  padding-left: 20px;\r\n  font-size: 1rem;\r\n  color: rgba(123, 123, 123, 1);\r\n  border-radius: 8px;\r\n  border: 0;\r\n  outline: none;\r\n  background-color: #f1f3f4;\r\n}\r\n\r\n#swiftyper::placeholder {\r\n  color: rgba(123, 123, 123, 0.5);\r\n  transition: all 0.3s ease;\r\n}\r\n\r\n#swiftyper_list {\r\n  position: absolute;\r\n  top: 100%;\r\n  left: 0;\r\n  right: 0;\r\n  padding: 0;\r\n  margin: 5px 0;\r\n  border-radius: 0.6rem;\r\n  background-color: #fff;\r\n  box-shadow: 0 3px 6px rgba(149, 157, 165, 0.15);\r\n  border: 1px solid rgba(33, 33, 33, 0.07);\r\n  z-index: 1000;\r\n  outline: none;\r\n}\r\n\r\n.swiftyper_result, .swiftyper_footer {\r\n  margin: 0.3rem;\r\n  padding: 0.3rem 0.5rem;\r\n  list-style: none;\r\n  text-align: left;\r\n  font-size: 1rem;\r\n  color: #212121;\r\n  transition: all 0.1s ease-in-out;\r\n  border-radius: 0.35rem;\r\n  background-color: rgba(255, 255, 255, 1);\r\n  white-space: nowrap;\r\n  overflow: hidden;\r\n  text-overflow: ellipsis;\r\n  transition: all 0.2s ease;\r\n}\r\n\r\n.swiftyper_footer svg {\r\n  display: inline-block;\r\n}\r\n\r\n.swiftyper_result::selection {\r\n  color: rgba(#ffffff, 0);\r\n  background-color: rgba(#ffffff, 0);\r\n}\r\n\r\n.swiftyper_result:hover {\r\n  cursor: pointer;\r\n  background-color: rgba(123, 123, 123, 0.1);\r\n}\r\n\r\n.swiftyper_footer {\r\n  opacity: .8;\r\n  text-align: center;\r\n  padding: 0.2rem 0;\r\n  background: #ffffff!important;\r\n}\r\n\r\n.swiftyper_footer:hover {\r\n  opacity: 1;\r\n}\r\n\r\n#swiftyper_list .no_result {\r\n  margin: 0.3rem;\r\n  padding: 0.3rem 0.5rem;\r\n  list-style: none;\r\n  text-align: left;\r\n  font-size: 1rem;\r\n  color: #212121;\r\n  transition: all 0.1s ease-in-out;\r\n  border-radius: 0.35rem;\r\n  background-color: rgba(255, 255, 255, 1);\r\n  white-space: nowrap;\r\n  overflow: hidden;\r\n  text-overflow: ellipsis;\r\n  transition: all 0.2s ease;\r\n  outline: none;\r\n}\r\n\r\n#swiftyper_list em {\r\n  font-style: normal;\r\n  font-weight: bold;\r\n}\r\n\r\n#swiftyper_list em::selection {\r\n  color: rgba(#ffffff, 0);\r\n  background-color: rgba(#ffffff, 0);\r\n}\r\n\r\n.swiftyper_selected {\r\n  cursor: pointer;\r\n  background-color: rgba(123, 123, 123, 0.1);\r\n}\r\n\r\n@media only screen and (max-width: 600px) {\r\n  #swiftyper {\r\n    width: 18rem;\r\n    background-size: 1.6rem;\r\n    background-position: left 1.1rem top 0.75rem;\r\n  }\r\n}\r\n\r\n@media screen and (-webkit-min-device-pixel-ratio: 0) {\r\n  #swiftyper {\r\n    border-width: 1px;\r\n  }\r\n}\r\n\r\n@-moz-document url-prefix() {\r\n  #swiftyper {\r\n    background-size: 1.2rem;\r\n    background-origin: border-box;\r\n    border-width: 1px;\r\n    background-position: left 1.1rem top 0.8rem;\r\n  }\r\n}\r\n";
 
-  var classic = ".swiftyper_wrapper {\n  position: relative;\n}\n\n#swiftyper {\n  width: 95%;\n  height: 40px;\n  padding-left: 10px;\n  font-size: 1rem;\n  color: rgb(116, 116, 116);\n  border-radius: 4px;\n  border: 1px solid rgba(33, 33, 33, 0.2);\n  outline: none;\n}\n\n#swiftyper::placeholder {\n  color: rgba(123, 123, 123, 0.5);\n  transition: all 0.3s ease;\n}\n\n#swiftyper_list {\n  position: absolute;\n  top: 100%;\n  left: 0;\n  right: 0;\n  padding: 0;\n  margin: 5px 0;\n  border-radius: 4px;\n  background-color: #fff;\n  border: 1px solid rgba(33, 33, 33, 0.1);\n  z-index: 1000;\n  outline: none;\n}\n\n.swiftyper_result, .swiftyper_footer {\n  padding: 10px 20px;\n  list-style: none;\n  text-align: left;\n  font-size: 16px;\n  color: #212121;\n  transition: all 0.1s ease-in-out;\n  background-color: rgba(255, 255, 255, 1);\n  white-space: nowrap;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  transition: all 0.2s ease;\n}\n\n.swiftyper_footer svg {\n  display: inline-block;\n}\n\n.swiftyper_result:first-child {\n  border-radius: 3px 3px 0 0;\n}\n\n.swiftyper_result + .swiftyper_result:last-child {\n  border-radius: 0 0 3px 3px;\n}\n\nbody .swiftyper_result:last-child {\n  border-radius: 3px;\n}\n\n.swiftyper_result::selection {\n  color: rgba(#ffffff, 0);\n  background-color: rgba(#ffffff, 0);\n}\n\n.swiftyper_result:hover {\n  cursor: pointer;\n  background-color: rgba(123, 123, 123, 0.1);\n}\n\n#swiftyper_list em {\n  font-style: normal;\n  font-weight: bold;\n}\n\n#swiftyper_list em::selection {\n  color: rgba(#ffffff, 0);\n  background-color: rgba(#ffffff, 0);\n}\n\n.swiftyper_footer {\n  opacity: .8;\n  text-align: center;\n  padding: 0.4rem 0 0.2rem 0;\n  background: #ffffff!important;\n}\n\n.swiftyper_footer:hover {\n  opacity: 1;\n}\n\n#swiftyper_list .no_result {\n  margin: 0.3rem;\n  padding: 0.3rem 0.5rem;\n  list-style: none;\n  text-align: left;\n  font-size: 1rem;\n  color: #212121;\n  transition: all 0.1s ease-in-out;\n  border-radius: 0.35rem;\n  background-color: rgba(255, 255, 255, 1);\n  white-space: nowrap;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  transition: all 0.2s ease;\n  outline: none;\n}\n\n.swiftyper_selected {\n  cursor: pointer;\n  background-color: rgba(123, 123, 123, 0.1);\n}\n\n@media only screen and (max-width: 600px) {\n  #swiftyper {\n    width: 18rem;\n    background-size: 1.6rem;\n    background-position: left 1.1rem top 0.75rem;\n  }\n}\n\n@media screen and (-webkit-min-device-pixel-ratio: 0) {\n  #swiftyper {\n    border-width: 1px;\n  }\n}\n\n@-moz-document url-prefix() {\n  #swiftyper {\n    background-size: 1.2rem;\n    background-origin: border-box;\n    border-width: 1px;\n    background-position: left 1.1rem top 0.8rem;\n  }\n}\n";
+  var classic = ".swiftyper_wrapper {\r\n  position: relative;\r\n}\r\n\r\n#swiftyper {\r\n  width: 95%;\r\n  height: 40px;\r\n  padding-left: 10px;\r\n  font-size: 1rem;\r\n  color: rgb(116, 116, 116);\r\n  border-radius: 4px;\r\n  border: 1px solid rgba(33, 33, 33, 0.2);\r\n  outline: none;\r\n}\r\n\r\n#swiftyper::placeholder {\r\n  color: rgba(123, 123, 123, 0.5);\r\n  transition: all 0.3s ease;\r\n}\r\n\r\n#swiftyper_list {\r\n  position: absolute;\r\n  top: 100%;\r\n  left: 0;\r\n  right: 0;\r\n  padding: 0;\r\n  margin: 5px 0;\r\n  border-radius: 4px;\r\n  background-color: #fff;\r\n  border: 1px solid rgba(33, 33, 33, 0.1);\r\n  z-index: 1000;\r\n  outline: none;\r\n}\r\n\r\n.swiftyper_result, .swiftyper_footer {\r\n  padding: 10px 20px;\r\n  list-style: none;\r\n  text-align: left;\r\n  font-size: 16px;\r\n  color: #212121;\r\n  transition: all 0.1s ease-in-out;\r\n  background-color: rgba(255, 255, 255, 1);\r\n  white-space: nowrap;\r\n  overflow: hidden;\r\n  text-overflow: ellipsis;\r\n  transition: all 0.2s ease;\r\n}\r\n\r\n.swiftyper_footer svg {\r\n  display: inline-block;\r\n}\r\n\r\n.swiftyper_result:first-child {\r\n  border-radius: 3px 3px 0 0;\r\n}\r\n\r\n.swiftyper_result + .swiftyper_result:last-child {\r\n  border-radius: 0 0 3px 3px;\r\n}\r\n\r\nbody .swiftyper_result:last-child {\r\n  border-radius: 3px;\r\n}\r\n\r\n.swiftyper_result::selection {\r\n  color: rgba(#ffffff, 0);\r\n  background-color: rgba(#ffffff, 0);\r\n}\r\n\r\n.swiftyper_result:hover {\r\n  cursor: pointer;\r\n  background-color: rgba(123, 123, 123, 0.1);\r\n}\r\n\r\n#swiftyper_list em {\r\n  font-style: normal;\r\n  font-weight: bold;\r\n}\r\n\r\n#swiftyper_list em::selection {\r\n  color: rgba(#ffffff, 0);\r\n  background-color: rgba(#ffffff, 0);\r\n}\r\n\r\n.swiftyper_footer {\r\n  opacity: .8;\r\n  text-align: center;\r\n  padding: 0.4rem 0 0.2rem 0;\r\n  background: #ffffff!important;\r\n}\r\n\r\n.swiftyper_footer:hover {\r\n  opacity: 1;\r\n}\r\n\r\n#swiftyper_list .no_result {\r\n  margin: 0.3rem;\r\n  padding: 0.3rem 0.5rem;\r\n  list-style: none;\r\n  text-align: left;\r\n  font-size: 1rem;\r\n  color: #212121;\r\n  transition: all 0.1s ease-in-out;\r\n  border-radius: 0.35rem;\r\n  background-color: rgba(255, 255, 255, 1);\r\n  white-space: nowrap;\r\n  overflow: hidden;\r\n  text-overflow: ellipsis;\r\n  transition: all 0.2s ease;\r\n  outline: none;\r\n}\r\n\r\n.swiftyper_selected {\r\n  cursor: pointer;\r\n  background-color: rgba(123, 123, 123, 0.1);\r\n}\r\n\r\n@media only screen and (max-width: 600px) {\r\n  #swiftyper {\r\n    width: 18rem;\r\n    background-size: 1.6rem;\r\n    background-position: left 1.1rem top 0.75rem;\r\n  }\r\n}\r\n\r\n@media screen and (-webkit-min-device-pixel-ratio: 0) {\r\n  #swiftyper {\r\n    border-width: 1px;\r\n  }\r\n}\r\n\r\n@-moz-document url-prefix() {\r\n  #swiftyper {\r\n    background-size: 1.2rem;\r\n    background-origin: border-box;\r\n    border-width: 1px;\r\n    background-position: left 1.1rem top 0.8rem;\r\n  }\r\n}\r\n";
 
   var themes = {
     'modern-light': modernLight,
@@ -8241,53 +8423,55 @@
       value: function configure(options) {
         var _this = this;
         var _Object$assign = Object.assign(this.options, options),
-            _Object$assign$select = _Object$assign.selectors,
-            selectors = _Object$assign$select === void 0 ? {
-          name: null,
-          cin: null,
-          tin: null,
-          vatin: null,
-          address: null,
-          street: null,
-          streetName: null,
-          streetNumber: null,
-          municipality: null,
-          postalCode: null,
-          country: null
-        } : _Object$assign$select,
-            _Object$assign$sugges = _Object$assign.suggestions,
-            suggestions = _Object$assign$sugges === void 0 ? ['name', 'cin'] : _Object$assign$sugges,
-            _Object$assign$endpoi = _Object$assign.endpoint,
-            endpoint = _Object$assign$endpoi === void 0 ? 'api.swiftyper.sk' : _Object$assign$endpoi,
-            _Object$assign$logo = _Object$assign.logo,
-            logo = _Object$assign$logo === void 0 ? true : _Object$assign$logo,
-            _Object$assign$nextFo = _Object$assign.nextFocus,
-            nextFocus = _Object$assign$nextFo === void 0 ? true : _Object$assign$nextFo,
-            apiKey = _Object$assign.apiKey,
-            _Object$assign$highli = _Object$assign.highlight,
-            highlight = _Object$assign$highli === void 0 ? true : _Object$assign$highli,
-            _Object$assign$showNo = _Object$assign.showNoResults,
-            showNoResults = _Object$assign$showNo === void 0 ? false : _Object$assign$showNo,
-            _Object$assign$events = _Object$assign.events,
-            events = _Object$assign$events === void 0 ? ['input'] : _Object$assign$events,
-            _Object$assign$countr = _Object$assign.country,
-            country = _Object$assign$countr === void 0 ? 'SK' : _Object$assign$countr,
-            active = _Object$assign.active,
-            _Object$assign$limit = _Object$assign.limit,
-            limit = _Object$assign$limit === void 0 ? 7 : _Object$assign$limit,
-            _Object$assign$deboun = _Object$assign.debounce,
-            debounce = _Object$assign$deboun === void 0 ? 300 : _Object$assign$deboun,
-            _Object$assign$minlen = _Object$assign.minlength,
-            minlength = _Object$assign$minlen === void 0 ? 1 : _Object$assign$minlen,
-            _Object$assign$theme = _Object$assign.theme,
-            theme = _Object$assign$theme === void 0 ? 'modern-light' : _Object$assign$theme,
-            _Object$assign$htmlAu = _Object$assign.htmlAutocomplete,
-            htmlAutocomplete = _Object$assign$htmlAu === void 0 ? false : _Object$assign$htmlAu,
-            _Object$assign$itemTe = _Object$assign.itemTemplate,
-            itemTemplate = _Object$assign$itemTe === void 0 ? function (suggestion, element) {
-          element.style = "display: flex; flex-direction: column;";
-          element.innerHTML = "\n        <span style=\"display: flex;flex-direction: row;justify-content: space-between\">\n          <span style=\"text-overflow: ellipsis; white-space: nowrap; overflow: hidden;".concat(suggestion.terminated_on ? 'text-decoration: line-through' : null, "\">\n              ").concat(_this.options.highlight ? suggestion.highlight : suggestion.name, "\n          </span>\n          <span style=\"display: flex; align-items: center; font-size: 13px; font-weight: 500; color: rgba(0,0,0,.7);\">\n              ").concat(suggestion.cin, "\n          </span>\n        </span>\n        <span style=\"display: flex; align-items: center; font-size: 13px; font-weight: 200; color: rgba(0,0,0,.5);\">\n            <span style=\"text-overflow: ellipsis; white-space: nowrap; overflow: hidden\">").concat(suggestion.formatted_address, "</span>\n        </span>");
-        } : _Object$assign$itemTe;
+          _Object$assign$select = _Object$assign.selectors,
+          selectors = _Object$assign$select === void 0 ? {
+            name: null,
+            cin: null,
+            tin: null,
+            vatin: null,
+            address: null,
+            street: null,
+            streetName: null,
+            streetNumber: null,
+            buildingNumber: null,
+            streetNumberParts: null,
+            municipality: null,
+            postalCode: null,
+            country: null
+          } : _Object$assign$select,
+          _Object$assign$sugges = _Object$assign.suggestions,
+          suggestions = _Object$assign$sugges === void 0 ? ['name', 'cin'] : _Object$assign$sugges,
+          _Object$assign$endpoi = _Object$assign.endpoint,
+          endpoint = _Object$assign$endpoi === void 0 ? 'api.swiftyper.sk' : _Object$assign$endpoi,
+          _Object$assign$logo = _Object$assign.logo,
+          logo = _Object$assign$logo === void 0 ? true : _Object$assign$logo,
+          _Object$assign$nextFo = _Object$assign.nextFocus,
+          nextFocus = _Object$assign$nextFo === void 0 ? true : _Object$assign$nextFo,
+          apiKey = _Object$assign.apiKey,
+          _Object$assign$highli = _Object$assign.highlight,
+          highlight = _Object$assign$highli === void 0 ? true : _Object$assign$highli,
+          _Object$assign$showNo = _Object$assign.showNoResults,
+          showNoResults = _Object$assign$showNo === void 0 ? false : _Object$assign$showNo,
+          _Object$assign$events = _Object$assign.events,
+          events = _Object$assign$events === void 0 ? ['input'] : _Object$assign$events,
+          _Object$assign$countr = _Object$assign.country,
+          country = _Object$assign$countr === void 0 ? 'SK' : _Object$assign$countr,
+          active = _Object$assign.active,
+          _Object$assign$limit = _Object$assign.limit,
+          limit = _Object$assign$limit === void 0 ? 7 : _Object$assign$limit,
+          _Object$assign$deboun = _Object$assign.debounce,
+          debounce = _Object$assign$deboun === void 0 ? 300 : _Object$assign$deboun,
+          _Object$assign$minlen = _Object$assign.minlength,
+          minlength = _Object$assign$minlen === void 0 ? 1 : _Object$assign$minlen,
+          _Object$assign$theme = _Object$assign.theme,
+          theme = _Object$assign$theme === void 0 ? 'modern-light' : _Object$assign$theme,
+          _Object$assign$htmlAu = _Object$assign.htmlAutocomplete,
+          htmlAutocomplete = _Object$assign$htmlAu === void 0 ? false : _Object$assign$htmlAu,
+          _Object$assign$itemTe = _Object$assign.itemTemplate,
+          itemTemplate = _Object$assign$itemTe === void 0 ? function (suggestion, element) {
+            element.style = "display: flex; flex-direction: column;";
+            element.innerHTML = "\n        <span style=\"display: flex;flex-direction: row;justify-content: space-between\">\n          <span style=\"text-overflow: ellipsis; white-space: nowrap; overflow: hidden;".concat(suggestion.terminated_on ? 'text-decoration: line-through' : null, "\">\n              ").concat(_this.options.highlight ? suggestion.highlight : suggestion.name, "\n          </span>\n          <span style=\"display: flex; align-items: center; font-size: 13px; font-weight: 500; color: rgba(0,0,0,.7);\">\n              ").concat(suggestion.cin, "\n          </span>\n        </span>\n        <span style=\"display: flex; align-items: center; font-size: 13px; font-weight: 200; color: rgba(0,0,0,.5);\">\n            <span style=\"text-overflow: ellipsis; white-space: nowrap; overflow: hidden\">").concat(suggestion.formatted_address, "</span>\n        </span>");
+          } : _Object$assign$itemTe;
         this.options.selectors = selectors;
         this.options.suggestions = suggestions;
         this.options.endpoint = endpoint;
@@ -8308,8 +8492,8 @@
         this._fields = {};
         for (var _i = 0, _Object$entries = Object.entries(this.options.selectors); _i < _Object$entries.length; _i++) {
           var _Object$entries$_i = _slicedToArray(_Object$entries[_i], 2),
-              key = _Object$entries$_i[0],
-              selector = _Object$entries$_i[1];
+            key = _Object$entries$_i[0],
+            selector = _Object$entries$_i[1];
           if (typeof selector === 'string') {
             this._fields[key] = document.querySelector(selector);
           } else if (typeof selector === 'function') {
@@ -8382,8 +8566,8 @@
           segment = null, data = {};
           for (var _i2 = 0, _Object$entries2 = Object.entries(_this3._fields); _i2 < _Object$entries2.length; _i2++) {
             var _Object$entries2$_i = _slicedToArray(_Object$entries2[_i2], 2),
-                key = _Object$entries2$_i[0],
-                _field = _Object$entries2$_i[1];
+              key = _Object$entries2$_i[0],
+              _field = _Object$entries2$_i[1];
             if (_field.isEqualNode(field)) {
               segment = key;
             }
@@ -8490,8 +8674,8 @@
         this.options.events.forEach(function (eventType) {
           for (var _i3 = 0, _Object$entries3 = Object.entries(_this5._fields); _i3 < _Object$entries3.length; _i3++) {
             var _Object$entries3$_i = _slicedToArray(_Object$entries3[_i3], 2),
-                key = _Object$entries3$_i[0],
-                field = _Object$entries3$_i[1];
+              key = _Object$entries3$_i[0],
+              field = _Object$entries3$_i[1];
             field.removeEventListener(eventType, _this5.hook);
             if (_this5.options.suggestions.includes(key)) {
               field.addEventListener(eventType, _this5.hook);
@@ -8535,54 +8719,56 @@
       value: function configure(options) {
         var _this = this;
         var _Object$assign = Object.assign(this.options, options),
-            _Object$assign$select = _Object$assign.selectors,
-            selectors = _Object$assign$select === void 0 ? {
-          address: null,
-          street: null,
-          streetName: null,
-          streetNumber: null,
-          municipality: null,
-          postalCode: null,
-          country: null
-        } : _Object$assign$select,
-            _Object$assign$sugges = _Object$assign.suggestions,
-            suggestions = _Object$assign$sugges === void 0 ? ['address', 'street', 'streetName', 'municipality', 'postalCode'] : _Object$assign$sugges,
-            _Object$assign$endpoi = _Object$assign.endpoint,
-            endpoint = _Object$assign$endpoi === void 0 ? 'api.swiftyper.sk' : _Object$assign$endpoi,
-            _Object$assign$logo = _Object$assign.logo,
-            logo = _Object$assign$logo === void 0 ? true : _Object$assign$logo,
-            _Object$assign$nextFo = _Object$assign.nextFocus,
-            nextFocus = _Object$assign$nextFo === void 0 ? true : _Object$assign$nextFo,
-            apiKey = _Object$assign.apiKey,
-            _Object$assign$highli = _Object$assign.highlight,
-            highlight = _Object$assign$highli === void 0 ? true : _Object$assign$highli,
-            _Object$assign$showNo = _Object$assign.showNoResults,
-            showNoResults = _Object$assign$showNo === void 0 ? false : _Object$assign$showNo,
-            _Object$assign$events = _Object$assign.events,
-            events = _Object$assign$events === void 0 ? ['input'] : _Object$assign$events,
-            _Object$assign$countr = _Object$assign.country,
-            country = _Object$assign$countr === void 0 ? ['CZ', 'SK', 'PL'] : _Object$assign$countr,
-            _Object$assign$contex = _Object$assign.context,
-            context = _Object$assign$contex === void 0 ? [] : _Object$assign$contex,
-            _Object$assign$contex2 = _Object$assign.contextType,
-            contextType = _Object$assign$contex2 === void 0 ? 'preference' : _Object$assign$contex2,
-            aroundLatLng = _Object$assign.aroundLatLng,
-            _Object$assign$around = _Object$assign.aroundLatLngViaIP,
-            aroundLatLngViaIP = _Object$assign$around === void 0 ? true : _Object$assign$around,
-            _Object$assign$limit = _Object$assign.limit,
-            limit = _Object$assign$limit === void 0 ? 7 : _Object$assign$limit,
-            _Object$assign$deboun = _Object$assign.debounce,
-            debounce = _Object$assign$deboun === void 0 ? 300 : _Object$assign$deboun,
-            _Object$assign$minlen = _Object$assign.minlength,
-            minlength = _Object$assign$minlen === void 0 ? 1 : _Object$assign$minlen,
-            _Object$assign$theme = _Object$assign.theme,
-            theme = _Object$assign$theme === void 0 ? 'modern-light' : _Object$assign$theme,
-            _Object$assign$htmlAu = _Object$assign.htmlAutocomplete,
-            htmlAutocomplete = _Object$assign$htmlAu === void 0 ? false : _Object$assign$htmlAu,
-            _Object$assign$itemTe = _Object$assign.itemTemplate,
-            itemTemplate = _Object$assign$itemTe === void 0 ? function (suggestion, element, textResolver) {
-          element.innerHTML = "\n          <span style=\"text-overflow: ellipsis; white-space: nowrap; overflow: hidden;\">\n              ".concat(_this.options.highlight ? suggestion.highlight : textResolver(suggestion), "\n          </span>");
-        } : _Object$assign$itemTe;
+          _Object$assign$select = _Object$assign.selectors,
+          selectors = _Object$assign$select === void 0 ? {
+            address: null,
+            street: null,
+            streetName: null,
+            streetNumber: null,
+            buildingNumber: null,
+            streetNumberParts: null,
+            municipality: null,
+            postalCode: null,
+            country: null
+          } : _Object$assign$select,
+          _Object$assign$sugges = _Object$assign.suggestions,
+          suggestions = _Object$assign$sugges === void 0 ? ['address', 'street', 'streetName', 'municipality', 'postalCode'] : _Object$assign$sugges,
+          _Object$assign$endpoi = _Object$assign.endpoint,
+          endpoint = _Object$assign$endpoi === void 0 ? 'api.swiftyper.sk' : _Object$assign$endpoi,
+          _Object$assign$logo = _Object$assign.logo,
+          logo = _Object$assign$logo === void 0 ? true : _Object$assign$logo,
+          _Object$assign$nextFo = _Object$assign.nextFocus,
+          nextFocus = _Object$assign$nextFo === void 0 ? true : _Object$assign$nextFo,
+          apiKey = _Object$assign.apiKey,
+          _Object$assign$highli = _Object$assign.highlight,
+          highlight = _Object$assign$highli === void 0 ? true : _Object$assign$highli,
+          _Object$assign$showNo = _Object$assign.showNoResults,
+          showNoResults = _Object$assign$showNo === void 0 ? false : _Object$assign$showNo,
+          _Object$assign$events = _Object$assign.events,
+          events = _Object$assign$events === void 0 ? ['input'] : _Object$assign$events,
+          _Object$assign$countr = _Object$assign.country,
+          country = _Object$assign$countr === void 0 ? ['CZ', 'SK', 'PL'] : _Object$assign$countr,
+          _Object$assign$contex = _Object$assign.context,
+          context = _Object$assign$contex === void 0 ? [] : _Object$assign$contex,
+          _Object$assign$contex2 = _Object$assign.contextType,
+          contextType = _Object$assign$contex2 === void 0 ? 'preference' : _Object$assign$contex2,
+          aroundLatLng = _Object$assign.aroundLatLng,
+          _Object$assign$around = _Object$assign.aroundLatLngViaIP,
+          aroundLatLngViaIP = _Object$assign$around === void 0 ? true : _Object$assign$around,
+          _Object$assign$limit = _Object$assign.limit,
+          limit = _Object$assign$limit === void 0 ? 7 : _Object$assign$limit,
+          _Object$assign$deboun = _Object$assign.debounce,
+          debounce = _Object$assign$deboun === void 0 ? 300 : _Object$assign$deboun,
+          _Object$assign$minlen = _Object$assign.minlength,
+          minlength = _Object$assign$minlen === void 0 ? 1 : _Object$assign$minlen,
+          _Object$assign$theme = _Object$assign.theme,
+          theme = _Object$assign$theme === void 0 ? 'modern-light' : _Object$assign$theme,
+          _Object$assign$htmlAu = _Object$assign.htmlAutocomplete,
+          htmlAutocomplete = _Object$assign$htmlAu === void 0 ? false : _Object$assign$htmlAu,
+          _Object$assign$itemTe = _Object$assign.itemTemplate,
+          itemTemplate = _Object$assign$itemTe === void 0 ? function (suggestion, element, textResolver) {
+            element.innerHTML = "\n          <span style=\"text-overflow: ellipsis; white-space: nowrap; overflow: hidden;\">\n              ".concat(_this.options.highlight ? suggestion.highlight : textResolver(suggestion), "\n          </span>");
+          } : _Object$assign$itemTe;
         this.options.selectors = selectors;
         this.options.suggestions = suggestions;
         this.options.endpoint = endpoint;
@@ -8606,8 +8792,8 @@
         this._fields = {};
         for (var _i = 0, _Object$entries = Object.entries(this.options.selectors); _i < _Object$entries.length; _i++) {
           var _Object$entries$_i = _slicedToArray(_Object$entries[_i], 2),
-              key = _Object$entries$_i[0],
-              selector = _Object$entries$_i[1];
+            key = _Object$entries$_i[0],
+            selector = _Object$entries$_i[1];
           if (typeof selector === 'string') {
             this._fields[key] = document.querySelector(selector);
           } else if (typeof selector === 'function') {
@@ -8684,8 +8870,8 @@
           segment = null, data = {};
           for (var _i2 = 0, _Object$entries2 = Object.entries(_this3._fields); _i2 < _Object$entries2.length; _i2++) {
             var _Object$entries2$_i = _slicedToArray(_Object$entries2[_i2], 2),
-                key = _Object$entries2$_i[0],
-                _field = _Object$entries2$_i[1];
+              key = _Object$entries2$_i[0],
+              _field = _Object$entries2$_i[1];
             if (_field.isEqualNode(field)) {
               segment = key;
             }
@@ -8817,8 +9003,8 @@
         this.options.events.forEach(function (eventType) {
           for (var _i3 = 0, _Object$entries3 = Object.entries(_this5._fields); _i3 < _Object$entries3.length; _i3++) {
             var _Object$entries3$_i = _slicedToArray(_Object$entries3[_i3], 2),
-                key = _Object$entries3$_i[0],
-                field = _Object$entries3$_i[1];
+              key = _Object$entries3$_i[0],
+              field = _Object$entries3$_i[1];
             field.removeEventListener(eventType, _this5.hook);
             if (_this5.options.suggestions.includes(key)) {
               field.addEventListener(eventType, _this5.hook);
@@ -8855,4 +9041,4 @@
 
   return swiftyper;
 
-})));
+}));
