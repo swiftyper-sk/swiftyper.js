@@ -25,7 +25,9 @@ export default class places {
         address: null, // Element obsahujúci adresu
         street: null, // Element obsahujúci ulicu a číslo
         streetName: null, // Element obsahujúci iba názov ulice
-        streetNumber: null, // Element obsahujúci iba číslo ulice
+        streetNumber: null, // Element obsahujúci iba súpisné číslo
+        buildingNumber: null, // Element obsahujúci iba orientačné číslo
+        streetNumberParts: null, // Element obsahujúci súpisné a orientačné číslo
         municipality: null, // Element obsahujúci obec
         postalCode: null, // Element obsahujúci PSČ
         country: null, // Element obsahujúci krajinu

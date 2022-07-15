@@ -45,6 +45,8 @@ const generateList = (config, data, field) => {
           street,
           streetName,
           streetNumber,
+          streetNumberParts,
+          buildingNumber,
           postalCode,
           municipality,
           country
@@ -56,11 +58,17 @@ const generateList = (config, data, field) => {
         if (street && suggestion.formatted_street) {
           street.value = suggestion.formatted_street;
         }
+        if (streetNumberParts && suggestion.formatted_number) {
+          streetNumberParts.value = suggestion.formatted_number;
+        }
         if (streetName && suggestion.street) {
           streetName.value = suggestion.street;
         }
         if (streetNumber && suggestion.street_number) {
           streetNumber.value = suggestion.street_number;
+        }
+        if (buildingNumber && suggestion.building_number) {
+          buildingNumber.value = suggestion.building_number;
         }
         if (postalCode && suggestion.postal_code) {
           postalCode.value = suggestion.postal_code;
@@ -83,6 +91,8 @@ const generateList = (config, data, field) => {
           street,
           streetName,
           streetNumber,
+          streetNumberParts,
+          buildingNumber,
           postalCode,
           municipality,
           country
@@ -106,11 +116,17 @@ const generateList = (config, data, field) => {
         if (street) {
           street.value = suggestion.formatted_street;
         }
+        if (streetNumberParts && suggestion.formatted_number) {
+          streetNumberParts.value = suggestion.formatted_number;
+        }
         if (streetName) {
           streetName.value = suggestion.street;
         }
         if (streetNumber) {
           streetNumber.value = suggestion.street_number;
+        }
+        if (buildingNumber && suggestion.building_number) {
+          buildingNumber.value = suggestion.building_number;
         }
         if (postalCode) {
           postalCode.value = suggestion.postal_code;
