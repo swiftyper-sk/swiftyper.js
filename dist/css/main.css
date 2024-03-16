@@ -90,6 +90,36 @@ h4::selection {
   color: rgb(147, 147, 147);
 }
 
+.position-relative {
+  position: relative;
+}
+
+.email-status-icon {
+  position: absolute;
+  right: 5px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 32px;
+  color: #b4b4b4;
+}
+
+.email-status-icon > svg {
+  display: none;
+  width: 30px;
+}
+
+.email-status-icon[data-status=invalid] > svg:nth-child(3) {
+  display: block;
+}
+
+.email-status-icon[data-status=valid] > svg:nth-child(1) {
+  display: block;
+}
+
+.email-status-icon[data-status=error] > svg:nth-child(2) {
+  display: block;
+}
+
 @media (min-width: 992px) {
   .panel {
     float: left;
@@ -104,19 +134,19 @@ h4::selection {
   }
 }
 
-.panel > .content {
+.panel > .content, .panel-full > .content {
   width: 370px;
   margin: auto;
 }
 
 @media only screen and (max-width: 600px) {
-  .panel > .content {
+  .panel > .content, .panel-full > .content {
     width: 320px;
   }
 }
 
 
-input[type=text], select {
+input[type=text], input[type=email], select {
   width: 100%;
   box-sizing: border-box;
   line-height: 40px;
