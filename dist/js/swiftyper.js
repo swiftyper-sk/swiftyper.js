@@ -4,62 +4,94 @@
   (global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.swiftyper = factory());
 })(this, (function () { 'use strict';
 
-  function _iterableToArrayLimit(arr, i) {
-    var _i = null == arr ? null : "undefined" != typeof Symbol && arr[Symbol.iterator] || arr["@@iterator"];
-    if (null != _i) {
-      var _s,
-        _e,
-        _x,
-        _r,
-        _arr = [],
-        _n = !0,
-        _d = !1;
+  function _callSuper(t, o, e) {
+    return o = _getPrototypeOf(o), _possibleConstructorReturn(t, _isNativeReflectConstruct() ? Reflect.construct(o, e || [], _getPrototypeOf(t).constructor) : o.apply(t, e));
+  }
+  function _construct(t, e, r) {
+    if (_isNativeReflectConstruct()) return Reflect.construct.apply(null, arguments);
+    var o = [null];
+    o.push.apply(o, e);
+    var p = new (t.bind.apply(t, o))();
+    return r && _setPrototypeOf(p, r.prototype), p;
+  }
+  function _isNativeReflectConstruct() {
+    try {
+      var t = !Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {}));
+    } catch (t) {}
+    return (_isNativeReflectConstruct = function () {
+      return !!t;
+    })();
+  }
+  function _iterableToArrayLimit(r, l) {
+    var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"];
+    if (null != t) {
+      var e,
+        n,
+        i,
+        u,
+        a = [],
+        f = !0,
+        o = !1;
       try {
-        if (_x = (_i = _i.call(arr)).next, 0 === i) {
-          if (Object(_i) !== _i) return;
-          _n = !1;
-        } else for (; !(_n = (_s = _x.call(_i)).done) && (_arr.push(_s.value), _arr.length !== i); _n = !0);
-      } catch (err) {
-        _d = !0, _e = err;
+        if (i = (t = t.call(r)).next, 0 === l) {
+          if (Object(t) !== t) return;
+          f = !1;
+        } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0);
+      } catch (r) {
+        o = !0, n = r;
       } finally {
         try {
-          if (!_n && null != _i.return && (_r = _i.return(), Object(_r) !== _r)) return;
+          if (!f && null != t.return && (u = t.return(), Object(u) !== u)) return;
         } finally {
-          if (_d) throw _e;
+          if (o) throw n;
         }
       }
-      return _arr;
+      return a;
     }
   }
-  function ownKeys(object, enumerableOnly) {
-    var keys = Object.keys(object);
+  function ownKeys(e, r) {
+    var t = Object.keys(e);
     if (Object.getOwnPropertySymbols) {
-      var symbols = Object.getOwnPropertySymbols(object);
-      enumerableOnly && (symbols = symbols.filter(function (sym) {
-        return Object.getOwnPropertyDescriptor(object, sym).enumerable;
-      })), keys.push.apply(keys, symbols);
+      var o = Object.getOwnPropertySymbols(e);
+      r && (o = o.filter(function (r) {
+        return Object.getOwnPropertyDescriptor(e, r).enumerable;
+      })), t.push.apply(t, o);
     }
-    return keys;
+    return t;
   }
-  function _objectSpread2(target) {
-    for (var i = 1; i < arguments.length; i++) {
-      var source = null != arguments[i] ? arguments[i] : {};
-      i % 2 ? ownKeys(Object(source), !0).forEach(function (key) {
-        _defineProperty(target, key, source[key]);
-      }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) {
-        Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
+  function _objectSpread2(e) {
+    for (var r = 1; r < arguments.length; r++) {
+      var t = null != arguments[r] ? arguments[r] : {};
+      r % 2 ? ownKeys(Object(t), !0).forEach(function (r) {
+        _defineProperty(e, r, t[r]);
+      }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) {
+        Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r));
       });
     }
-    return target;
+    return e;
   }
-  function _typeof(obj) {
+  function _toPrimitive(t, r) {
+    if ("object" != typeof t || !t) return t;
+    var e = t[Symbol.toPrimitive];
+    if (void 0 !== e) {
+      var i = e.call(t, r || "default");
+      if ("object" != typeof i) return i;
+      throw new TypeError("@@toPrimitive must return a primitive value.");
+    }
+    return ("string" === r ? String : Number)(t);
+  }
+  function _toPropertyKey(t) {
+    var i = _toPrimitive(t, "string");
+    return "symbol" == typeof i ? i : String(i);
+  }
+  function _typeof(o) {
     "@babel/helpers - typeof";
 
-    return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) {
-      return typeof obj;
-    } : function (obj) {
-      return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
-    }, _typeof(obj);
+    return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) {
+      return typeof o;
+    } : function (o) {
+      return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o;
+    }, _typeof(o);
   }
   function _classCallCheck(instance, Constructor) {
     if (!(instance instanceof Constructor)) {
@@ -126,34 +158,12 @@
     };
     return _setPrototypeOf(o, p);
   }
-  function _isNativeReflectConstruct() {
-    if (typeof Reflect === "undefined" || !Reflect.construct) return false;
-    if (Reflect.construct.sham) return false;
-    if (typeof Proxy === "function") return true;
-    try {
-      Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {}));
-      return true;
-    } catch (e) {
-      return false;
-    }
-  }
-  function _construct(Parent, args, Class) {
-    if (_isNativeReflectConstruct()) {
-      _construct = Reflect.construct.bind();
-    } else {
-      _construct = function _construct(Parent, args, Class) {
-        var a = [null];
-        a.push.apply(a, args);
-        var Constructor = Function.bind.apply(Parent, a);
-        var instance = new Constructor();
-        if (Class) _setPrototypeOf(instance, Class.prototype);
-        return instance;
-      };
-    }
-    return _construct.apply(null, arguments);
-  }
   function _isNativeFunction(fn) {
-    return Function.toString.call(fn).indexOf("[native code]") !== -1;
+    try {
+      return Function.toString.call(fn).indexOf("[native code]") !== -1;
+    } catch (e) {
+      return typeof fn === "function";
+    }
   }
   function _wrapNativeSuper(Class) {
     var _cache = typeof Map === "function" ? new Map() : undefined;
@@ -195,20 +205,6 @@
     }
     return _assertThisInitialized(self);
   }
-  function _createSuper(Derived) {
-    var hasNativeReflectConstruct = _isNativeReflectConstruct();
-    return function _createSuperInternal() {
-      var Super = _getPrototypeOf(Derived),
-        result;
-      if (hasNativeReflectConstruct) {
-        var NewTarget = _getPrototypeOf(this).constructor;
-        result = Reflect.construct(Super, arguments, NewTarget);
-      } else {
-        result = Super.apply(this, arguments);
-      }
-      return _possibleConstructorReturn(this, result);
-    };
-  }
   function _slicedToArray(arr, i) {
     return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest();
   }
@@ -230,20 +226,6 @@
   }
   function _nonIterableRest() {
     throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
-  }
-  function _toPrimitive(input, hint) {
-    if (typeof input !== "object" || input === null) return input;
-    var prim = input[Symbol.toPrimitive];
-    if (prim !== undefined) {
-      var res = prim.call(input, hint || "default");
-      if (typeof res !== "object") return res;
-      throw new TypeError("@@toPrimitive must return a primitive value.");
-    }
-    return (hint === "string" ? String : Number)(input);
-  }
-  function _toPropertyKey(arg) {
-    var key = _toPrimitive(arg, "string");
-    return typeof key === "symbol" ? key : String(key);
   }
 
   var inputComponent = (function (config) {
@@ -3053,6 +3035,8 @@
     return ret;
   };
 
+  var commonjsGlobal = typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
+
   function getAugmentedNamespace(n) {
   	if (n.__esModule) return n;
   	var a = Object.defineProperty({}, '__esModule', {value: true});
@@ -3091,7 +3075,6 @@
     function SafeBuffer(arg, encodingOrOffset, length) {
       return Buffer(arg, encodingOrOffset, length);
     }
-    SafeBuffer.prototype = Object.create(Buffer.prototype);
     copyProps(Buffer, SafeBuffer);
     SafeBuffer.from = function (arg, encodingOrOffset, length) {
       if (typeof arg === 'number') {
@@ -4954,7 +4937,7 @@
         return '';
     }
   }
-  function stringify$1(obj, sep, eq, name) {
+  function stringify$2(obj, sep, eq, name) {
     sep = sep || '&';
     eq = eq || '=';
     if (obj === null) {
@@ -4990,7 +4973,7 @@
     }
     return res;
   };
-  function parse$2(qs, sep, eq, options) {
+  function parse$3(qs, sep, eq, options) {
     sep = sep || '&';
     eq = eq || '=';
     var obj = {};
@@ -5086,9 +5069,9 @@
     return u;
   }
   Url.prototype.parse = function (url, parseQueryString, slashesDenoteHost) {
-    return parse$1(this, url, parseQueryString, slashesDenoteHost);
+    return parse$2(this, url, parseQueryString, slashesDenoteHost);
   };
-  function parse$1(self, url, parseQueryString, slashesDenoteHost) {
+  function parse$2(self, url, parseQueryString, slashesDenoteHost) {
     if (!isString$1(url)) {
       throw new TypeError('Parameter \'url\' must be a string, not ' + _typeof(url));
     }
@@ -5109,7 +5092,7 @@
         if (simplePath[2]) {
           self.search = simplePath[2];
           if (parseQueryString) {
-            self.query = parse$2(self.search.substr(1));
+            self.query = parse$3(self.search.substr(1));
           } else {
             self.query = self.search.substr(1);
           }
@@ -5234,7 +5217,7 @@
       self.search = rest.substr(qm);
       self.query = rest.substr(qm + 1);
       if (parseQueryString) {
-        self.query = parse$2(self.query);
+        self.query = parse$3(self.query);
       }
       rest = rest.slice(0, qm);
     } else if (parseQueryString) {
@@ -5274,7 +5257,7 @@
       }
     }
     if (self.query && isObject(self.query) && Object.keys(self.query).length) {
-      query = stringify$1(self.query);
+      query = stringify$2(self.query);
     }
     var search = self.search || query && '?' + query || '';
     if (protocol && protocol.substr(-1) !== ':') protocol += ':';
@@ -5764,6 +5747,20 @@
     'default': path$1
   });
 
+  var esErrors = Error;
+
+  var _eval = EvalError;
+
+  var range = RangeError;
+
+  var ref = ReferenceError;
+
+  var syntax = SyntaxError;
+
+  var type = TypeError;
+
+  var uri = URIError;
+
   var shams = function hasSymbols() {
     if (typeof Symbol !== 'function' || typeof Object.getOwnPropertySymbols !== 'function') {
       return false;
@@ -5827,34 +5824,71 @@
     return shams();
   };
 
+  var test = {
+    __proto__: null,
+    foo: {}
+  };
+  var $Object = Object;
+  var hasProto$1 = function hasProto() {
+    return {
+      __proto__: test
+    }.foo === test.foo && !(test instanceof $Object);
+  };
+
   var ERROR_MESSAGE = 'Function.prototype.bind called on incompatible ';
-  var slice = Array.prototype.slice;
   var toStr$1 = Object.prototype.toString;
+  var max = Math.max;
   var funcType = '[object Function]';
+  var concatty = function concatty(a, b) {
+    var arr = [];
+    for (var i = 0; i < a.length; i += 1) {
+      arr[i] = a[i];
+    }
+    for (var j = 0; j < b.length; j += 1) {
+      arr[j + a.length] = b[j];
+    }
+    return arr;
+  };
+  var slicy = function slicy(arrLike, offset) {
+    var arr = [];
+    for (var i = offset || 0, j = 0; i < arrLike.length; i += 1, j += 1) {
+      arr[j] = arrLike[i];
+    }
+    return arr;
+  };
+  var joiny = function joiny(arr, joiner) {
+    var str = '';
+    for (var i = 0; i < arr.length; i += 1) {
+      str += arr[i];
+      if (i + 1 < arr.length) {
+        str += joiner;
+      }
+    }
+    return str;
+  };
   var implementation = function bind(that) {
     var target = this;
-    if (typeof target !== 'function' || toStr$1.call(target) !== funcType) {
+    if (typeof target !== 'function' || toStr$1.apply(target) !== funcType) {
       throw new TypeError(ERROR_MESSAGE + target);
     }
-    var args = slice.call(arguments, 1);
+    var args = slicy(arguments, 1);
     var bound;
     var binder = function binder() {
       if (this instanceof bound) {
-        var result = target.apply(this, args.concat(slice.call(arguments)));
+        var result = target.apply(this, concatty(args, arguments));
         if (Object(result) === result) {
           return result;
         }
         return this;
-      } else {
-        return target.apply(that, args.concat(slice.call(arguments)));
       }
+      return target.apply(that, concatty(args, arguments));
     };
-    var boundLength = Math.max(0, target.length - args.length);
+    var boundLength = max(0, target.length - args.length);
     var boundArgs = [];
     for (var i = 0; i < boundLength; i++) {
-      boundArgs.push('$' + i);
+      boundArgs[i] = '$' + i;
     }
-    bound = Function('binder', 'return function (' + boundArgs.join(',') + '){ return binder.apply(this,arguments); }')(binder);
+    bound = Function('binder', 'return function (' + joiny(boundArgs, ',') + '){ return binder.apply(this,arguments); }')(binder);
     if (target.prototype) {
       var Empty = function Empty() {};
       Empty.prototype = target.prototype;
@@ -5866,51 +5900,71 @@
 
   var functionBind = Function.prototype.bind || implementation;
 
-  var src = functionBind.call(Function.call, Object.prototype.hasOwnProperty);
+  var call = Function.prototype.call;
+  var $hasOwn = Object.prototype.hasOwnProperty;
+  var hasown = functionBind.call(call, $hasOwn);
+
+  var $Error = esErrors;
+
+  var $EvalError = _eval;
+
+  var $RangeError = range;
+
+  var $ReferenceError = ref;
+
+  var $SyntaxError = syntax;
+
+  var $TypeError = type;
+
+  var $URIError = uri;
+
+  var require$$1 = hasProto$1;
+
+  var hasOwn$1 = hasown;
 
   var undefined$1;
-  var $SyntaxError = SyntaxError;
   var $Function = Function;
-  var $TypeError$1 = TypeError;
   var getEvalledConstructor = function getEvalledConstructor(expressionSyntax) {
     try {
       return $Function('"use strict"; return (' + expressionSyntax + ').constructor;')();
     } catch (e) {}
   };
-  var $gOPD = Object.getOwnPropertyDescriptor;
-  if ($gOPD) {
+  var $gOPD$1 = Object.getOwnPropertyDescriptor;
+  if ($gOPD$1) {
     try {
-      $gOPD({}, '');
+      $gOPD$1({}, '');
     } catch (e) {
-      $gOPD = null;
+      $gOPD$1 = null;
     }
   }
   var throwTypeError = function throwTypeError() {
-    throw new $TypeError$1();
+    throw new $TypeError();
   };
-  var ThrowTypeError = $gOPD ? function () {
+  var ThrowTypeError = $gOPD$1 ? function () {
     try {
       arguments.callee;
       return throwTypeError;
     } catch (calleeThrows) {
       try {
-        return $gOPD(arguments, 'callee').get;
+        return $gOPD$1(arguments, 'callee').get;
       } catch (gOPDthrows) {
         return throwTypeError;
       }
     }
   }() : throwTypeError;
   var hasSymbols = hasSymbols$1();
-  var getProto = Object.getPrototypeOf || function (x) {
+  var hasProto = require$$1();
+  var getProto = Object.getPrototypeOf || (hasProto ? function (x) {
     return x.__proto__;
-  };
+  } : null);
   var needsEval = {};
-  var TypedArray = typeof Uint8Array === 'undefined' ? undefined$1 : getProto(Uint8Array);
+  var TypedArray = typeof Uint8Array === 'undefined' || !getProto ? undefined$1 : getProto(Uint8Array);
   var INTRINSICS = {
+    __proto__: null,
     '%AggregateError%': typeof AggregateError === 'undefined' ? undefined$1 : AggregateError,
     '%Array%': Array,
     '%ArrayBuffer%': typeof ArrayBuffer === 'undefined' ? undefined$1 : ArrayBuffer,
-    '%ArrayIteratorPrototype%': hasSymbols ? getProto([][Symbol.iterator]()) : undefined$1,
+    '%ArrayIteratorPrototype%': hasSymbols && getProto ? getProto([][Symbol.iterator]()) : undefined$1,
     '%AsyncFromSyncIteratorPrototype%': undefined$1,
     '%AsyncFunction%': needsEval,
     '%AsyncGenerator%': needsEval,
@@ -5918,6 +5972,8 @@
     '%AsyncIteratorPrototype%': needsEval,
     '%Atomics%': typeof Atomics === 'undefined' ? undefined$1 : Atomics,
     '%BigInt%': typeof BigInt === 'undefined' ? undefined$1 : BigInt,
+    '%BigInt64Array%': typeof BigInt64Array === 'undefined' ? undefined$1 : BigInt64Array,
+    '%BigUint64Array%': typeof BigUint64Array === 'undefined' ? undefined$1 : BigUint64Array,
     '%Boolean%': Boolean,
     '%DataView%': typeof DataView === 'undefined' ? undefined$1 : DataView,
     '%Date%': Date,
@@ -5925,9 +5981,9 @@
     '%decodeURIComponent%': decodeURIComponent,
     '%encodeURI%': encodeURI,
     '%encodeURIComponent%': encodeURIComponent,
-    '%Error%': Error,
+    '%Error%': $Error,
     '%eval%': eval,
-    '%EvalError%': EvalError,
+    '%EvalError%': $EvalError,
     '%Float32Array%': typeof Float32Array === 'undefined' ? undefined$1 : Float32Array,
     '%Float64Array%': typeof Float64Array === 'undefined' ? undefined$1 : Float64Array,
     '%FinalizationRegistry%': typeof FinalizationRegistry === 'undefined' ? undefined$1 : FinalizationRegistry,
@@ -5938,10 +5994,10 @@
     '%Int32Array%': typeof Int32Array === 'undefined' ? undefined$1 : Int32Array,
     '%isFinite%': isFinite,
     '%isNaN%': isNaN,
-    '%IteratorPrototype%': hasSymbols ? getProto(getProto([][Symbol.iterator]())) : undefined$1,
+    '%IteratorPrototype%': hasSymbols && getProto ? getProto(getProto([][Symbol.iterator]())) : undefined$1,
     '%JSON%': (typeof JSON === "undefined" ? "undefined" : _typeof(JSON)) === 'object' ? JSON : undefined$1,
     '%Map%': typeof Map === 'undefined' ? undefined$1 : Map,
-    '%MapIteratorPrototype%': typeof Map === 'undefined' || !hasSymbols ? undefined$1 : getProto(new Map()[Symbol.iterator]()),
+    '%MapIteratorPrototype%': typeof Map === 'undefined' || !hasSymbols || !getProto ? undefined$1 : getProto(new Map()[Symbol.iterator]()),
     '%Math%': Math,
     '%Number%': Number,
     '%Object%': Object,
@@ -5949,29 +6005,37 @@
     '%parseInt%': parseInt,
     '%Promise%': typeof Promise === 'undefined' ? undefined$1 : Promise,
     '%Proxy%': typeof Proxy === 'undefined' ? undefined$1 : Proxy,
-    '%RangeError%': RangeError,
-    '%ReferenceError%': ReferenceError,
+    '%RangeError%': $RangeError,
+    '%ReferenceError%': $ReferenceError,
     '%Reflect%': typeof Reflect === 'undefined' ? undefined$1 : Reflect,
     '%RegExp%': RegExp,
     '%Set%': typeof Set === 'undefined' ? undefined$1 : Set,
-    '%SetIteratorPrototype%': typeof Set === 'undefined' || !hasSymbols ? undefined$1 : getProto(new Set()[Symbol.iterator]()),
+    '%SetIteratorPrototype%': typeof Set === 'undefined' || !hasSymbols || !getProto ? undefined$1 : getProto(new Set()[Symbol.iterator]()),
     '%SharedArrayBuffer%': typeof SharedArrayBuffer === 'undefined' ? undefined$1 : SharedArrayBuffer,
     '%String%': String,
-    '%StringIteratorPrototype%': hasSymbols ? getProto(''[Symbol.iterator]()) : undefined$1,
+    '%StringIteratorPrototype%': hasSymbols && getProto ? getProto(''[Symbol.iterator]()) : undefined$1,
     '%Symbol%': hasSymbols ? Symbol : undefined$1,
     '%SyntaxError%': $SyntaxError,
     '%ThrowTypeError%': ThrowTypeError,
     '%TypedArray%': TypedArray,
-    '%TypeError%': $TypeError$1,
+    '%TypeError%': $TypeError,
     '%Uint8Array%': typeof Uint8Array === 'undefined' ? undefined$1 : Uint8Array,
     '%Uint8ClampedArray%': typeof Uint8ClampedArray === 'undefined' ? undefined$1 : Uint8ClampedArray,
     '%Uint16Array%': typeof Uint16Array === 'undefined' ? undefined$1 : Uint16Array,
     '%Uint32Array%': typeof Uint32Array === 'undefined' ? undefined$1 : Uint32Array,
-    '%URIError%': URIError,
+    '%URIError%': $URIError,
     '%WeakMap%': typeof WeakMap === 'undefined' ? undefined$1 : WeakMap,
     '%WeakRef%': typeof WeakRef === 'undefined' ? undefined$1 : WeakRef,
     '%WeakSet%': typeof WeakSet === 'undefined' ? undefined$1 : WeakSet
   };
+  if (getProto) {
+    try {
+      null.error;
+    } catch (e) {
+      var errorProto = getProto(getProto(e));
+      INTRINSICS['%Error.prototype%'] = errorProto;
+    }
+  }
   var doEval = function doEval(name) {
     var value;
     if (name === '%AsyncFunction%') {
@@ -5987,7 +6051,7 @@
       }
     } else if (name === '%AsyncIteratorPrototype%') {
       var gen = doEval('%AsyncGenerator%');
-      if (gen) {
+      if (gen && getProto) {
         value = getProto(gen.prototype);
       }
     }
@@ -5995,6 +6059,7 @@
     return value;
   };
   var LEGACY_ALIASES = {
+    __proto__: null,
     '%ArrayBufferPrototype%': ['ArrayBuffer', 'prototype'],
     '%ArrayPrototype%': ['Array', 'prototype'],
     '%ArrayProto_entries%': ['Array', 'prototype', 'entries'],
@@ -6071,17 +6136,17 @@
   var getBaseIntrinsic = function getBaseIntrinsic(name, allowMissing) {
     var intrinsicName = name;
     var alias;
-    if (src(LEGACY_ALIASES, intrinsicName)) {
+    if (hasOwn$1(LEGACY_ALIASES, intrinsicName)) {
       alias = LEGACY_ALIASES[intrinsicName];
       intrinsicName = '%' + alias[0] + '%';
     }
-    if (src(INTRINSICS, intrinsicName)) {
+    if (hasOwn$1(INTRINSICS, intrinsicName)) {
       var value = INTRINSICS[intrinsicName];
       if (value === needsEval) {
         value = doEval(intrinsicName);
       }
       if (typeof value === 'undefined' && !allowMissing) {
-        throw new $TypeError$1('intrinsic ' + name + ' exists, but is not available. Please file an issue!');
+        throw new $TypeError('intrinsic ' + name + ' exists, but is not available. Please file an issue!');
       }
       return {
         alias: alias,
@@ -6093,10 +6158,10 @@
   };
   var getIntrinsic = function GetIntrinsic(name, allowMissing) {
     if (typeof name !== 'string' || name.length === 0) {
-      throw new $TypeError$1('intrinsic name must be a non-empty string');
+      throw new $TypeError('intrinsic name must be a non-empty string');
     }
     if (arguments.length > 1 && typeof allowMissing !== 'boolean') {
-      throw new $TypeError$1('"allowMissing" argument must be a boolean');
+      throw new $TypeError('"allowMissing" argument must be a boolean');
     }
     if ($exec(/^%?[^%]*%?$/, name) === null) {
       throw new $SyntaxError('`%` may not be present anywhere but at the beginning and end of the intrinsic name');
@@ -6124,17 +6189,17 @@
       }
       intrinsicBaseName += '.' + part;
       intrinsicRealName = '%' + intrinsicBaseName + '%';
-      if (src(INTRINSICS, intrinsicRealName)) {
+      if (hasOwn$1(INTRINSICS, intrinsicRealName)) {
         value = INTRINSICS[intrinsicRealName];
       } else if (value != null) {
         if (!(part in value)) {
           if (!allowMissing) {
-            throw new $TypeError$1('base intrinsic for ' + name + ' exists, but the property is not available.');
+            throw new $TypeError('base intrinsic for ' + name + ' exists, but the property is not available.');
           }
           return void undefined$1;
         }
-        if ($gOPD && i + 1 >= parts.length) {
-          var desc = $gOPD(value, part);
+        if ($gOPD$1 && i + 1 >= parts.length) {
+          var desc = $gOPD$1(value, part);
           isOwn = !!desc;
           if (isOwn && 'get' in desc && !('originalValue' in desc.get)) {
             value = desc.get;
@@ -6142,7 +6207,7 @@
             value = value[part];
           }
         } else {
-          isOwn = src(value, part);
+          isOwn = hasOwn$1(value, part);
           value = value[part];
         }
         if (isOwn && !skipFurtherCaching) {
@@ -6153,33 +6218,137 @@
     return value;
   };
 
-  var callBind = createCommonjsModule(function (module) {
-    var $apply = getIntrinsic('%Function.prototype.apply%');
-    var $call = getIntrinsic('%Function.prototype.call%');
-    var $reflectApply = getIntrinsic('%Reflect.apply%', true) || functionBind.call($call, $apply);
-    var $gOPD = getIntrinsic('%Object.getOwnPropertyDescriptor%', true);
-    var $defineProperty = getIntrinsic('%Object.defineProperty%', true);
-    var $max = getIntrinsic('%Math.max%');
+  var GetIntrinsic = getIntrinsic;
+
+  var $defineProperty$1 = GetIntrinsic('%Object.defineProperty%', true) || false;
+  if ($defineProperty$1) {
+    try {
+      $defineProperty$1({}, 'a', {
+        value: 1
+      });
+    } catch (e) {
+      $defineProperty$1 = false;
+    }
+  }
+  var esDefineProperty = $defineProperty$1;
+
+  var $gOPD = GetIntrinsic('%Object.getOwnPropertyDescriptor%', true);
+  if ($gOPD) {
+    try {
+      $gOPD([], 'length');
+    } catch (e) {
+      $gOPD = null;
+    }
+  }
+  var gopd = $gOPD;
+
+  var $defineProperty = esDefineProperty;
+
+  var gOPD = gopd;
+
+  var defineDataProperty = function defineDataProperty(obj, property, value) {
+    if (!obj || _typeof(obj) !== 'object' && typeof obj !== 'function') {
+      throw new $TypeError('`obj` must be an object or a function`');
+    }
+    if (typeof property !== 'string' && _typeof(property) !== 'symbol') {
+      throw new $TypeError('`property` must be a string or a symbol`');
+    }
+    if (arguments.length > 3 && typeof arguments[3] !== 'boolean' && arguments[3] !== null) {
+      throw new $TypeError('`nonEnumerable`, if provided, must be a boolean or null');
+    }
+    if (arguments.length > 4 && typeof arguments[4] !== 'boolean' && arguments[4] !== null) {
+      throw new $TypeError('`nonWritable`, if provided, must be a boolean or null');
+    }
+    if (arguments.length > 5 && typeof arguments[5] !== 'boolean' && arguments[5] !== null) {
+      throw new $TypeError('`nonConfigurable`, if provided, must be a boolean or null');
+    }
+    if (arguments.length > 6 && typeof arguments[6] !== 'boolean') {
+      throw new $TypeError('`loose`, if provided, must be a boolean');
+    }
+    var nonEnumerable = arguments.length > 3 ? arguments[3] : null;
+    var nonWritable = arguments.length > 4 ? arguments[4] : null;
+    var nonConfigurable = arguments.length > 5 ? arguments[5] : null;
+    var loose = arguments.length > 6 ? arguments[6] : false;
+    var desc = !!gOPD && gOPD(obj, property);
     if ($defineProperty) {
-      try {
-        $defineProperty({}, 'a', {
-          value: 1
-        });
-      } catch (e) {
-        $defineProperty = null;
+      $defineProperty(obj, property, {
+        configurable: nonConfigurable === null && desc ? desc.configurable : !nonConfigurable,
+        enumerable: nonEnumerable === null && desc ? desc.enumerable : !nonEnumerable,
+        value: value,
+        writable: nonWritable === null && desc ? desc.writable : !nonWritable
+      });
+    } else if (loose || !nonEnumerable && !nonWritable && !nonConfigurable) {
+      obj[property] = value;
+    } else {
+      throw new $SyntaxError('This environment does not support defining a property as non-configurable, non-writable, or non-enumerable.');
+    }
+  };
+
+  var hasPropertyDescriptors = function hasPropertyDescriptors() {
+    return !!$defineProperty;
+  };
+  hasPropertyDescriptors.hasArrayLengthDefineBug = function hasArrayLengthDefineBug() {
+    if (!$defineProperty) {
+      return null;
+    }
+    try {
+      return $defineProperty([], 'length', {
+        value: 1
+      }).length !== 1;
+    } catch (e) {
+      return true;
+    }
+  };
+  var hasPropertyDescriptors_1 = hasPropertyDescriptors;
+
+  var define = defineDataProperty;
+
+  var require$$0 = hasPropertyDescriptors_1;
+
+  var hasDescriptors = require$$0();
+  var $floor$1 = GetIntrinsic('%Math.floor%');
+  var setFunctionLength$1 = function setFunctionLength(fn, length) {
+    if (typeof fn !== 'function') {
+      throw new $TypeError('`fn` is not a function');
+    }
+    if (typeof length !== 'number' || length < 0 || length > 0xFFFFFFFF || $floor$1(length) !== length) {
+      throw new $TypeError('`length` must be a positive 32-bit integer');
+    }
+    var loose = arguments.length > 2 && !!arguments[2];
+    var functionLengthIsConfigurable = true;
+    var functionLengthIsWritable = true;
+    if ('length' in fn && gOPD) {
+      var desc = gOPD(fn, 'length');
+      if (desc && !desc.configurable) {
+        functionLengthIsConfigurable = false;
+      }
+      if (desc && !desc.writable) {
+        functionLengthIsWritable = false;
       }
     }
-    module.exports = function callBind(originalFunction) {
-      var func = $reflectApply(functionBind, $call, arguments);
-      if ($gOPD && $defineProperty) {
-        var desc = $gOPD(func, 'length');
-        if (desc.configurable) {
-          $defineProperty(func, 'length', {
-            value: 1 + $max(0, originalFunction.length - (arguments.length - 1))
-          });
-        }
+    if (functionLengthIsConfigurable || functionLengthIsWritable || !loose) {
+      if (hasDescriptors) {
+        define(fn, 'length', length, true, true);
+      } else {
+        define(fn, 'length', length);
       }
-      return func;
+    }
+    return fn;
+  };
+
+  var setFunctionLength = setFunctionLength$1;
+
+  var callBind = createCommonjsModule(function (module) {
+    var $apply = GetIntrinsic('%Function.prototype.apply%');
+    var $call = GetIntrinsic('%Function.prototype.call%');
+    var $reflectApply = GetIntrinsic('%Reflect.apply%', true) || functionBind.call($call, $apply);
+    var $max = GetIntrinsic('%Math.max%');
+    module.exports = function callBind(originalFunction) {
+      if (typeof originalFunction !== 'function') {
+        throw new $TypeError('a function is required');
+      }
+      var func = $reflectApply(functionBind, $call, arguments);
+      return setFunctionLength(func, 1 + $max(0, originalFunction.length - (arguments.length - 1)), true);
     };
     var applyBind = function applyBind() {
       return $reflectApply(functionBind, $apply, arguments);
@@ -6193,9 +6362,9 @@
     }
   });
 
-  var $indexOf = callBind(getIntrinsic('String.prototype.indexOf'));
+  var $indexOf = callBind(GetIntrinsic('String.prototype.indexOf'));
   var callBound = function callBoundIntrinsic(name, allowMissing) {
-    var intrinsic = getIntrinsic(name, !!allowMissing);
+    var intrinsic = GetIntrinsic(name, !!allowMissing);
     if (typeof intrinsic === 'function' && $indexOf(name, '.prototype.') > -1) {
       return callBind(intrinsic);
     }
@@ -6424,6 +6593,12 @@
     }
     if (isString(obj)) {
       return markBoxed(inspect(String(obj)));
+    }
+    if (typeof window !== 'undefined' && obj === window) {
+      return '{ [object Window] }';
+    }
+    if (obj === commonjsGlobal) {
+      return '{ [object globalThis] }';
     }
     if (!isDate(obj) && !isRegExp$1(obj)) {
       var ys = arrObjKeys(obj, inspect);
@@ -6711,9 +6886,8 @@
 
   var inspect = objectInspect;
 
-  var $TypeError = getIntrinsic('%TypeError%');
-  var $WeakMap = getIntrinsic('%WeakMap%', true);
-  var $Map = getIntrinsic('%Map%', true);
+  var $WeakMap = GetIntrinsic('%WeakMap%', true);
+  var $Map = GetIntrinsic('%Map%', true);
   var $weakMapGet = callBound('WeakMap.prototype.get', true);
   var $weakMapSet = callBound('WeakMap.prototype.set', true);
   var $weakMapHas = callBound('WeakMap.prototype.has', true);
@@ -6721,7 +6895,9 @@
   var $mapSet = callBound('Map.prototype.set', true);
   var $mapHas = callBound('Map.prototype.has', true);
   var listGetNode = function listGetNode(list, key) {
-    for (var prev = list, curr; (curr = prev.next) !== null; prev = curr) {
+    var prev = list;
+    var curr;
+    for (; (curr = prev.next) !== null; prev = curr) {
       if (curr.key === key) {
         prev.next = curr.next;
         curr.next = list.next;
@@ -6821,7 +6997,7 @@
     RFC1738: 'RFC1738',
     RFC3986: 'RFC3986'
   };
-  var formats = {
+  var formats$1 = {
     'default': Format.RFC3986,
     formatters: {
       RFC1738: function RFC1738(value) {
@@ -6834,6 +7010,8 @@
     RFC1738: Format.RFC1738,
     RFC3986: Format.RFC3986
   };
+
+  var formats = formats$1;
 
   var has$2 = Object.prototype.hasOwnProperty;
   var isArray$2 = Array.isArray;
@@ -7022,7 +7200,7 @@
     }
     return fn(val);
   };
-  var utils = {
+  var utils$1 = {
     arrayToObject: arrayToObject,
     assign: assign,
     combine: combine,
@@ -7034,6 +7212,8 @@
     maybeMap: maybeMap,
     merge: merge
   };
+
+  var utils = utils$1;
 
   var has$1 = Object.prototype.hasOwnProperty;
   var arrayPrefixGenerators = {
@@ -7049,7 +7229,6 @@
     }
   };
   var isArray$1 = Array.isArray;
-  var split = String.prototype.split;
   var push = Array.prototype.push;
   var pushToArray = function pushToArray(arr, valueOrArray) {
     push.apply(arr, isArray$1(valueOrArray) ? valueOrArray : [valueOrArray]);
@@ -7059,10 +7238,13 @@
   var defaults$1 = {
     addQueryPrefix: false,
     allowDots: false,
+    allowEmptyArrays: false,
+    arrayFormat: 'indices',
     charset: 'utf-8',
     charsetSentinel: false,
     delimiter: '&',
     encode: true,
+    encodeDotInKeys: false,
     encoder: utils.encode,
     encodeValuesOnly: false,
     format: defaultFormat,
@@ -7078,7 +7260,7 @@
     return typeof v === 'string' || typeof v === 'number' || typeof v === 'boolean' || _typeof(v) === 'symbol' || typeof v === 'bigint';
   };
   var sentinel = {};
-  var stringify = function stringify(object, prefix, generateArrayPrefix, commaRoundTrip, strictNullHandling, skipNulls, encoder, filter, sort, allowDots, serializeDate, format, formatter, encodeValuesOnly, charset, sideChannel$1) {
+  var stringify$1 = function stringify(object, prefix, generateArrayPrefix, commaRoundTrip, allowEmptyArrays, strictNullHandling, skipNulls, encodeDotInKeys, encoder, filter, sort, allowDots, serializeDate, format, formatter, encodeValuesOnly, charset, sideChannel$1) {
     var obj = object;
     var tmpSc = sideChannel$1;
     var step = 0;
@@ -7118,14 +7300,6 @@
     if (isNonNullishPrimitive(obj) || utils.isBuffer(obj)) {
       if (encoder) {
         var keyValue = encodeValuesOnly ? prefix : encoder(prefix, defaults$1.encoder, charset, 'key', format);
-        if (generateArrayPrefix === 'comma' && encodeValuesOnly) {
-          var valuesArray = split.call(String(obj), ',');
-          var valuesJoined = '';
-          for (var i = 0; i < valuesArray.length; ++i) {
-            valuesJoined += (i === 0 ? '' : ',') + formatter(encoder(valuesArray[i], defaults$1.encoder, charset, 'value', format));
-          }
-          return [formatter(keyValue) + (commaRoundTrip && isArray$1(obj) && valuesArray.length === 1 ? '[]' : '') + '=' + valuesJoined];
-        }
         return [formatter(keyValue) + '=' + formatter(encoder(obj, defaults$1.encoder, charset, 'value', format))];
       }
       return [formatter(prefix) + '=' + formatter(String(obj))];
@@ -7136,6 +7310,9 @@
     }
     var objKeys;
     if (generateArrayPrefix === 'comma' && isArray$1(obj)) {
+      if (encodeValuesOnly && encoder) {
+        obj = utils.maybeMap(obj, encoder);
+      }
       objKeys = [{
         value: obj.length > 0 ? obj.join(',') || null : void undefined
       }];
@@ -7145,24 +7322,35 @@
       var keys = Object.keys(obj);
       objKeys = sort ? keys.sort(sort) : keys;
     }
-    var adjustedPrefix = commaRoundTrip && isArray$1(obj) && obj.length === 1 ? prefix + '[]' : prefix;
+    var encodedPrefix = encodeDotInKeys ? prefix.replace(/\./g, '%2E') : prefix;
+    var adjustedPrefix = commaRoundTrip && isArray$1(obj) && obj.length === 1 ? encodedPrefix + '[]' : encodedPrefix;
+    if (allowEmptyArrays && isArray$1(obj) && obj.length === 0) {
+      return adjustedPrefix + '[]';
+    }
     for (var j = 0; j < objKeys.length; ++j) {
       var key = objKeys[j];
       var value = _typeof(key) === 'object' && typeof key.value !== 'undefined' ? key.value : obj[key];
       if (skipNulls && value === null) {
         continue;
       }
-      var keyPrefix = isArray$1(obj) ? typeof generateArrayPrefix === 'function' ? generateArrayPrefix(adjustedPrefix, key) : adjustedPrefix : adjustedPrefix + (allowDots ? '.' + key : '[' + key + ']');
+      var encodedKey = allowDots && encodeDotInKeys ? key.replace(/\./g, '%2E') : key;
+      var keyPrefix = isArray$1(obj) ? typeof generateArrayPrefix === 'function' ? generateArrayPrefix(adjustedPrefix, encodedKey) : adjustedPrefix : adjustedPrefix + (allowDots ? '.' + encodedKey : '[' + encodedKey + ']');
       sideChannel$1.set(object, step);
       var valueSideChannel = sideChannel();
       valueSideChannel.set(sentinel, sideChannel$1);
-      pushToArray(values, stringify(value, keyPrefix, generateArrayPrefix, commaRoundTrip, strictNullHandling, skipNulls, encoder, filter, sort, allowDots, serializeDate, format, formatter, encodeValuesOnly, charset, valueSideChannel));
+      pushToArray(values, stringify(value, keyPrefix, generateArrayPrefix, commaRoundTrip, allowEmptyArrays, strictNullHandling, skipNulls, encodeDotInKeys, generateArrayPrefix === 'comma' && encodeValuesOnly && isArray$1(obj) ? null : encoder, filter, sort, allowDots, serializeDate, format, formatter, encodeValuesOnly, charset, valueSideChannel));
     }
     return values;
   };
   var normalizeStringifyOptions = function normalizeStringifyOptions(opts) {
     if (!opts) {
       return defaults$1;
+    }
+    if (typeof opts.allowEmptyArrays !== 'undefined' && typeof opts.allowEmptyArrays !== 'boolean') {
+      throw new TypeError('`allowEmptyArrays` option can only be `true` or `false`, when provided');
+    }
+    if (typeof opts.encodeDotInKeys !== 'undefined' && typeof opts.encodeDotInKeys !== 'boolean') {
+      throw new TypeError('`encodeDotInKeys` option can only be `true` or `false`, when provided');
     }
     if (opts.encoder !== null && typeof opts.encoder !== 'undefined' && typeof opts.encoder !== 'function') {
       throw new TypeError('Encoder has to be a function.');
@@ -7183,13 +7371,29 @@
     if (typeof opts.filter === 'function' || isArray$1(opts.filter)) {
       filter = opts.filter;
     }
+    var arrayFormat;
+    if (opts.arrayFormat in arrayPrefixGenerators) {
+      arrayFormat = opts.arrayFormat;
+    } else if ('indices' in opts) {
+      arrayFormat = opts.indices ? 'indices' : 'repeat';
+    } else {
+      arrayFormat = defaults$1.arrayFormat;
+    }
+    if ('commaRoundTrip' in opts && typeof opts.commaRoundTrip !== 'boolean') {
+      throw new TypeError('`commaRoundTrip` must be a boolean, or absent');
+    }
+    var allowDots = typeof opts.allowDots === 'undefined' ? opts.encodeDotInKeys === true ? true : defaults$1.allowDots : !!opts.allowDots;
     return {
       addQueryPrefix: typeof opts.addQueryPrefix === 'boolean' ? opts.addQueryPrefix : defaults$1.addQueryPrefix,
-      allowDots: typeof opts.allowDots === 'undefined' ? defaults$1.allowDots : !!opts.allowDots,
+      allowDots: allowDots,
+      allowEmptyArrays: typeof opts.allowEmptyArrays === 'boolean' ? !!opts.allowEmptyArrays : defaults$1.allowEmptyArrays,
+      arrayFormat: arrayFormat,
       charset: charset,
       charsetSentinel: typeof opts.charsetSentinel === 'boolean' ? opts.charsetSentinel : defaults$1.charsetSentinel,
+      commaRoundTrip: opts.commaRoundTrip,
       delimiter: typeof opts.delimiter === 'undefined' ? defaults$1.delimiter : opts.delimiter,
       encode: typeof opts.encode === 'boolean' ? opts.encode : defaults$1.encode,
+      encodeDotInKeys: typeof opts.encodeDotInKeys === 'boolean' ? opts.encodeDotInKeys : defaults$1.encodeDotInKeys,
       encoder: typeof opts.encoder === 'function' ? opts.encoder : defaults$1.encoder,
       encodeValuesOnly: typeof opts.encodeValuesOnly === 'boolean' ? opts.encodeValuesOnly : defaults$1.encodeValuesOnly,
       filter: filter,
@@ -7217,19 +7421,8 @@
     if (_typeof(obj) !== 'object' || obj === null) {
       return '';
     }
-    var arrayFormat;
-    if (opts && opts.arrayFormat in arrayPrefixGenerators) {
-      arrayFormat = opts.arrayFormat;
-    } else if (opts && 'indices' in opts) {
-      arrayFormat = opts.indices ? 'indices' : 'repeat';
-    } else {
-      arrayFormat = 'indices';
-    }
-    var generateArrayPrefix = arrayPrefixGenerators[arrayFormat];
-    if (opts && 'commaRoundTrip' in opts && typeof opts.commaRoundTrip !== 'boolean') {
-      throw new TypeError('`commaRoundTrip` must be a boolean, or absent');
-    }
-    var commaRoundTrip = generateArrayPrefix === 'comma' && opts && opts.commaRoundTrip;
+    var generateArrayPrefix = arrayPrefixGenerators[options.arrayFormat];
+    var commaRoundTrip = generateArrayPrefix === 'comma' && options.commaRoundTrip;
     if (!objKeys) {
       objKeys = Object.keys(obj);
     }
@@ -7242,7 +7435,7 @@
       if (options.skipNulls && obj[key] === null) {
         continue;
       }
-      pushToArray(keys, stringify(obj[key], key, generateArrayPrefix, commaRoundTrip, options.strictNullHandling, options.skipNulls, options.encode ? options.encoder : null, options.filter, options.sort, options.allowDots, options.serializeDate, options.format, options.formatter, options.encodeValuesOnly, options.charset, sideChannel$1));
+      pushToArray(keys, stringify$1(obj[key], key, generateArrayPrefix, commaRoundTrip, options.allowEmptyArrays, options.strictNullHandling, options.skipNulls, options.encodeDotInKeys, options.encode ? options.encoder : null, options.filter, options.sort, options.allowDots, options.serializeDate, options.format, options.formatter, options.encodeValuesOnly, options.charset, sideChannel$1));
     }
     var joined = keys.join(options.delimiter);
     var prefix = options.addQueryPrefix === true ? '?' : '';
@@ -7260,15 +7453,18 @@
   var isArray = Array.isArray;
   var defaults = {
     allowDots: false,
+    allowEmptyArrays: false,
     allowPrototypes: false,
     allowSparse: false,
     arrayLimit: 20,
     charset: 'utf-8',
     charsetSentinel: false,
     comma: false,
+    decodeDotInKeys: true,
     decoder: utils.decode,
     delimiter: '&',
     depth: 5,
+    duplicates: 'combine',
     ignoreQueryPrefix: false,
     interpretNumericEntities: false,
     parameterLimit: 1000,
@@ -7290,7 +7486,9 @@
   var isoSentinel = 'utf8=%26%2310003%3B';
   var charsetSentinel = 'utf8=%E2%9C%93';
   var parseValues = function parseQueryStringValues(str, options) {
-    var obj = {};
+    var obj = {
+      __proto__: null
+    };
     var cleanStr = options.ignoreQueryPrefix ? str.replace(/^\?/, '') : str;
     var limit = options.parameterLimit === Infinity ? undefined : options.parameterLimit;
     var parts = cleanStr.split(options.delimiter, limit);
@@ -7333,9 +7531,10 @@
       if (part.indexOf('[]=') > -1) {
         val = isArray(val) ? [val] : val;
       }
-      if (has.call(obj, key)) {
+      var existing = has.call(obj, key);
+      if (existing && options.duplicates === 'combine') {
         obj[key] = utils.combine(obj[key], val);
-      } else {
+      } else if (!existing || options.duplicates === 'last') {
         obj[key] = val;
       }
     }
@@ -7347,20 +7546,21 @@
       var obj;
       var root = chain[i];
       if (root === '[]' && options.parseArrays) {
-        obj = [].concat(leaf);
+        obj = options.allowEmptyArrays && leaf === '' ? [] : [].concat(leaf);
       } else {
         obj = options.plainObjects ? Object.create(null) : {};
         var cleanRoot = root.charAt(0) === '[' && root.charAt(root.length - 1) === ']' ? root.slice(1, -1) : root;
-        var index = parseInt(cleanRoot, 10);
-        if (!options.parseArrays && cleanRoot === '') {
+        var decodedRoot = options.decodeDotInKeys ? cleanRoot.replace(/%2E/g, '.') : cleanRoot;
+        var index = parseInt(decodedRoot, 10);
+        if (!options.parseArrays && decodedRoot === '') {
           obj = {
             0: leaf
           };
-        } else if (!isNaN(index) && root !== cleanRoot && String(index) === cleanRoot && index >= 0 && options.parseArrays && index <= options.arrayLimit) {
+        } else if (!isNaN(index) && root !== decodedRoot && String(index) === decodedRoot && index >= 0 && options.parseArrays && index <= options.arrayLimit) {
           obj = [];
           obj[index] = leaf;
-        } else if (cleanRoot !== '__proto__') {
-          obj[cleanRoot] = leaf;
+        } else if (decodedRoot !== '__proto__') {
+          obj[decodedRoot] = leaf;
         }
       }
       leaf = obj;
@@ -7404,24 +7604,38 @@
     if (!opts) {
       return defaults;
     }
-    if (opts.decoder !== null && opts.decoder !== undefined && typeof opts.decoder !== 'function') {
+    if (typeof opts.allowEmptyArrays !== 'undefined' && typeof opts.allowEmptyArrays !== 'boolean') {
+      throw new TypeError('`allowEmptyArrays` option can only be `true` or `false`, when provided');
+    }
+    if (typeof opts.decodeDotInKeys !== 'undefined' && typeof opts.decodeDotInKeys !== 'boolean') {
+      throw new TypeError('`decodeDotInKeys` option can only be `true` or `false`, when provided');
+    }
+    if (opts.decoder !== null && typeof opts.decoder !== 'undefined' && typeof opts.decoder !== 'function') {
       throw new TypeError('Decoder has to be a function.');
     }
     if (typeof opts.charset !== 'undefined' && opts.charset !== 'utf-8' && opts.charset !== 'iso-8859-1') {
       throw new TypeError('The charset option must be either utf-8, iso-8859-1, or undefined');
     }
     var charset = typeof opts.charset === 'undefined' ? defaults.charset : opts.charset;
+    var duplicates = typeof opts.duplicates === 'undefined' ? defaults.duplicates : opts.duplicates;
+    if (duplicates !== 'combine' && duplicates !== 'first' && duplicates !== 'last') {
+      throw new TypeError('The duplicates option must be either combine, first, or last');
+    }
+    var allowDots = typeof opts.allowDots === 'undefined' ? opts.decodeDotInKeys === true ? true : defaults.allowDots : !!opts.allowDots;
     return {
-      allowDots: typeof opts.allowDots === 'undefined' ? defaults.allowDots : !!opts.allowDots,
+      allowDots: allowDots,
+      allowEmptyArrays: typeof opts.allowEmptyArrays === 'boolean' ? !!opts.allowEmptyArrays : defaults.allowEmptyArrays,
       allowPrototypes: typeof opts.allowPrototypes === 'boolean' ? opts.allowPrototypes : defaults.allowPrototypes,
       allowSparse: typeof opts.allowSparse === 'boolean' ? opts.allowSparse : defaults.allowSparse,
       arrayLimit: typeof opts.arrayLimit === 'number' ? opts.arrayLimit : defaults.arrayLimit,
       charset: charset,
       charsetSentinel: typeof opts.charsetSentinel === 'boolean' ? opts.charsetSentinel : defaults.charsetSentinel,
       comma: typeof opts.comma === 'boolean' ? opts.comma : defaults.comma,
+      decodeDotInKeys: typeof opts.decodeDotInKeys === 'boolean' ? opts.decodeDotInKeys : defaults.decodeDotInKeys,
       decoder: typeof opts.decoder === 'function' ? opts.decoder : defaults.decoder,
       delimiter: typeof opts.delimiter === 'string' || utils.isRegExp(opts.delimiter) ? opts.delimiter : defaults.delimiter,
       depth: typeof opts.depth === 'number' || opts.depth === false ? +opts.depth : defaults.depth,
+      duplicates: duplicates,
       ignoreQueryPrefix: opts.ignoreQueryPrefix === true,
       interpretNumericEntities: typeof opts.interpretNumericEntities === 'boolean' ? opts.interpretNumericEntities : defaults.interpretNumericEntities,
       parameterLimit: typeof opts.parameterLimit === 'number' ? opts.parameterLimit : defaults.parameterLimit,
@@ -7430,7 +7644,7 @@
       strictNullHandling: typeof opts.strictNullHandling === 'boolean' ? opts.strictNullHandling : defaults.strictNullHandling
     };
   };
-  var parse = function parse(str, opts) {
+  var parse$1 = function parse(str, opts) {
     var options = normalizeParseOptions(opts);
     if (str === '' || str === null || typeof str === 'undefined') {
       return options.plainObjects ? Object.create(null) : {};
@@ -7449,11 +7663,17 @@
     return utils.compact(obj);
   };
 
+  var stringify = stringify_1;
+
+  var parse = parse$1;
+
   var lib = {
     formats: formats,
     parse: parse,
-    stringify: stringify_1
+    stringify: stringify
   };
+
+  var qs = lib;
 
   var utils_1 = createCommonjsModule(function (module) {
     var hasOwn = function hasOwn(obj, prop) {
@@ -7471,7 +7691,7 @@
         }));
       },
       stringifyRequestData: function stringifyRequestData(data) {
-        return lib.stringify(data, {
+        return qs.stringify(data, {
           serializeDate: function serializeDate(d) {
             return Math.floor(d.getTime() / 1000);
           }
@@ -7638,12 +7858,11 @@
 
   var SwiftyperError$1 = function (_Error2) {
     _inherits(SwiftyperError, _Error2);
-    var _super = _createSuper(SwiftyperError);
     function SwiftyperError() {
       var _this;
       var raw = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
       _classCallCheck(this, SwiftyperError);
-      _this = _super.call(this, raw.message);
+      _this = _callSuper(this, SwiftyperError, [raw.message]);
       _this.type = _this.constructor.name;
       _this.raw = raw;
       _this.rawType = raw.type;
@@ -7687,109 +7906,97 @@
   }( _wrapNativeSuper(Error));
   var GenericError = function (_SwiftyperError) {
     _inherits(GenericError, _SwiftyperError);
-    var _super2 = _createSuper(GenericError);
     function GenericError() {
       _classCallCheck(this, GenericError);
-      return _super2.apply(this, arguments);
+      return _callSuper(this, GenericError, arguments);
     }
     return _createClass(GenericError);
   }(SwiftyperError$1);
   var SwiftyperUnexpectedParameterError = function (_SwiftyperError2) {
     _inherits(SwiftyperUnexpectedParameterError, _SwiftyperError2);
-    var _super3 = _createSuper(SwiftyperUnexpectedParameterError);
     function SwiftyperUnexpectedParameterError() {
       _classCallCheck(this, SwiftyperUnexpectedParameterError);
-      return _super3.apply(this, arguments);
+      return _callSuper(this, SwiftyperUnexpectedParameterError, arguments);
     }
     return _createClass(SwiftyperUnexpectedParameterError);
   }(SwiftyperError$1);
   var SwiftyperRateLimitError = function (_SwiftyperError3) {
     _inherits(SwiftyperRateLimitError, _SwiftyperError3);
-    var _super4 = _createSuper(SwiftyperRateLimitError);
     function SwiftyperRateLimitError() {
       _classCallCheck(this, SwiftyperRateLimitError);
-      return _super4.apply(this, arguments);
+      return _callSuper(this, SwiftyperRateLimitError, arguments);
     }
     return _createClass(SwiftyperRateLimitError);
   }(SwiftyperError$1);
   var SwiftyperInvalidRequestError = function (_SwiftyperError4) {
     _inherits(SwiftyperInvalidRequestError, _SwiftyperError4);
-    var _super5 = _createSuper(SwiftyperInvalidRequestError);
     function SwiftyperInvalidRequestError() {
       _classCallCheck(this, SwiftyperInvalidRequestError);
-      return _super5.apply(this, arguments);
+      return _callSuper(this, SwiftyperInvalidRequestError, arguments);
     }
     return _createClass(SwiftyperInvalidRequestError);
   }(SwiftyperError$1);
   var SwiftyperInvalidParameterError = function (_SwiftyperError5) {
     _inherits(SwiftyperInvalidParameterError, _SwiftyperError5);
-    var _super6 = _createSuper(SwiftyperInvalidParameterError);
     function SwiftyperInvalidParameterError() {
       _classCallCheck(this, SwiftyperInvalidParameterError);
-      return _super6.apply(this, arguments);
+      return _callSuper(this, SwiftyperInvalidParameterError, arguments);
     }
     return _createClass(SwiftyperInvalidParameterError);
   }(SwiftyperError$1);
   var SwiftyperMissingParameterError = function (_SwiftyperError6) {
     _inherits(SwiftyperMissingParameterError, _SwiftyperError6);
-    var _super7 = _createSuper(SwiftyperMissingParameterError);
     function SwiftyperMissingParameterError() {
       _classCallCheck(this, SwiftyperMissingParameterError);
-      return _super7.apply(this, arguments);
+      return _callSuper(this, SwiftyperMissingParameterError, arguments);
     }
     return _createClass(SwiftyperMissingParameterError);
   }(SwiftyperError$1);
   var SwiftyperInvalidApiKeyError = function (_SwiftyperError7) {
     _inherits(SwiftyperInvalidApiKeyError, _SwiftyperError7);
-    var _super8 = _createSuper(SwiftyperInvalidApiKeyError);
     function SwiftyperInvalidApiKeyError() {
       _classCallCheck(this, SwiftyperInvalidApiKeyError);
-      return _super8.apply(this, arguments);
+      return _callSuper(this, SwiftyperInvalidApiKeyError, arguments);
     }
     return _createClass(SwiftyperInvalidApiKeyError);
   }(SwiftyperError$1);
   var SwiftyperAPIError$1 = function (_SwiftyperError8) {
     _inherits(SwiftyperAPIError, _SwiftyperError8);
-    var _super9 = _createSuper(SwiftyperAPIError);
     function SwiftyperAPIError() {
       _classCallCheck(this, SwiftyperAPIError);
-      return _super9.apply(this, arguments);
+      return _callSuper(this, SwiftyperAPIError, arguments);
     }
     return _createClass(SwiftyperAPIError);
   }(SwiftyperError$1);
   var SwiftyperQuotaError = function (_SwiftyperError9) {
     _inherits(SwiftyperQuotaError, _SwiftyperError9);
-    var _super10 = _createSuper(SwiftyperQuotaError);
     function SwiftyperQuotaError() {
       _classCallCheck(this, SwiftyperQuotaError);
-      return _super10.apply(this, arguments);
+      return _callSuper(this, SwiftyperQuotaError, arguments);
     }
     return _createClass(SwiftyperQuotaError);
   }(SwiftyperError$1);
   var SwiftyperMissingError = function (_SwiftyperError10) {
     _inherits(SwiftyperMissingError, _SwiftyperError10);
-    var _super11 = _createSuper(SwiftyperMissingError);
     function SwiftyperMissingError() {
       _classCallCheck(this, SwiftyperMissingError);
-      return _super11.apply(this, arguments);
+      return _callSuper(this, SwiftyperMissingError, arguments);
     }
     return _createClass(SwiftyperMissingError);
   }(SwiftyperError$1);
   var SwiftyperRestrictedError = function (_SwiftyperError11) {
     _inherits(SwiftyperRestrictedError, _SwiftyperError11);
-    var _super12 = _createSuper(SwiftyperRestrictedError);
     function SwiftyperRestrictedError() {
       _classCallCheck(this, SwiftyperRestrictedError);
-      return _super12.apply(this, arguments);
+      return _callSuper(this, SwiftyperRestrictedError, arguments);
     }
     return _createClass(SwiftyperRestrictedError);
   }(SwiftyperError$1);
   var SwiftyperConnectionError$1 = function (_SwiftyperError12) {
     _inherits(SwiftyperConnectionError, _SwiftyperError12);
-    var _super13 = _createSuper(SwiftyperConnectionError);
     function SwiftyperConnectionError() {
       _classCallCheck(this, SwiftyperConnectionError);
-      return _super13.apply(this, arguments);
+      return _callSuper(this, SwiftyperConnectionError, arguments);
     }
     return _createClass(SwiftyperConnectionError);
   }(SwiftyperError$1);
@@ -7892,7 +8099,7 @@
   }
   var makeRequest_1 = makeRequest;
 
-  function swiftyperMethod$5(spec) {
+  function swiftyperMethod$6(spec) {
     return function () {
       for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
         args[_key] = arguments[_key];
@@ -7902,7 +8109,7 @@
       return utils_1.callbackifyPromiseWithTimeout(makeRequest_1(this, args, spec, {}), callback);
     };
   }
-  var SwiftyperMethod = swiftyperMethod$5;
+  var SwiftyperMethod = swiftyperMethod$6;
 
   var https = /*@__PURE__*/getAugmentedNamespace(http$1);
 
@@ -8125,32 +8332,41 @@
   };
   var SwiftyperResource_1 = SwiftyperResource;
 
-  var swiftyperMethod$4 = SwiftyperResource_1.method;
+  var swiftyperMethod$5 = SwiftyperResource_1.method;
   var Translation = SwiftyperResource_1.extend({
     path: 'intl/translations',
-    query: swiftyperMethod$4({
+    query: swiftyperMethod$5({
       method: 'POST',
       path: '/query'
     }),
-    translate: swiftyperMethod$4({
+    translate: swiftyperMethod$5({
       method: 'POST',
       path: '/submit'
     }),
-    upload: swiftyperMethod$4({
+    upload: swiftyperMethod$5({
       method: 'POST',
       path: '/upload'
     }),
-    vote: swiftyperMethod$4({
+    vote: swiftyperMethod$5({
       method: 'POST',
       path: '/vote'
     }),
-    raw: swiftyperMethod$4({
+    raw: swiftyperMethod$5({
       method: 'GET',
       path: '/raw'
     }),
-    variationGrid: swiftyperMethod$4({
+    variationGrid: swiftyperMethod$5({
       method: 'POST',
       path: '/variationGrid'
+    })
+  });
+
+  var swiftyperMethod$4 = SwiftyperResource_1.method;
+  var EmailUtil = SwiftyperResource_1.extend({
+    path: 'utils/email',
+    validate: swiftyperMethod$4({
+      method: 'POST',
+      path: '/validate'
     })
   });
 
@@ -8244,6 +8460,7 @@
 
   var resources = {
     Translations: Translation,
+    EmailUtil: EmailUtil,
     Business: Business,
     Phrases: Phrase,
     Places: Places,
@@ -9034,9 +9251,225 @@
     return places;
   }();
 
+  var tester = /^[-!#$%&'*+\/0-9=?A-Z^_a-z{|}~](\.?[-!#$%&'*+\/0-9=?A-Z^_a-z`{|}~])*@[a-zA-Z0-9](-*\.?[a-zA-Z0-9])*\.[a-zA-Z](-?[a-zA-Z0-9])+$/;
+  var validate = function validate(email) {
+    if (!email) return false;
+    if (email.length > 254) return false;
+    var valid = tester.test(email);
+    if (!valid) return false;
+    var parts = email.split("@");
+    if (parts[0].length > 64) return false;
+    var domainParts = parts[1].split(".");
+    if (domainParts.some(function (part) {
+      return part.length > 63;
+    })) return false;
+    return true;
+  };
+
+  var emailValidator = function () {
+    function emailValidator(options) {
+      _classCallCheck(this, emailValidator);
+      this.triggers = new events();
+      this.service = 'business';
+      this.options = {};
+      this.cache = {};
+      this.configure(options);
+      this._init();
+    }
+    _createClass(emailValidator, [{
+      key: "configure",
+      value: function configure(options) {
+        var _Object$assign = Object.assign(this.options, options),
+          _Object$assign$select = _Object$assign.selectors,
+          selectors = _Object$assign$select === void 0 ? {
+            email: null
+          } : _Object$assign$select,
+          _Object$assign$endpoi = _Object$assign.endpoint,
+          endpoint = _Object$assign$endpoi === void 0 ? 'api.swiftyper.sk' : _Object$assign$endpoi,
+          apiKey = _Object$assign.apiKey,
+          _Object$assign$events = _Object$assign.events,
+          events = _Object$assign$events === void 0 ? ['input', 'focus'] : _Object$assign$events,
+          _Object$assign$deboun = _Object$assign.debounce,
+          debounce = _Object$assign$deboun === void 0 ? 300 : _Object$assign$deboun;
+        this.options.selectors = selectors;
+        this.options.endpoint = endpoint;
+        this.options.apiKey = apiKey;
+        this.options.events = events;
+        this.options.debounce = debounce;
+        this._fields = {};
+        for (var _i = 0, _Object$entries = Object.entries(this.options.selectors); _i < _Object$entries.length; _i++) {
+          var _Object$entries$_i = _slicedToArray(_Object$entries[_i], 2),
+            key = _Object$entries$_i[0],
+            selector = _Object$entries$_i[1];
+          if (typeof selector === 'string') {
+            this._fields[key] = document.querySelector(selector);
+          } else if (typeof selector === 'function') {
+            this._fields[key] = selector();
+          } else {
+            this._fields[key] = selector;
+          }
+          if (!(this._fields[key] instanceof HTMLInputElement)) {
+            throw new Error("Element ".concat(key, " nie je input."));
+          }
+        }
+        return this;
+      }
+    }, {
+      key: "_start",
+      value: function _start(email, field) {
+        var _this = this;
+        return new Promise(function ($return, $error) {
+          return _this.validateEmail(email, field).then(function ($await_3) {
+            try {
+              return $return();
+            } catch ($boundEx) {
+              return $error($boundEx);
+            }
+          }, $error);
+        });
+      }
+    }, {
+      key: "_createValidator",
+      value: function _createValidator(field) {
+        var _this2 = this;
+        return new Promise(function ($return, $error) {
+          var apiKey, host, email, swiftyperClient;
+          var _this2$options = _this2.options;
+          apiKey = _this2$options.apiKey;
+          host = _this2$options.endpoint;
+          email = field.value;
+          if (_this2.cache[email]) {
+            _this2.triggers.emit('analysis', _this2.cache[email]);
+            return $return();
+          }
+          if (_this2.swiftyperClient && _this2.swiftyperClient._lastRequest) {
+            _this2.swiftyperClient._lastRequest.destroy();
+          }
+          swiftyperClient = new swiftyper$1(apiKey, {
+            host: host
+          });
+          _this2.swiftyperClient = swiftyperClient;
+          var $Try_1_Post = function $Try_1_Post() {
+            try {
+              return $return();
+            } catch ($boundEx) {
+              return $error($boundEx);
+            }
+          };
+          var $Try_1_Catch = function $Try_1_Catch(error) {
+            try {
+              _this2.analysis = null;
+              _this2.triggers.emit('error', {
+                error: error
+              });
+              if (error.code === 'over_query_limit') {
+                _this2.triggers.emit('limit', {
+                  error: error
+                });
+              }
+              return $Try_1_Post();
+            } catch ($boundEx) {
+              return $error($boundEx);
+            }
+          };
+          try {
+            return swiftyperClient.emailUtil.validate({
+              email: email
+            }).then(function ($await_4) {
+              try {
+                _this2.analysis = $await_4;
+                _this2.triggers.emit('analysis', _this2.analysis);
+                _this2.cache[email] = _this2.analysis;
+                eventEmitter(field, {
+                  analysis: _this2.analysis
+                }, "analysis");
+                return $Try_1_Post();
+              } catch ($boundEx) {
+                return $Try_1_Catch($boundEx);
+              }
+            }, $Try_1_Catch);
+          } catch (error) {
+            $Try_1_Catch(error);
+          }
+        });
+      }
+    }, {
+      key: "_compose",
+      value: function _compose(field) {
+        var _this3 = this;
+        return new Promise(function ($return, $error) {
+          var email = field.value;
+          _this3._start(email, field);
+          return $return();
+        });
+      }
+    }, {
+      key: "validateEmail",
+      value: function validateEmail(email, field) {
+        var _this4 = this;
+        return new Promise(function ($return, $error) {
+          var isValid;
+          isValid = validate(email);
+          _this4.triggers.emit('analysis', {
+            email: email,
+            syntax: isValid
+          });
+          if (isValid) {
+            return _this4._createValidator(field).then(function ($await_5) {
+              try {
+                return $If_2.call(_this4);
+              } catch ($boundEx) {
+                return $error($boundEx);
+              }
+            }, $error);
+          }
+          function $If_2() {
+            return $return();
+          }
+          return $If_2.call(_this4);
+        });
+      }
+    }, {
+      key: "_init",
+      value: function _init() {
+        var _this5 = this;
+        this.hook = debouncer(function (event) {
+          _this5._compose(event.target);
+        }, this.options.debounce);
+        this.options.events.forEach(function (eventType) {
+          for (var _i2 = 0, _Object$entries2 = Object.entries(_this5._fields); _i2 < _Object$entries2.length; _i2++) {
+            var _Object$entries2$_i = _slicedToArray(_Object$entries2[_i2], 2);
+              _Object$entries2$_i[0];
+              var field = _Object$entries2$_i[1];
+            field.addEventListener(eventType, _this5.hook);
+          }
+        });
+      }
+    }, {
+      key: "on",
+      value: function on(type, listener) {
+        this.triggers.on(type, listener);
+        return this;
+      }
+    }, {
+      key: "destroy",
+      value: function destroy() {
+        var _this6 = this;
+        this.options.events.forEach(function (eventType) {
+          for (var _i3 = 0, _Object$values = Object.values(_this6._fields); _i3 < _Object$values.length; _i3++) {
+            var field = _Object$values[_i3];
+            field.removeEventListener(eventType, _this6.hook);
+          }
+        });
+      }
+    }]);
+    return emailValidator;
+  }();
+
   var swiftyper = {
     business: business,
-    places: places
+    places: places,
+    emailValidator: emailValidator
   };
 
   return swiftyper;
