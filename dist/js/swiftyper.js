@@ -8626,6 +8626,16 @@
     }
   });
 
+  var isAutofilled = (function (element) {
+    return [":autofill", ":-webkit-autofill", ":-moz-autofill"].some(function (selector) {
+      try {
+        return element.matches(selector);
+      } catch (e) {
+        return false;
+      }
+    });
+  });
+
   var business = function () {
     function business(options) {
       _classCallCheck(this, business);
@@ -8860,6 +8870,9 @@
         var _this4 = this;
         return new Promise(function ($return, $error) {
           var query;
+          if (isAutofilled(field)) {
+            return $return();
+          }
           query = field.value;
           if (query.length >= _this4.options.minlength) {
             return _this4._createAutocompleteSource(field).then(function ($await_7) {
@@ -9189,6 +9202,9 @@
         var _this4 = this;
         return new Promise(function ($return, $error) {
           var query;
+          if (isAutofilled(field)) {
+            return $return();
+          }
           query = field.value;
           if (query.length >= _this4.options.minlength) {
             return _this4._createAutocompleteSource(field).then(function ($await_8) {
@@ -9270,7 +9286,7 @@
     function emailValidator(options) {
       _classCallCheck(this, emailValidator);
       this.triggers = new events();
-      this.service = 'business';
+      this.service = 'utils';
       this.options = {};
       this.cache = {};
       this.configure(options);
