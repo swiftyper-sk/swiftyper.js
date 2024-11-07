@@ -8,6 +8,7 @@ import Swiftyper from 'swiftyper-node';
 import {insertCss} from "insert-css";
 import themes from "./themes";
 import clearStyle from "./utils/clearStyle";
+import isAutofilled from "./utils/isAutofilled";
 
 export default class business {
   constructor(options) {
@@ -203,6 +204,10 @@ export default class business {
   }
 
   async _compose(field) {
+    if (isAutofilled(field)) {
+      return;
+    }
+
     const query = field.value;
 
     if (query.length >= this.options.minlength) {
