@@ -8246,7 +8246,7 @@
     _makeHeaders: function _makeHeaders(contentLength, method, userSuppliedHeaders) {
       var defaultHeaders = {
         Accept: 'application/json',
-        'Content-Type': 'application/x-www-form-urlencoded',
+        'Content-Type': 'application/json',
         'Content-Length': contentLength
       };
       return Object.assign(utils_1.removeNullish(defaultHeaders), utils_1.normalizeHeaders(userSuppliedHeaders));
@@ -8315,18 +8315,33 @@
         req.write(requestData);
         req.end();
       };
+      var transformRequestData = function transformRequestData(data) {
+        if (typeof data === 'boolean') {
+          return data.toString();
+        } else if (Array.isArray(data)) {
+          return data.map(transformRequestData);
+        } else if (_typeof(data) === 'object' && data !== null) {
+          return Object.fromEntries(Object.entries(data).map(function (_ref) {
+            var _ref2 = _slicedToArray(_ref, 2),
+              key = _ref2[0],
+              value = _ref2[1];
+            return [key, transformRequestData(value)];
+          }));
+        }
+        return data;
+      };
       var prepareAndMakeRequest = function prepareAndMakeRequest(error, data) {
         if (error) {
           return callback(error);
         }
-        requestData = data;
-        var headers = _this2._makeHeaders(requestData.length, method, options.headers, options.settings);
+        requestData = JSON.stringify(transformRequestData(data));
+        var headers = _this2._makeHeaders(Buffer$1.byteLength(requestData, 'utf-8'), method, options.headers, options.settings);
         makeRequest(headers);
       };
       if (this.requestDataProcessor) {
         this.requestDataProcessor(method, data, options.headers, prepareAndMakeRequest);
       } else {
-        prepareAndMakeRequest(null, utils_1.stringifyRequestData(data || {}));
+        prepareAndMakeRequest(null, data);
       }
     }
   };

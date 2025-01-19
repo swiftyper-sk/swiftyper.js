@@ -9,8 +9,9 @@
 | https://swiftyper.sk/docs/api#places_js
 |
 */
+let placesAutocomplete;
 function placesDemo() {
-  const placesAutocomplete = new swiftyper.places({
+  placesAutocomplete = new swiftyper.places({
     selectors: {
       street: "#ulica",
       municipality: "#mesto",
@@ -57,8 +58,9 @@ function placesDemo() {
 | https://swiftyper.sk/docs/api#email_validator_js
 |
 */
+let emailValidator;
 function emailValidatorDemo() {
-  const emailValidator = new swiftyper.emailValidator({
+  emailValidator = new swiftyper.emailValidator({
     selectors: {
       email: "#email",
     },
@@ -101,8 +103,9 @@ function emailValidatorDemo() {
 | https://swiftyper.sk/docs/api#business_js
 |
 */
+let businessAutocomplete;
 function businessDemo() {
-  const businessAutocomplete = new swiftyper.business({
+  businessAutocomplete = new swiftyper.business({
     selectors: {
       name: "#firma",
       cin: "#firma_ico",
