@@ -1,4 +1,7 @@
 # 🔍 swiftyper.js
+Simple address and business autocomplete Javascript library. The library supports multiple themes and configurations, ensuring flexibility to match your application's design and requirements.
+
+## 👀 Preview
 
 ![Swiftyper Business](images/business.gif)
 ![Swiftyper Places](images/places.gif)
@@ -33,7 +36,7 @@ yarn add swiftyper.js
 
 ## 📕 API documentation
 
-[API documentation](https://developers.swiftyper.sk/docs/api)
+[API documentation](https://developers.swiftyper.sk/)
 
 ## 🖌 Themes
 
@@ -48,6 +51,14 @@ yarn add swiftyper.js
 
 ## 🧪 Testing
 
-```sh
+```bash
 npm run dev
 ```
+
+## 🌟 Contributing
+
+We welcome contributions! If you'd like to help improve this project, feel free to open an issue or submit a pull request.
+
+## 📜 License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.

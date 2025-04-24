@@ -3,6 +3,7 @@ export default (callback, delay) => {
   return function () {
     const context = this;
     const args = arguments;
+
     clearTimeout(inDebounce);
     inDebounce = setTimeout(() => callback.apply(context, args), delay);
   };

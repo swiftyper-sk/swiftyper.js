@@ -1,18 +1,19 @@
 export default (suggestion) => {
-    if (suggestion.object === 'address') {
-        return suggestion.formatted_address;
-    }
+    switch (suggestion.object) {
+        case 'address':
+            return suggestion.formatted_address;
 
-    if (suggestion.object === 'street') {
-        return suggestion.formatted_street;
-    }
+        case 'street':
+            return suggestion.formatted_street;
 
-    if (suggestion.object === 'municipality'
-     || suggestion.object === 'postal_code') {
-        return suggestion[suggestion.object];
-    }
+        case 'municipality':
+        case 'postal_code':
+            return suggestion[suggestion.object];
 
-    if (suggestion.object === 'business') {
-        return suggestion.name;
+        case 'business':
+            return suggestion.name;
+
+        default:
+            return undefined;
     }
 };
