@@ -251,17 +251,18 @@
   });
 
   var textResolver = (function (suggestion) {
-    if (suggestion.object === 'address') {
-      return suggestion.formatted_address;
-    }
-    if (suggestion.object === 'street') {
-      return suggestion.formatted_street;
-    }
-    if (suggestion.object === 'municipality' || suggestion.object === 'postal_code') {
-      return suggestion[suggestion.object];
-    }
-    if (suggestion.object === 'business') {
-      return suggestion.name;
+    switch (suggestion.object) {
+      case 'address':
+        return suggestion.formatted_address;
+      case 'street':
+        return suggestion.formatted_street;
+      case 'municipality':
+      case 'postal_code':
+        return suggestion[suggestion.object];
+      case 'business':
+        return suggestion.name;
+      default:
+        return undefined;
     }
   });
 
@@ -8099,7 +8100,7 @@
   }
   var makeRequest_1 = makeRequest;
 
-  function swiftyperMethod$6(spec) {
+  function swiftyperMethod$c(spec) {
     return function () {
       for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
         args[_key] = arguments[_key];
@@ -8109,7 +8110,7 @@
       return utils_1.callbackifyPromiseWithTimeout(makeRequest_1(this, args, spec, {}), callback);
     };
   }
-  var SwiftyperMethod = swiftyperMethod$6;
+  var SwiftyperMethod = swiftyperMethod$c;
 
   var https = /*@__PURE__*/getAugmentedNamespace(http$1);
 
@@ -8246,7 +8247,7 @@
     _makeHeaders: function _makeHeaders(contentLength, method, userSuppliedHeaders) {
       var defaultHeaders = {
         Accept: 'application/json',
-        'Content-Type': 'application/json',
+        'Content-Type': method === 'GET' ? 'application/json' : 'application/x-www-form-urlencoded',
         'Content-Length': contentLength
       };
       return Object.assign(utils_1.removeNullish(defaultHeaders), utils_1.normalizeHeaders(userSuppliedHeaders));
@@ -8334,7 +8335,11 @@
         if (error) {
           return callback(error);
         }
-        requestData = JSON.stringify(transformRequestData(data));
+        if (method === 'GET') {
+          requestData = JSON.stringify(transformRequestData(data));
+        } else {
+          requestData = utils_1.stringifyRequestData(data || {});
+        }
         var headers = _this2._makeHeaders(Buffer$1.byteLength(requestData, 'utf-8'), method, options.headers, options.settings);
         makeRequest(headers);
       };
@@ -8347,41 +8352,107 @@
   };
   var SwiftyperResource_1 = SwiftyperResource;
 
-  var swiftyperMethod$5 = SwiftyperResource_1.method;
-  var Translation = SwiftyperResource_1.extend({
-    path: 'intl/translations',
-    query: swiftyperMethod$5({
+  var swiftyperMethod$b = SwiftyperResource_1.method;
+  var HelpCenterCategory = SwiftyperResource_1.extend({
+    path: 'help-center/categories',
+    query: swiftyperMethod$b({
       method: 'POST',
       path: '/query'
     }),
-    translate: swiftyperMethod$5({
+    detail: swiftyperMethod$b({
+      method: 'POST',
+      path: '/{category_id}'
+    })
+  });
+
+  var swiftyperMethod$a = SwiftyperResource_1.method;
+  var HelpCenterArticle = SwiftyperResource_1.extend({
+    path: 'help-center/articles',
+    query: swiftyperMethod$a({
+      method: 'POST',
+      path: '/query'
+    }),
+    popular: swiftyperMethod$a({
+      method: 'POST',
+      path: '/popular'
+    }),
+    detail: swiftyperMethod$a({
+      method: 'POST',
+      path: '/{article_id}'
+    })
+  });
+
+  var swiftyperMethod$9 = SwiftyperResource_1.method;
+  var HelpCenter = SwiftyperResource_1.extend({
+    path: 'help-center',
+    configuration: swiftyperMethod$9({
+      method: 'POST',
+      path: '/configuration'
+    })
+  });
+
+  var swiftyperMethod$8 = SwiftyperResource_1.method;
+  var Translation = SwiftyperResource_1.extend({
+    path: 'intl/translations',
+    query: swiftyperMethod$8({
+      method: 'POST',
+      path: '/query'
+    }),
+    translate: swiftyperMethod$8({
       method: 'POST',
       path: '/submit'
     }),
-    upload: swiftyperMethod$5({
+    upload: swiftyperMethod$8({
       method: 'POST',
       path: '/upload'
     }),
-    vote: swiftyperMethod$5({
+    vote: swiftyperMethod$8({
       method: 'POST',
       path: '/vote'
     }),
-    raw: swiftyperMethod$5({
+    raw: swiftyperMethod$8({
       method: 'GET',
       path: '/raw'
     }),
-    variationGrid: swiftyperMethod$5({
+    variationGrid: swiftyperMethod$8({
       method: 'POST',
       path: '/variationGrid'
     })
   });
 
-  var swiftyperMethod$4 = SwiftyperResource_1.method;
+  var swiftyperMethod$7 = SwiftyperResource_1.method;
+  var Translator = SwiftyperResource_1.extend({
+    path: 'utils/translator',
+    translate: swiftyperMethod$7({
+      method: 'POST',
+      path: '/translate'
+    })
+  });
+
+  var swiftyperMethod$6 = SwiftyperResource_1.method;
   var EmailUtil = SwiftyperResource_1.extend({
     path: 'utils/email',
-    validate: swiftyperMethod$4({
+    validate: swiftyperMethod$6({
       method: 'POST',
       path: '/validate'
+    })
+  });
+
+  var swiftyperMethod$5 = SwiftyperResource_1.method;
+  var IpUtil = SwiftyperResource_1.extend({
+    path: 'utils/ip',
+    info: swiftyperMethod$5({
+      method: 'GET',
+      path: '/{ip_address}'
+    })
+  });
+
+  var swiftyperMethod$4 = SwiftyperResource_1.method;
+  var ViesUtil = SwiftyperResource_1.extend({
+    path: 'utils/vies',
+    checkVatNumber: swiftyperMethod$4({
+      method: 'POST',
+      path: '/check-vat-number'
     })
   });
 
@@ -8474,8 +8545,14 @@
   });
 
   var resources = {
+    HelpCenterCategories: HelpCenterCategory,
+    HelpCenterArticles: HelpCenterArticle,
+    HelpCenter: HelpCenter,
     Translations: Translation,
+    Translator: Translator,
     EmailUtil: EmailUtil,
+    IpUtil: IpUtil,
+    ViesUtil: ViesUtil,
     Business: Business,
     Phrases: Phrase,
     Places: Places,
